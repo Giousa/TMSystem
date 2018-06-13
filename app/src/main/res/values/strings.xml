@@ -20,9 +20,15 @@
     <string name="hot_game">热门游戏</string>
     <string name="hot_top">热门主题</string>
     <string name="hot_app">热门应用</string>
+
+
     <string name="mobi">手机号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="modify_password">修改密码</string>
+    <string name="modify_phone">修改手机号</string>
     <string name="default_loading">loading</string>
 
 

@@ -13,6 +13,13 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <!--Splash界面，透明并且全屏-->
+    <style name="AppTheme.Notitle.SplashFullScreen" parent="AppTheme.Notitle">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        　　<item name="android:windowIsTranslucent">true</item>
+
+    </style>
 
     <style name="AppTheme.Notitle.FullScreen" parent="AppTheme.Notitle">
         <item name="android:windowFullscreen">true</item>
@@ -26,22 +33,14 @@
     </style>
 
 
-    <style name="AppTheme.ToolBar" parent="AppTheme">
+    <!--自定义toobar-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <!-- 箭头 -->
-        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
-        <item name="android:windowActionBarOverlay">@style/ActionButton.Overflow</item>
-        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
-        <item name="titleTextColor">@android:color/white</item>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--Menu按压效果-->
+    <style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selector_btn_bg</item>
     </style>
-
-    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@android:color/white</item>
-    </style>
-
-    <style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_menu_more_overflow</item>
-    </style>
-
 
 </resources>

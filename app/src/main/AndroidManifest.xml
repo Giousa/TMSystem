@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity android:name=".ui.activity.SplashActivity"
-                  android:theme="@style/AppTheme.Notitle.FullScreen">
+                  android:theme="@style/AppTheme.Notitle.SplashFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

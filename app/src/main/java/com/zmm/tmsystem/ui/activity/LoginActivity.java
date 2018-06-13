@@ -1,12 +1,12 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +25,9 @@ public class LoginActivity extends BaseActivity {
     EditText mEtLoginPhone;
     @BindView(R.id.et_login_password)
     EditText mEtLoginPassword;
-    @BindView(R.id.tool_bar)
-    Toolbar mToolBar;
+    @BindView(R.id.title_bar)
+    TitleBar mTitleBar;
+
 
     @Override
     protected int setLayout() {
@@ -36,8 +37,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void init() {
 
-        mToolBar.setTitle(getResources().getString(R.string.app_name));
-
+        mTitleBar.setCenterTitle(getResources().getString(R.string.login));
     }
 
     @Override

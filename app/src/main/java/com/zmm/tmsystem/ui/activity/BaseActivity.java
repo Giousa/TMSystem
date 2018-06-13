@@ -7,6 +7,7 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
+import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.application.AppApplication;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.mvp.presenter.BasePresenter;
@@ -33,6 +34,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        overridePendingTransition(R.anim.in_from_right, 0);//进入的动画
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
         LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
 
@@ -73,10 +76,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void startActivity(Class activity, boolean finish) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         if (finish) {
             finish();
         }
+
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+
+    }
 }
