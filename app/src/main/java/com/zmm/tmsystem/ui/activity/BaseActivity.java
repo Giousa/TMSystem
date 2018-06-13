@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.application.AppApplication;
+import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.mvp.presenter.BasePresenter;
 
@@ -73,11 +74,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         startActivity(activity,true);
     }
 
-    protected void startActivity(Class activity, boolean finish) {
+    protected void startActivity(Class activity, boolean flag) {
+
         Intent intent = new Intent(this, activity);
         startActivity(intent);
 
-        if (finish) {
+        if (flag) {
             finish();
         }
 
