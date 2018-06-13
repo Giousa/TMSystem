@@ -1,0 +1,65 @@
+<resources>
+    <!--Margin-->
+    <dimen name="smallerMargin">6dp</dimen>
+    <dimen name="smallMargin">10dp</dimen>
+    <dimen name="notSmallMargin">14dp</dimen>
+    <dimen name="Margin">18dp</dimen>
+    <dimen name="bigMargin">26dp</dimen>
+    <dimen name="smallBiggerMargin">40dp</dimen>
+    <dimen name="biggerMargin">70dp</dimen>
+    <dimen name="biggestMargin">96dp</dimen>
+    <!--viewPager-->
+    <dimen name="viewPager">220dp</dimen>
+    <!--标题栏高度-->
+    <dimen name="titleMenuHeight">100px</dimen>
+    <!--小menu-->
+    <dimen name="smallMenuHeight">30dp</dimen>
+    <!--menu-->
+    <dimen name="menuHeight">42dp</dimen>
+    <!--大menu-->
+    <dimen name="bigMenu">50dp</dimen>
+    <dimen name="smallestTextSize">12sp</dimen>
+    <!--最小字体-->
+    <dimen name="smallerTextSize">13sp</dimen>
+    <!--小字体-->
+    <dimen name="smallTextSize">14sp</dimen>
+    <!--介于小字体和普通字体之间-->
+    <dimen name="notSmallTextSize">16sp</dimen>
+    <!--普通字体-->
+    <dimen name="textSize">17sp</dimen>
+    <!--较大字体-->
+    <dimen name="biggerTextSize">28sp</dimen>
+    <!--大字体-->
+    <dimen name="bigTextSize">22sp</dimen>
+    <!--较小图标-->
+    <dimen name="smallerTuBiao">18dp</dimen>
+    <!--最小图标-->
+    <dimen name="smallestTuBiao">14dp</dimen>
+    <!--小图标-->
+    <dimen name="smallTuBiao">22dp</dimen>
+    <dimen name="notSmallTuBiao">26dp</dimen>
+    <!--普通图标-->
+    <dimen name="tuBiao">30dp</dimen>
+    <dimen name="smallBigTuBiao">48dp</dimen>
+    <!--大图标-->
+    <dimen name="bigTuBiao">56dp</dimen>
+    <!--较大图标-->
+    <dimen name="biggerTuBiao">70dp</dimen>
+    <!--较小图片-->
+    <dimen name="smallPic">100dp</dimen>
+    <!--普通头像-->
+    <dimen name="Icon">60dp</dimen>
+    <!--大头像-->
+    <dimen name="bigIcon">76dp</dimen>
+    <!--较大头像-->
+    <dimen name="biggerIcon">120dp</dimen>
+    <!--图片-->
+    <dimen name="pic">120dp</dimen>
+    <!--popUp高度-->
+    <dimen name="PopUp">240dp</dimen>
+    <!--产品分类宽度-->
+    <dimen name="fenLeiWidth">100dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>

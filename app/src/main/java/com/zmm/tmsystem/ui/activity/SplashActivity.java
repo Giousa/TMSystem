@@ -7,7 +7,11 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.ui.MainActivity;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description:
@@ -19,8 +23,8 @@ import butterknife.BindView;
 public class SplashActivity extends BaseActivity {
 
 
-    @BindView(R.id.pathView)
-    PathView mPathView;
+//    @BindView(R.id.pathView)
+//    PathView mPathView;
 
     @Override
     protected int setLayout() {
@@ -29,18 +33,29 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        mPathView.getPathAnimator()
-                .delay(50)
-                .duration(2000)
-                .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
-                    @Override
-                    public void onAnimationEnd() {
-                        startActivity(MainActivity.class);
 
-                    }
-                })
-                .interpolator(new AccelerateDecelerateInterpolator())
-                .start();
+
+        Observable.timer(2, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                startActivity(LoginActivity.class);
+            }
+        });
+
+
+//        mPathView.getPathAnimator()
+//                .delay(50)
+//                .duration(1000)
+//                .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
+//                    @Override
+//                    public void onAnimationEnd() {
+//                        startActivity(LoginActivity.class);
+//
+//                    }
+//                })
+//                .interpolator(new AccelerateDecelerateInterpolator())
+//                .start();
+
     }
 
     @Override

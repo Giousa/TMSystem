@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="splash_welcome">#8800ff00</color>
+    <color name="login_head">#617D8A</color>
 </resources>
