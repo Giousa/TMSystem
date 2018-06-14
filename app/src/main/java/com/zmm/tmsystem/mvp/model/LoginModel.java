@@ -14,7 +14,7 @@ import io.reactivex.Observable;
  * Time:下午11:02
  */
 
-public class LoginModel implements LoginContract.LoginModel{
+public class LoginModel implements LoginContract.ILoginModel{
 
 
     private ApiService mApiService;

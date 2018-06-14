@@ -4,7 +4,7 @@
     <string name="error_unkown">未知错误</string>
     <string name="error_socket_timeout">网络连接超时</string>
     <string name="error_socket_error">网络异常</string>
-    <string name="error_system">服务器出错</string>
+    <string name="error_system">服务器繁忙</string>
 
 
     <string name="error_param_empty">参数不能为空</string>
@@ -21,10 +21,6 @@
 
     <string name="loading">加载中...</string>
     <string name="empty_data">暂无数据</string>
-    <string name="hot_game">热门游戏</string>
-    <string name="hot_top">热门主题</string>
-    <string name="hot_app">热门应用</string>
-
 
     <string name="mobi">手机号</string>
     <string name="password">密码</string>
@@ -38,6 +34,11 @@
     <string name="modify_password_loading">正在修改</string>
     <string name="modify_phone">修改手机号</string>
     <string name="default_loading">loading</string>
+    <string name="exception">服务器繁忙，请稍后继续</string>
+    <string name="check_phone_error">手机格式不正确</string>
+    <string name="check_password_error">密码格式不正确</string>
+    <string name="verify_code_send_failure">验证码发送失败</string>
+    <string name="verify_code_send_success">验证码发送成功</string>
 
 
 </resources>

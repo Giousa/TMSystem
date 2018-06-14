@@ -19,11 +19,11 @@ import io.reactivex.disposables.Disposable;
  * Time:下午10:50
  */
 
-public class LoginPresenter extends BasePresenter<LoginContract.LoginModel,LoginContract.LoginView> {
+public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,LoginContract.LoginView> {
 
 
     @Inject
-    public LoginPresenter(LoginContract.LoginModel model, LoginContract.LoginView view) {
+    public LoginPresenter(LoginContract.ILoginModel model, LoginContract.LoginView view) {
         super(model, view);
     }
 
@@ -59,13 +59,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginModel,Login
                     public void onError(Throwable e) {
                         super.onError(e);
                         mView.dismissLoading();
-                        mView.loginError();
                     }
 
                     @Override
                     public void onNext(TeacherBean teacherBean) {
                         mView.dismissLoading();
-                        mView.loginSuccess(teacherBean);
+                        mView.loginSuccess();
                         saveUser(teacherBean);
 
                         //登录成功，发送消息

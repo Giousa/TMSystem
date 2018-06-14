@@ -15,15 +15,30 @@ import io.reactivex.Observable;
 
 public interface RegisterContract {
 
-    interface RegisterModel{
+    interface IRegisterModel{
 
-        Observable<BaseBean<TeacherBean>> register(String phone, String password, String verifyCode);
+        Observable<BaseBean<String>> getVerifyCode(String phone);
+
+        Observable<BaseBean<TeacherBean>> register(String phone, String password);
+
+        Observable<BaseBean<TeacherBean>> forgetPassword(String phone, String newPassword, String verifyCode);
+
+        Observable<BaseBean<TeacherBean>> modifyPassword(String id, String newPassword, String verifyCode);
 
         Observable<BaseBean<TeacherBean>> oneKeyRegister(String phone, String verifyCode);
 
     }
 
     interface RegisterView extends BaseView{
+
+        void checkPhoneError();
+        void checkPasswprdError();
+
+        void verifyCodeSuccess();
+        void verifyCodeFailure();
+
+        void performSuccess();
+        void performError();
 
     }
 }

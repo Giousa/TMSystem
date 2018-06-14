@@ -47,6 +47,7 @@
                 android:src="@drawable/login_phone"/>
 
             <EditText
+                android:text="13764503367"
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,6 +76,7 @@
                 android:src="@drawable/login_psd"/>
 
             <EditText
+                android:text="123456"
                 android:id="@+id/et_psd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -134,7 +136,7 @@
 
 
         <com.zmm.tmsystem.ui.widget.LoadingButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_loading_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/smallBiggerMargin"

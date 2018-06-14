@@ -37,6 +37,7 @@ public class AppApplication extends Application {
         mView = view;
     }
 
+
     public static AppApplication get(Context context){
         return (AppApplication) context.getApplicationContext();
     }

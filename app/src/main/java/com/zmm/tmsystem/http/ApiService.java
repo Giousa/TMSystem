@@ -22,7 +22,7 @@ public interface ApiService {
 
 
     /**
-     * 应用详情界面
+     * 获取验证码
      * @param phone
      * @return
      */
@@ -40,4 +40,41 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("login/")
     Observable<BaseBean<TeacherBean>> login(@Field("phone") String phone, @Field("password") String password);
+
+    /**
+     * 注册
+     * @param phone
+     * @param password
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("register/")
+    Observable<BaseBean<TeacherBean>> register(@Field("phone") String phone, @Field("password") String password);
+
+    /**
+     * 忘记密码
+     * @param phone
+     * @param newPassword
+     * @param verifyCode
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("forgetPassword/")
+    Observable<BaseBean<TeacherBean>> forgetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+
+
+    /**
+     * 修改密码
+     * @param id
+     * @param newPassword
+     * @param verifyCode
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("modifyPassword/")
+    Observable<BaseBean<TeacherBean>> modifyPassword(@Field("id") String id, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+
+
+
+
 }

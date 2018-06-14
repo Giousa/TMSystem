@@ -30,7 +30,7 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginContract.LoginModel provideLoginModel(ApiService apiService){
+    public LoginContract.ILoginModel provideLoginModel(ApiService apiService){
 
         return new LoginModel(apiService);
     }

@@ -142,22 +142,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void checkPhoneError() {
-        ToastUtils.SimpleToast(this,"手机格式不存在");
+        ToastUtils.SimpleToast(this,getResources().getString(R.string.check_phone_error));
     }
 
     @Override
     public void checkPasswprdError() {
-        ToastUtils.SimpleToast(this,"密码格式不正确");
+        ToastUtils.SimpleToast(this,getResources().getString(R.string.check_password_error));
     }
 
     @Override
-    public void loginSuccess(TeacherBean bean) {
+    public void loginSuccess() {
 
     }
 
-    @Override
-    public void loginError() {
-
-    }
 
 }

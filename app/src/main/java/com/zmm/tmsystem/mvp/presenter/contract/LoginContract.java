@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 
 public interface LoginContract {
 
-    interface LoginModel{
+    interface ILoginModel{
 
 
         Observable<BaseBean<String>> getVerifyCode(String phone);
@@ -33,8 +33,7 @@ public interface LoginContract {
 
         void checkPhoneError();
         void checkPasswprdError();
-        void loginSuccess(TeacherBean bean);
-        void loginError();
+        void loginSuccess();
 
     }
 }
