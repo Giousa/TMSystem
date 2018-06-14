@@ -32,9 +32,9 @@ public class RegisterModel implements RegisterContract.IRegisterModel {
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> register(String phone, String password) {
+    public Observable<BaseBean<TeacherBean>> register(String phone, String password, String verifyCode) {
 
-        Observable<BaseBean<TeacherBean>> register = mApiService.register(phone, password);
+        Observable<BaseBean<TeacherBean>> register = mApiService.register(phone, password,verifyCode);
         return register;
     }
 

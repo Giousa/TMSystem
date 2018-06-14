@@ -49,7 +49,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("register/")
-    Observable<BaseBean<TeacherBean>> register(@Field("phone") String phone, @Field("password") String password);
+    Observable<BaseBean<TeacherBean>> register(@Field("phone") String phone, @Field("password") String password, @Field("verifyCode") String verifyCode);
 
     /**
      * 忘记密码

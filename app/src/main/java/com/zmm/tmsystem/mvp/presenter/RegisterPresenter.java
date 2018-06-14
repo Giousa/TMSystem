@@ -62,8 +62,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
      * @param phone
      * @param password
      */
-    public void register(String phone, String password) {
-        mModel.register(phone,password)
+    public void register(String phone, String password, String verifyCode) {
+        mModel.register(phone,password,verifyCode)
                 .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
                     @Override

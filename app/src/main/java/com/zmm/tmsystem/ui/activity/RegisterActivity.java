@@ -117,7 +117,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             public void accept(Object o) throws Exception {
 
                 if (mParamInt == 1) {
-                    mPresenter.register(mEtPhone.getText().toString().trim(),mEtPsd.getText().toString().trim());
+                    mPresenter.register(mEtPhone.getText().toString().trim(),mEtPsd.getText().toString().trim(),mEtYzm.getText().toString().trim());
                 }else {
                     mPresenter.forgetPassword(mEtPhone.getText().toString().trim(),mEtPsd.getText().toString().trim(),mEtYzm.getText().toString().trim());
                 }
