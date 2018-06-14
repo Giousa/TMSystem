@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    String BASE_URL = "http://192.168.137.172:8081/tms/";
+    String BASE_URL = "http://192.168.1.102:8081/tms/";
 
 
     /**
@@ -60,7 +60,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("forgetPassword/")
-    Observable<BaseBean<TeacherBean>> forgetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+    Observable<BaseBean<String>> forgetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 
     /**
@@ -72,7 +72,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("modifyPassword/")
-    Observable<BaseBean<TeacherBean>> modifyPassword(@Field("id") String id, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+    Observable<BaseBean<String>> modifyPassword(@Field("id") String id, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 
 

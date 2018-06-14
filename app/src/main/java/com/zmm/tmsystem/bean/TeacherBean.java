@@ -36,15 +36,15 @@ public class TeacherBean extends BaseEntity{
     private String name;
     private String icon;
     private int gender;
-    private Date birthday;
+    private long birthday;
     private String courseName;
     private String gradeName;
     private String schoolName;
     private String childcareName;
     private int signDays;
     private String address;
-    private Date createTime;
-    private Date updateTime;
+    private long createTime;
+    private long updateTime;
     private String phoneNum1;
     private String phoneNum2;
 
@@ -88,11 +88,11 @@ public class TeacherBean extends BaseEntity{
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 
@@ -144,19 +144,19 @@ public class TeacherBean extends BaseEntity{
         this.address = address;
     }
 
-    public Date getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 

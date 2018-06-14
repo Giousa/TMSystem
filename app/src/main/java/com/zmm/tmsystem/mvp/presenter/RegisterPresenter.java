@@ -1,20 +1,13 @@
 package com.zmm.tmsystem.mvp.presenter;
 
-import com.zmm.tmsystem.R;
-import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.TeacherBean;
-import com.zmm.tmsystem.common.utils.ToastUtils;
-import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.mvp.presenter.contract.RegisterContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Description:
@@ -37,34 +30,27 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
      */
     public void getVerifyCode(String phone){
 
-
         mModel.getVerifyCode(phone)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean<String>>() {
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
                     @Override
                     public void onSubscribe(Disposable d) {
+
                     }
 
                     @Override
-                    public void onNext(BaseBean<String> baseBean) {
-
-                        if(baseBean.getStatus() == 200){
-                            mView.verifyCodeSuccess();
-                        }else {
-                            mView.verifyCodeFailure();
-                        }
+                    public void onComplete() {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
-                        mView.performError();
+                        super.onError(e);
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onNext(String s) {
+                        mView.verifyCodeSuccess();
                     }
                 });
 
@@ -114,8 +100,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
      */
     public void forgetPassword(String phone, String newPassword, String verifyCode) {
         mModel.forgetPassword(phone,newPassword,verifyCode)
-                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -135,7 +121,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
                     }
 
                     @Override
-                    public void onNext(TeacherBean teacherBean) {
+                    public void onNext(String s) {
                         mView.dismissLoading();
                         mView.performSuccess();
                     }

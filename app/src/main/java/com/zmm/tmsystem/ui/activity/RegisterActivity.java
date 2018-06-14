@@ -217,11 +217,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         countDown();
     }
 
-    @Override
-    public void verifyCodeFailure() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.verify_code_send_failure));
-
-    }
+    private Disposable mDisposable;
 
     /**
      * 计时
@@ -248,7 +244,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        mDisposable = d;
                     }
 
                     @Override
@@ -278,10 +274,14 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         finish();
     }
 
+
     @Override
-    public void performError() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.error_socket_error));
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //取消计时器的订阅，在退出时，停止
+        if(mDisposable != null){
+            mDisposable.dispose();
+        }
     }
-
-
 }

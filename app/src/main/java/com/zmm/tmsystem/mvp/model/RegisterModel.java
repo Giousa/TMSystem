@@ -39,14 +39,14 @@ public class RegisterModel implements RegisterContract.IRegisterModel {
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> forgetPassword(String phone, String newPassword, String verifyCode) {
+    public Observable<BaseBean<String>> forgetPassword(String phone, String newPassword, String verifyCode) {
 
-        Observable<BaseBean<TeacherBean>> forgetPassword = mApiService.forgetPassword(phone, newPassword, verifyCode);
+        Observable<BaseBean<String>> forgetPassword = mApiService.forgetPassword(phone, newPassword, verifyCode);
         return forgetPassword;
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> modifyPassword(String id, String newPassword, String verifyCode) {
+    public Observable<BaseBean<String>> modifyPassword(String id, String newPassword, String verifyCode) {
         return null;
     }
 

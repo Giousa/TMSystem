@@ -1,7 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
@@ -9,10 +8,8 @@ import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.zmm.tmsystem.R;
-import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
-import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerLoginComponent;
 import com.zmm.tmsystem.dagger.module.LoginModule;
@@ -22,7 +19,6 @@ import com.zmm.tmsystem.ui.widget.LoadingButton;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;

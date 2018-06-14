@@ -21,9 +21,9 @@ public interface RegisterContract {
 
         Observable<BaseBean<TeacherBean>> register(String phone, String password);
 
-        Observable<BaseBean<TeacherBean>> forgetPassword(String phone, String newPassword, String verifyCode);
+        Observable<BaseBean<String>> forgetPassword(String phone, String newPassword, String verifyCode);
 
-        Observable<BaseBean<TeacherBean>> modifyPassword(String id, String newPassword, String verifyCode);
+        Observable<BaseBean<String>> modifyPassword(String id, String newPassword, String verifyCode);
 
         Observable<BaseBean<TeacherBean>> oneKeyRegister(String phone, String verifyCode);
 
@@ -35,10 +35,8 @@ public interface RegisterContract {
         void checkPasswprdError();
 
         void verifyCodeSuccess();
-        void verifyCodeFailure();
 
         void performSuccess();
-        void performError();
 
     }
 }
