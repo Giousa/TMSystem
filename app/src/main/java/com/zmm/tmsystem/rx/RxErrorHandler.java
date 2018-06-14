@@ -1,12 +1,11 @@
 package com.zmm.tmsystem.rx;
 
 import android.content.Context;
-import android.widget.Toast;
-
 
 import com.zmm.tmsystem.common.exception.ApiException;
 import com.zmm.tmsystem.common.exception.BaseException;
 import com.zmm.tmsystem.common.exception.ErrorMessageFactory;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -64,7 +63,7 @@ public class RxErrorHandler {
     public void  showErrorMessage(BaseException e){
 
 
-        Toast.makeText(mContext,e.getDisplayMessage(), Toast.LENGTH_LONG).show();
+        ToastUtils.SimpleToast(mContext,e.getDisplayMessage());
 
     }
 }

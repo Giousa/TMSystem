@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerLoginComponent;
@@ -87,11 +88,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     private boolean isPhoneValid(String phone) {
-        return VerificationUtils.matcherPhoneNum(phone);
+        return phone.length() == 11;
     }
 
     private boolean isPasswordValid(String password) {
-        return VerificationUtils.matcherPassword(password);
+        return password.length() >= 6 && password.length() <= 16;
     }
 
 
@@ -140,13 +141,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     @Override
-    public void loginSuccess(TeacherBean bean) {
-        System.out.println("登录 成功");
+    public void checkPhoneError() {
+        ToastUtils.SimpleToast(this,"手机格式不存在");
     }
 
     @Override
-    public void loginFailure() {
-        System.out.println("登录 失败");
+    public void checkPasswprdError() {
+        ToastUtils.SimpleToast(this,"密码格式不正确");
+    }
+
+    @Override
+    public void loginSuccess(TeacherBean bean) {
+
+    }
+
+    @Override
+    public void loginError() {
+
     }
 
 }

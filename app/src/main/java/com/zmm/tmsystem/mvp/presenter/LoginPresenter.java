@@ -30,6 +30,16 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginModel,Login
 
     public void login(String phone,String password){
 
+        if(!VerificationUtils.matcherPhoneNum(phone)){
+            mView.checkPhoneError();
+            return;
+        }
+
+        if(!VerificationUtils.matcherPassword(password)){
+            mView.checkPasswprdError();
+            return;
+        }
+
         mModel.login(phone,password)
                 .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
@@ -49,7 +59,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginModel,Login
                     public void onError(Throwable e) {
                         super.onError(e);
                         mView.dismissLoading();
-                        mView.loginFailure();
+                        mView.loginError();
                     }
 
                     @Override

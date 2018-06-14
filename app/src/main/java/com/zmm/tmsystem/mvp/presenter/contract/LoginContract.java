@@ -31,8 +31,10 @@ public interface LoginContract {
 
     interface LoginView extends BaseView {
 
+        void checkPhoneError();
+        void checkPasswprdError();
         void loginSuccess(TeacherBean bean);
-        void loginFailure();
+        void loginError();
 
     }
 }
