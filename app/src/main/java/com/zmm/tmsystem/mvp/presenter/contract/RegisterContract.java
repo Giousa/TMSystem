@@ -19,7 +19,7 @@ public interface RegisterContract {
 
         Observable<BaseBean<String>> getVerifyCode(String phone);
 
-        Observable<BaseBean<TeacherBean>> register(String phone, String password, String verifyCode);
+        Observable<BaseBean<String>> register(String phone, String password, String verifyCode);
 
         Observable<BaseBean<String>> forgetPassword(String phone, String newPassword, String verifyCode);
 
@@ -34,9 +34,7 @@ public interface RegisterContract {
         void checkPhoneError();
         void checkPasswprdError();
 
-        void verifyCodeSuccess();
-
-        void performSuccess();
+        void performSuccess(String msg);
 
     }
 }

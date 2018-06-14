@@ -50,7 +50,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
 
                     @Override
                     public void onNext(String s) {
-                        mView.verifyCodeSuccess();
+                        mView.performSuccess(s);
                     }
                 });
 
@@ -64,8 +64,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
      */
     public void register(String phone, String password, String verifyCode) {
         mModel.register(phone,password,verifyCode)
-                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -85,9 +85,9 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
                     }
 
                     @Override
-                    public void onNext(TeacherBean teacherBean) {
+                    public void onNext(String s) {
                         mView.dismissLoading();
-                        mView.performSuccess();
+                        mView.performSuccess(s);
                     }
                 });
     }
@@ -123,7 +123,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
                     @Override
                     public void onNext(String s) {
                         mView.dismissLoading();
-                        mView.performSuccess();
+                        mView.performSuccess(s);
                     }
                 });
     }

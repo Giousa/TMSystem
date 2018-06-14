@@ -26,6 +26,7 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="register_success">注册成功</string>
     <string name="register_loading">正在注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="reset_password">重置密码</string>

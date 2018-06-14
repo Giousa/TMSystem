@@ -211,12 +211,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         ToastUtils.SimpleToast(this,getResources().getString(R.string.check_password_error));
     }
 
-    @Override
-    public void verifyCodeSuccess() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.verify_code_send_success));
-        countDown();
-    }
-
     private Disposable mDisposable;
 
     /**
@@ -270,7 +264,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
-    public void performSuccess() {
+    public void performSuccess(String msg) {
+
+        ToastUtils.SimpleToast(RegisterActivity.this,msg);
+
         finish();
     }
 
