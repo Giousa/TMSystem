@@ -47,7 +47,7 @@
                 android:src="@drawable/login_phone"/>
 
             <EditText
-                android:id="@+id/register_phone"
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -75,7 +75,7 @@
                 android:src="@drawable/login_psd"/>
 
             <EditText
-                android:id="@+id/register_psd"
+                android:id="@+id/et_psd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -107,7 +107,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/register_yzm"
+                    android:id="@+id/et_yzm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -118,7 +118,7 @@
                     android:paddingRight="@dimen/smallerMargin"/>
 
                 <TextView
-                    android:id="@+id/register_getYzm"
+                    android:id="@+id/tv_getYzm"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -133,18 +133,29 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/register"
+        <com.zmm.tmsystem.ui.widget.LoadingButton
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bigMenu"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/smallBiggerMargin"
             android:layout_marginRight="@dimen/smallBiggerMargin"
             android:layout_marginTop="@dimen/bigMargin"
-            android:background="@drawable/green_solid_small_corner"
-            android:gravity="center"
-            android:text="立即注册"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/textSize"/>
+            app:textColor="@color/white"
+            android:background="@drawable/bg_btn"
+            app:progressColor="@color/colorAccent"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/register"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/bigMenu"-->
+            <!--android:layout_marginLeft="@dimen/smallBiggerMargin"-->
+            <!--android:layout_marginRight="@dimen/smallBiggerMargin"-->
+            <!--android:layout_marginTop="@dimen/bigMargin"-->
+            <!--android:background="@drawable/green_solid_small_corner"-->
+            <!--android:gravity="center"-->
+            <!--android:text="立即注册"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="@dimen/textSize"/>-->
 
     </LinearLayout>
 
