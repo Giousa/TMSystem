@@ -25,12 +25,6 @@ public class ErrorMessageFactory {
 
         switch (code){
 
-            case BaseException.HTTP_ERROR:
-
-                errorMsg =  context.getResources().getString(R.string.error_http);
-
-                break;
-
             case BaseException.SOCKET_TIMEOUT_ERROR:
 
                 errorMsg =  context.getResources().getString(R.string.error_socket_timeout);
@@ -38,51 +32,54 @@ public class ErrorMessageFactory {
                 break;
             case BaseException.SOCKET_ERROR:
 
-                errorMsg =  context.getResources().getString(R.string.error_socket_unreachable);
+                errorMsg =  context.getResources().getString(R.string.error_socket_error);
 
                 break;
-
-
-            case BaseException.ERROR_HTTP_400:
-
-                errorMsg =  context.getResources().getString(R.string.error_http_400);
-
-                break;
-
-
-            case BaseException.ERROR_HTTP_404:
-
-                errorMsg =  context.getResources().getString(R.string.error_http_404);
-
-                break;
-
-            case BaseException.ERROR_HTTP_500:
-
-                errorMsg =  context.getResources().getString(R.string.error_http_500);
-
-                break;
-
-
 
             case ApiException.ERROR_API_SYSTEM:
                 errorMsg = context.getResources().getString(R.string.error_system);
                 break;
 
-            case ApiException.ERROR_API_ACCOUNT_FREEZE:
-                errorMsg = context.getResources().getString(R.string.error_account_freeze);
+            case ApiException.ERROR_API_PARAM_EMPTY:
+                errorMsg = context.getResources().getString(R.string.error_param_empty);
                 break;
 
 
-            case ApiException.ERROR_API_NO_PERMISSION:
-                errorMsg = context.getResources().getString(R.string.error_api_no_perission);
+            case ApiException.ERROR_API_USER_EXIST:
+                errorMsg = context.getResources().getString(R.string.error_user_exist);
                 break;
 
-            case ApiException.ERROR_API_LOGIN:
-                errorMsg = context.getResources().getString(R.string.error_login);
+            case ApiException.ERROR_API_USER_NONE:
+                errorMsg = context.getResources().getString(R.string.error_user_none);
                 break;
 
-            case ApiException.ERROR_TOKEN:
-                errorMsg = context.getResources().getString(R.string.error_token);
+            case ApiException.ERROR_API_PSW_ERROR:
+                errorMsg = context.getResources().getString(R.string.error_psw_error);
+                break;
+
+
+            case ApiException.ERROR_API_SIGN_EXIST:
+                errorMsg = context.getResources().getString(R.string.error_sign_exist);
+                break;
+
+            case ApiException.ERROR_API_SINE_NONE:
+                errorMsg = context.getResources().getString(R.string.error_sign_none);
+                break;
+
+            case ApiException.ERROR_API_VERIFY_TIMEOUT:
+                errorMsg = context.getResources().getString(R.string.error_verify_timeout);
+                break;
+
+            case ApiException.ERROR_API_VERIFY_SEND:
+                errorMsg = context.getResources().getString(R.string.error_verify_send);
+                break;
+
+            case ApiException.ERROR_API_VERIFY_ERROR:
+                errorMsg = context.getResources().getString(R.string.error_verify_error);
+                break;
+
+            case ApiException.ERROR_API_PIC_UPLOAD_FAILURE:
+                errorMsg = context.getResources().getString(R.string.error_pic_upload_failure);
                 break;
 
             default:

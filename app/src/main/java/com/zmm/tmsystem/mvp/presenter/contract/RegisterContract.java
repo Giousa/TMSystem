@@ -1,7 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
-import com.zmm.tmsystem.bean.UserBean;
+import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
 import io.reactivex.Observable;
@@ -17,9 +17,9 @@ public interface RegisterContract {
 
     interface RegisterModel{
 
-        Observable<BaseBean<UserBean>> register(String phone, String password, String verifyCode);
+        Observable<BaseBean<TeacherBean>> register(String phone, String password, String verifyCode);
 
-        Observable<BaseBean<UserBean>> oneKeyRegister(String phone, String verifyCode);
+        Observable<BaseBean<TeacherBean>> oneKeyRegister(String phone, String verifyCode);
 
     }
 

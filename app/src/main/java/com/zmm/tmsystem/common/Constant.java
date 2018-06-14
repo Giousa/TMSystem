@@ -14,4 +14,5 @@ public class Constant {
 
     public static final String BUNDLE_PARAM = "BUNDLE_PARAM";
     public static final String REGISTER_PARAM = "REGISTER_PARAM";
+    public static final String TEACHER = "TEACHER";
 }

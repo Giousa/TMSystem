@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.zmm.tmsystem">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".application.AppApplication"
         android:allowBackup="true"
@@ -29,11 +31,9 @@
             android:launchMode="singleTask"/>
 
         <activity android:name=".ui.activity.LoginActivity"
-                  android:theme="@style/AppTheme.Notitle.FullScreen"
                   android:launchMode="singleTask"/>
 
         <activity android:name=".ui.activity.RegisterActivity"
-                  android:theme="@style/AppTheme.Notitle.FullScreen"
                   android:launchMode="singleTask"/>
 
     </application>

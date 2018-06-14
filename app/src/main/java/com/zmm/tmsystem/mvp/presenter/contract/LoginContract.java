@@ -2,7 +2,7 @@ package com.zmm.tmsystem.mvp.presenter.contract;
 
 
 import com.zmm.tmsystem.bean.BaseBean;
-import com.zmm.tmsystem.bean.UserBean;
+import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
 import io.reactivex.Observable;
@@ -19,9 +19,11 @@ public interface LoginContract {
     interface LoginModel{
 
 
-        Observable<BaseBean<UserBean>> login(String phone, String password);
+        Observable<BaseBean<String>> getVerifyCode(String phone);
 
-        Observable<BaseBean<UserBean>> oneKeyLogin(String phone, String verifyCode);
+        Observable<BaseBean<TeacherBean>> login(String phone, String password);
+
+        Observable<BaseBean<TeacherBean>> oneKeyLogin(String phone, String verifyCode);
 
 
     }
@@ -29,9 +31,8 @@ public interface LoginContract {
 
     interface LoginView extends BaseView {
 
-        void checkPhoneError();
-        void checkPhoneSuccess();
-        void loginSuccess(UserBean bean);
+        void loginSuccess(TeacherBean bean);
+        void loginFailure();
 
     }
 }

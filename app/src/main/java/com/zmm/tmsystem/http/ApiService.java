@@ -2,6 +2,7 @@ package com.zmm.tmsystem.http;
 
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.TeacherBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -17,7 +18,7 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    String BASE_URL = "http://localhost:8081/tms/";
+    String BASE_URL = "http://192.168.137.172:8081/tms/";
 
 
     /**
@@ -29,4 +30,14 @@ public interface ApiService {
     @POST("getVerifyCode/")
     Observable<BaseBean<String>> getVerifyCode(@Field("phone") String phone);
 
+
+    /**
+     * 登录
+     * @param phone
+     * @param password
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("login/")
+    Observable<BaseBean<TeacherBean>> login(@Field("phone") String phone, @Field("password") String password);
 }

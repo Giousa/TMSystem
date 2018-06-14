@@ -1,7 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
-import com.zmm.tmsystem.bean.UserBean;
+import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
 import io.reactivex.Observable;
@@ -19,11 +19,11 @@ public interface UserContract {
 
         Observable<BaseBean<String>> getVerifyCode(String phone);
 
-        Observable<BaseBean<UserBean>> forgetPassword(String phone, String newPassword, String verifyCode);
+        Observable<BaseBean<TeacherBean>> forgetPassword(String phone, String newPassword, String verifyCode);
 
-        Observable<BaseBean<UserBean>> modifyPassword(String id, String newPassword, String verifyCode);
+        Observable<BaseBean<TeacherBean>> modifyPassword(String id, String newPassword, String verifyCode);
 
-        Observable<BaseBean<UserBean>> modifyPhone(String id, String newPhone, String verifyCode);
+        Observable<BaseBean<TeacherBean>> modifyPhone(String id, String newPhone, String verifyCode);
     }
 
     interface UserView extends BaseView{

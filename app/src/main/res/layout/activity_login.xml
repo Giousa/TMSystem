@@ -87,18 +87,39 @@
         </LinearLayout>
 
         <!--登录-->
-        <TextView
-            android:id="@+id/tv_login"
+        <!--<TextView-->
+            <!--android:id="@+id/tv_login"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/bigMenu"-->
+            <!--android:layout_marginLeft="@dimen/smallBiggerMargin"-->
+            <!--android:layout_marginRight="@dimen/smallBiggerMargin"-->
+            <!--android:layout_marginTop="@dimen/bigMargin"-->
+            <!--android:background="@drawable/green_solid_small_corner"-->
+            <!--android:gravity="center"-->
+            <!--android:text="登录"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="@dimen/textSize"/>-->
+
+        <com.zmm.tmsystem.ui.widget.LoadingButton
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bigMenu"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/smallBiggerMargin"
             android:layout_marginRight="@dimen/smallBiggerMargin"
             android:layout_marginTop="@dimen/bigMargin"
-            android:background="@drawable/green_solid_small_corner"
-            android:gravity="center"
-            android:text="登录"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/textSize"/>
+            app:textColor="@color/white"
+            android:background="@drawable/bg_btn"
+            app:loadingText="正在登录"
+            app:progressColor="@color/colorAccent">
+
+            <!--<TextView-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/textSize"-->
+                <!--android:text="登录"/>-->
+
+        </com.zmm.tmsystem.ui.widget.LoadingButton>
 
         <RelativeLayout
             android:layout_width="match_parent"
