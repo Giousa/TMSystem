@@ -51,7 +51,7 @@ public class RegisterModel implements RegisterContract.IRegisterModel {
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> oneKeyRegister(String phone, String verifyCode) {
+    public Observable<BaseBean<String>> oneKeyRegister(String phone, String verifyCode) {
         return null;
     }
 }

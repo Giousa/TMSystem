@@ -5,6 +5,7 @@ import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -75,6 +76,23 @@ public interface ApiService {
     Observable<BaseBean<String>> modifyPassword(@Field("id") String id, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 
+    /**
+     * 根据id获取教师信息
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("getTeacherById/")
+    Observable<BaseBean<TeacherBean>> getTeacherById(@Field("id") String id);
 
+
+    /**
+     * 更新用户信息
+     * @param teacherBean
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("getTeacherById/")
+    Observable<BaseBean<TeacherBean>> updateTeacherInfo(@Body TeacherBean teacherBean);
 
 }

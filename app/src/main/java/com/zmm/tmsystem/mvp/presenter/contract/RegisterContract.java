@@ -25,7 +25,7 @@ public interface RegisterContract {
 
         Observable<BaseBean<String>> modifyPassword(String id, String newPassword, String verifyCode);
 
-        Observable<BaseBean<TeacherBean>> oneKeyRegister(String phone, String verifyCode);
+        Observable<BaseBean<String>> oneKeyRegister(String phone, String verifyCode);
 
     }
 

@@ -1,7 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,12 +10,10 @@ import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.zmm.tmsystem.R;
-import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
-import com.zmm.tmsystem.dagger.component.DaggerLoginComponent;
 import com.zmm.tmsystem.dagger.component.DaggerRegisterComponent;
 import com.zmm.tmsystem.dagger.module.RegisterModule;
 import com.zmm.tmsystem.mvp.presenter.RegisterPresenter;
