@@ -16,5 +16,6 @@ import dagger.Component;
 @Component(modules = MainModule.class,dependencies = AppComponent.class)
 public interface MainComponent {
 
-    void inject(MainActivity activity);
+    //TODO 暂时关闭
+//    void inject(MainActivity activity);
 }
