@@ -1,14 +1,14 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+import android.view.Menu;
 import android.widget.FrameLayout;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.dagger.component.AppComponent;
-import com.zmm.tmsystem.ui.fragment.BottomBar;
+import com.zmm.tmsystem.ui.widget.BottomBar;
 import com.zmm.tmsystem.ui.fragment.CommentFragment;
 import com.zmm.tmsystem.ui.fragment.CramFragment;
 import com.zmm.tmsystem.ui.fragment.HomeFragment;
@@ -16,9 +16,8 @@ import com.zmm.tmsystem.ui.fragment.ManageFragment;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFragmentListener {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -45,6 +44,9 @@ public class MainActivity extends BaseActivity {
 //                        .color(getResources().getColor(R.color.colorAccent)
 //                        ))
 //                .into(mIvHeader);
+
+        mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_home));
+
         initTablayout();
 
 
@@ -52,10 +54,6 @@ public class MainActivity extends BaseActivity {
 
     private void initTablayout() {
 
-        Drawable drawable1 = new IconicsDrawable(this)
-                .icon(Ionicons.Icon.ion_android_contact)
-                .color(getResources().getColor(R.color.colorAccent)
-                );
 
         mBottomBar.setContainer(R.id.fl_container)
                 .setTitleBeforeAndAfterColor("#999999", "#ff5d5e")
@@ -76,6 +74,9 @@ public class MainActivity extends BaseActivity {
                         R.drawable.item4_before,
                         R.drawable.item4_after)
                 .build();
+
+        mBottomBar.setOnSwitchFragmentListener(this);
+
     }
 
 
@@ -83,4 +84,32 @@ public class MainActivity extends BaseActivity {
     protected void setupActivityComponent(AppComponent appComponent) {
     }
 
+    @Override
+    public void onSwitchFragment(int index) {
+
+        switch (index){
+
+            case 0:
+                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_home));
+
+                break;
+
+            case 1:
+                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_manager));
+
+                break;
+
+            case 2:
+                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_cram));
+
+                break;
+
+            case 3:
+                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_comment));
+
+                break;
+
+        }
+
+    }
 }

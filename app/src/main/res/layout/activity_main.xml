@@ -24,7 +24,7 @@
 
     </FrameLayout>
 
-    <com.zmm.tmsystem.ui.fragment.BottomBar
+    <com.zmm.tmsystem.ui.widget.BottomBar
         android:background="#FFFFFF"
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"

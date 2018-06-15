@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.fragment;
 
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.dagger.component.AppComponent;
 
 /**
  * Description:
@@ -9,9 +10,19 @@ import com.zmm.tmsystem.R;
  * Time:上午10:02
  */
 
-public class ManageFragment extends BaseFragment {
+public class ManageFragment extends ProgressFragment {
     @Override
     protected int setLayout() {
         return R.layout.manager;
+    }
+
+    @Override
+    protected void setupAcitivtyComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    protected void init() {
+
     }
 }

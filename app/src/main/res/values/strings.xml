@@ -42,4 +42,10 @@
     <string name="verify_code_send_success">验证码发送成功</string>
 
 
+    <string name="main_title_home">教师管理系统</string>
+    <string name="main_title_manager">托管中心管理</string>
+    <string name="main_title_cram">补习班管理</string>
+    <string name="main_title_comment">学生每日点评</string>
+
+
 </resources>

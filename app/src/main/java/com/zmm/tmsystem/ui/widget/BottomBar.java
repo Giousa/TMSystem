@@ -1,4 +1,4 @@
-package com.zmm.tmsystem.ui.fragment;
+package com.zmm.tmsystem.ui.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -60,6 +60,17 @@ public class BottomBar extends View {
     private int iconWidth = 20;
     private int iconHeight = 20;
     private int titleIconMargin = 5;
+
+    private OnSwitchFragmentListener mOnSwitchFragmentListener;
+
+    public void setOnSwitchFragmentListener(OnSwitchFragmentListener onSwitchFragmentListener) {
+        mOnSwitchFragmentListener = onSwitchFragmentListener;
+    }
+
+    public interface OnSwitchFragmentListener{
+        void onSwitchFragment(int index);
+    }
+
 
     public BottomBar setContainer(int containerId) {
         this.containerId = containerId;
@@ -288,6 +299,10 @@ public class BottomBar extends View {
 
     //注意 这里是只支持AppCompatActivity 需要支持其他老版的 自行修改
     protected void switchFragment(int whichFragment) {
+
+        if(mOnSwitchFragmentListener != null){
+            mOnSwitchFragmentListener.onSwitchFragment(whichFragment);
+        }
         Fragment fragment = fragmentList.get(whichFragment);
         int frameLayoutId = containerId;
 
