@@ -1,5 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.text.TextUtils;
+
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
@@ -32,9 +34,9 @@ public class SplashActivity extends BaseActivity {
             public void accept(Long aLong) throws Exception {
 
                 ACache aCache = ACache.get(SplashActivity.this);
-                TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
+                String asString = aCache.getAsString(Constant.TEACHER_ID);
 
-                if(teacherBean != null){
+                if(!TextUtils.isEmpty(asString)){
                     startActivity(MainActivity.class);
                 }else {
                     startActivity(LoginActivity.class);

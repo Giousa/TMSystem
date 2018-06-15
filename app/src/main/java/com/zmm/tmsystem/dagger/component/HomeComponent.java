@@ -1,8 +1,8 @@
 package com.zmm.tmsystem.dagger.component;
 
-import com.zmm.tmsystem.dagger.module.MainModule;
+import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.dagger.scope.ActivityScope;
-import com.zmm.tmsystem.ui.activity.MainActivity;
+import com.zmm.tmsystem.ui.fragment.HomeFragment;
 
 import dagger.Component;
 
@@ -13,9 +13,9 @@ import dagger.Component;
  * Time:下午11:50
  */
 @ActivityScope
-@Component(modules = MainModule.class,dependencies = AppComponent.class)
-public interface MainComponent {
+@Component(modules = HomeModule.class,dependencies = AppComponent.class)
+public interface HomeComponent {
 
     //TODO 暂时关闭
-//    void inject(MainActivity activity);
+    void inject(HomeFragment fragment);
 }

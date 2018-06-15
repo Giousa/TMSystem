@@ -15,10 +15,10 @@ import io.reactivex.Observable;
  * Time:下午11:13
  */
 
-public interface MainContract {
+public interface HomeContract {
 
 
-    interface IMainModel{
+    interface IHomeModel {
 
         Observable<BaseBean<TeacherBean>> getTeacherById(String id);
 
@@ -33,12 +33,9 @@ public interface MainContract {
 
     }
 
-    interface MainView extends BaseView{
+    interface HomeView extends BaseView{
 
-        void checkParamEmpty();
-
-        void updateSuccess();
-        void uploadSuccess();
+        void showTeacherInfo(TeacherBean teacherBean);
 
         void signSuccess();
         void signExist();

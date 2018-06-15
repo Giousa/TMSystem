@@ -9,11 +9,12 @@ package com.zmm.tmsystem.common;
 
 public class Constant {
 
-    public static final String BASE_IMG_URL="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
+    public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 
 
     public static final String BUNDLE_PARAM = "BUNDLE_PARAM";
     public static final String REGISTER_PARAM = "REGISTER_PARAM";
     public static final String TEACHER = "TEACHER";
+    public static final String TEACHER_ID = "TEACHER_ID";
     public static final String TMS_COOKIE = "tms_cookie";
 }

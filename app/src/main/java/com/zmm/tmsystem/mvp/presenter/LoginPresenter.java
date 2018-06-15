@@ -79,9 +79,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,Logi
 
         ACache aCache = ACache.get(mContext);
 
-        aCache.put(Constant.TEACHER,teacherBean);
-
-        System.out.println("teacher = "+teacherBean.toString());
+        aCache.put(Constant.TEACHER_ID,teacherBean.getId());
     }
 
 

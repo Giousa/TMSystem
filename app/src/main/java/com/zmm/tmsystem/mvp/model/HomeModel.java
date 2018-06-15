@@ -3,7 +3,7 @@ package com.zmm.tmsystem.mvp.model;
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.http.ApiService;
-import com.zmm.tmsystem.mvp.presenter.contract.MainContract;
+import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
 
 import java.io.File;
 
@@ -16,11 +16,11 @@ import io.reactivex.Observable;
  * Time:下午11:47
  */
 
-public class MainModel implements MainContract.IMainModel {
+public class HomeModel implements HomeContract.IHomeModel {
 
     private ApiService mApiService;
 
-    public MainModel(ApiService apiService) {
+    public HomeModel(ApiService apiService) {
         mApiService = apiService;
     }
 

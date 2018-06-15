@@ -1,12 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:text="主界面"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_size_160"
+        android:orientation="vertical"
+        android:background="@color/md_dark_cards">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_size_120"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_head_icon"
+                    android:src="@drawable/bg_btn"
+                    android:layout_width="@dimen/dp_size_100"
+                    android:layout_height="@dimen/dp_size_100"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_size_10"
+                android:gravity="center_vertical"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_head_name"
+                        android:text="姓名"
+                        android:textSize="@dimen/text_size_30"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_head_gender"
+                        android:layout_marginLeft="@dimen/dp_size_10"
+                        android:src="@drawable/bg_btn"
+                        android:layout_width="@dimen/dp_size_25"
+                        android:layout_height="@dimen/dp_size_25"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_head_childcare"
+                    android:layout_marginTop="@dimen/dp_size_5"
+                    android:text="托管机构名称"
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_head_sign"
+                    android:text="签到"
+                    android:textSize="@dimen/text_size_18"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_btn"
+                    android:padding="@dimen/dp_size_5"/>
+
+
+                <TextView
+                    android:id="@+id/tv_head_sign_level"
+                    android:layout_marginTop="@dimen/dp_size_10"
+                    android:text="Lv0"
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="学校:  "
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_head_school_name"
+                    android:text=""
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_margin="@dimen/dp_size_10"
+                android:layout_height="match_parent"
+                android:background="@color/md_black_1000"/>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/tv_head_grade_name"
+                    android:text="年级:  "
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text=""
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_margin="@dimen/dp_size_10"
+                android:layout_height="match_parent"
+                android:background="@color/md_black_1000"/>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:text="课程:  "
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_head_course_name"
+                    android:text=""
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
