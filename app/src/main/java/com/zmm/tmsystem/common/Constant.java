@@ -17,4 +17,5 @@ public class Constant {
     public static final String TEACHER = "TEACHER";
     public static final String TEACHER_ID = "TEACHER_ID";
     public static final String TMS_COOKIE = "tms_cookie";
+    public static final String SIGN = "sign";
 }

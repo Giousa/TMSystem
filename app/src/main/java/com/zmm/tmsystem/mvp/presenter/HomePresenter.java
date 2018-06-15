@@ -1,13 +1,20 @@
 package com.zmm.tmsystem.mvp.presenter;
 
+import android.text.TextUtils;
+
+import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
+import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.rx.subscriber.ProgressSubcriber;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Description:
@@ -40,6 +47,73 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
 
                 });
 
+
+    }
+
+    public void getSignInfo(){
+
+        final ACache aCache = ACache.get(mContext);
+
+        String tId = aCache.getAsString(Constant.TEACHER_ID);
+
+        mModel.signInfo(tId)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if(s.equals(mContext.getResources().getString(R.string.home_head_sign))){
+                            aCache.put(Constant.SIGN,"");
+                        }else {
+                            aCache.put(Constant.SIGN,"sign");
+                        }
+                        mView.signInfoSuccess(s);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    public void sign(){
+
+        final ACache aCache = ACache.get(mContext);
+
+        String signStr = aCache.getAsString(Constant.SIGN);
+
+        if(!TextUtils.isEmpty(signStr)){
+            return;
+        }
+
+
+        String tId = aCache.getAsString(Constant.TEACHER_ID);
+
+        mModel.sign(tId)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.signSuccess();
+                        aCache.put(Constant.SIGN,"sign");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

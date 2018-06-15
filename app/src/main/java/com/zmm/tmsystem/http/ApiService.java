@@ -19,7 +19,7 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    String BASE_URL = "http://192.168.137.179:8081/tms/";
+    String BASE_URL = "http://192.168.1.101:8081/tms/";
 
 
     /**
@@ -94,5 +94,23 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("getTeacherById/")
     Observable<BaseBean<TeacherBean>> updateTeacherInfo(@Body TeacherBean teacherBean);
+
+    /**
+     * 获取当前签到信息
+     * @param tId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("signInfo/")
+    Observable<BaseBean<String>> signInfo(@Field("tId") String tId);
+
+    /**
+     * 点击签到
+     * @param tId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("sign/")
+    Observable<BaseBean<String>> sign(@Field("tId") String tId);
 
 }

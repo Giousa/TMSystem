@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.zmm.tmsystem.ui.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/ToolBarTheme"/>
+
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="1"
+        app:title="头像"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="姓名"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="性别"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="联系电话"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_childcare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="托管机构名称"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_school"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="在职学校"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="授课年级"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="授课学科"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="地址"/>
+
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/custom_item_qr_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowPic="0"
+        app:title="学生端下载二维码"/>
+
+
+</LinearLayout>

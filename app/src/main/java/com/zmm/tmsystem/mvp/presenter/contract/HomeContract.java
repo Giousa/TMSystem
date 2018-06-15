@@ -37,7 +37,7 @@ public interface HomeContract {
 
         void showTeacherInfo(TeacherBean teacherBean);
 
+        void signInfoSuccess(String msg);
         void signSuccess();
-        void signExist();
     }
 }

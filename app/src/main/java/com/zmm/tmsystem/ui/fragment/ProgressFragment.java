@@ -1,5 +1,6 @@
 package com.zmm.tmsystem.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -76,6 +77,14 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
         init();
     }
 
+
+    protected void startActivity(Class activity) {
+
+        Intent intent = new Intent(getActivity(), activity);
+        startActivity(intent);
+
+    }
+
     /**
      * 空数据时，点击事件
      */
@@ -85,12 +94,9 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
 
     private void setRealContentView() {
 
-       View realContentView=  LayoutInflater.from(getActivity()).inflate(setLayout(),mViewContent,true);
+        View realContentView=  LayoutInflater.from(getActivity()).inflate(setLayout(),mViewContent,true);
         mUnbinder=  ButterKnife.bind(this, realContentView);
-
-
     }
-
 
 
     protected void  showProgressView(){
@@ -167,7 +173,6 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
     public void dismissLoading() {
         showContentView();
     }
-
 
     protected abstract int setLayout();
 

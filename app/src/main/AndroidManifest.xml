@@ -4,11 +4,12 @@
           package="com.zmm.tmsystem">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
     <application
         android:name=".application.AppApplication"
         android:allowBackup="true"
@@ -18,8 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".ui.activity.SplashActivity"
-                  android:theme="@style/AppTheme.Notitle.SplashFullScreen">
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.Notitle.SplashFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,14 +34,25 @@
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule"/>
 
-        <activity android:name=".ui.activity.MainActivity"
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".ui.activity.LoginActivity"
-                  android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
 
-        <activity android:name=".ui.activity.RegisterActivity"
-                  android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
+        <activity
+            android:name=".ui.activity.TeacherInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
 
     </application>
 

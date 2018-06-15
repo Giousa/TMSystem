@@ -6,8 +6,9 @@
 
     <color name="splash_welcome">#8800ff00</color>
     <color name="login_head">#617D8A</color>
-    <color name="white">#fff</color>
+    <color name="white">#ffffff</color>
     <color name="gray_btn_bg">#EAEAEA</color>
+    <color name="deepGrey">#a1a1a1</color>
 
 
     <color name="md_amber_100">#FFECB3</color>

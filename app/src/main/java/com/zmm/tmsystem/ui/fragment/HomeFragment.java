@@ -17,6 +17,7 @@ import com.zmm.tmsystem.dagger.component.DaggerHomeComponent;
 import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.mvp.presenter.HomePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
+import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,7 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     TextView mTvHeadGradeName;
     @BindView(R.id.tv_head_course_name)
     TextView mTvHeadCourseName;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_home;
@@ -80,6 +82,8 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
 
         mPresenter.getTeacherById();
+
+        mPresenter.getSignInfo();
     }
 
     @Override
@@ -129,13 +133,13 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     }
 
     @Override
-    public void signSuccess() {
-
+    public void signInfoSuccess(String msg) {
+        mTvHeadSign.setText(msg);
     }
 
     @Override
-    public void signExist() {
-
+    public void signSuccess() {
+        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
     }
 
 
@@ -144,9 +148,12 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         switch (view.getId()) {
             case R.id.iv_head_icon:
 
+                startActivity(TeacherInfoActivity.class);
+
                 break;
             case R.id.tv_head_sign:
-                
+
+                mPresenter.sign();
                 break;
         }
     }

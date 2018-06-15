@@ -46,11 +46,17 @@ public class HomeModel implements HomeContract.IHomeModel {
 
     @Override
     public Observable<BaseBean<String>> signInfo(String tId) {
-        return null;
+
+        Observable<BaseBean<String>> observable = mApiService.signInfo(tId);
+
+        return observable;
     }
 
     @Override
     public Observable<BaseBean<String>> sign(String tId) {
-        return null;
+
+        Observable<BaseBean<String>> observable = mApiService.sign(tId);
+
+        return observable;
     }
 }
