@@ -2,7 +2,10 @@ package com.zmm.tmsystem.http;
 
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.TeacherBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -21,6 +24,10 @@ public interface ApiService {
 
     String BASE_URL = "http://192.168.1.101:8081/tms/";
 
+
+    /**
+     * -----------------------------登录注册界面接口-----------------------------
+     */
 
     /**
      * 获取验证码
@@ -77,6 +84,11 @@ public interface ApiService {
 
 
     /**
+     * -----------------------------Home界面接口-----------------------------
+     */
+
+
+    /**
      * 根据id获取教师信息
      * @param id
      * @return
@@ -85,26 +97,6 @@ public interface ApiService {
     @POST("getTeacherById/")
     Observable<BaseBean<TeacherBean>> getTeacherById(@Field("id") String id);
 
-
-    /**
-     * 更新用户信息
-     * @param teacherBean
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("getTeacherById/")
-    Observable<BaseBean<TeacherBean>> updateTeacherInfo(@Body TeacherBean teacherBean);
-
-    /**
-     * 根据类型更新教师信息
-     * @param id
-     * @param type
-     * @param content
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("updateTeacherByType/")
-    Observable<BaseBean<TeacherBean>> updateTeacherByType(@Field("id")String id, @Field("type")int type, @Field("content")String content);
 
     /**
      * 获取当前签到信息
@@ -123,5 +115,39 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("sign/")
     Observable<BaseBean<String>> sign(@Field("tId") String tId);
+
+
+    /**
+     * -----------------------------教师信息界面接口-----------------------------
+     */
+
+
+    /**
+     * 更新用户信息
+     * @param teacherBean
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("getTeacherById/")
+    Observable<BaseBean<TeacherBean>> updateTeacherInfo(@Body TeacherBean teacherBean);
+
+    /**
+     * 获取学校信息
+     * @return
+     */
+    @POST("querySchools/")
+    Observable<BaseBean<List<SchoolBean>>> querySchools();
+
+    /**
+     * 根据类型更新教师信息
+     * @param id
+     * @param type
+     * @param content
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("updateTeacherByType/")
+    Observable<BaseBean<TeacherBean>> updateTeacherByType(@Field("id")String id, @Field("type")int type, @Field("content")String content);
+
 
 }

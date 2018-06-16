@@ -1,6 +1,9 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
@@ -13,12 +16,11 @@ import com.zmm.tmsystem.dagger.component.DaggerTeacherComponent;
 import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
-import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
+import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -28,7 +30,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implements
-        CustomInfoItemView.OnItemClickListener,TeacherContract.TeacherView{
+        CustomInfoItemView.OnItemClickListener, TeacherContract.TeacherView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -52,6 +54,10 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     CustomInfoItemView mCustomItemAddress;
     @BindView(R.id.custom_item_qr_code)
     CustomInfoItemView mCustomItemQrCode;
+    @BindView(R.id.root_view)
+    LinearLayout mRootView;
+
+    private int mScreenWidth;
 
 
     @Override
@@ -73,6 +79,8 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @Override
     protected void init() {
 
+        mScreenWidth = getScreenWidth();
+
         mTitleBar.setCenterTitle("教师信息");
         mTitleBar.setNavigationIcon(R.drawable.ic_action_back);
         mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -83,23 +91,22 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         });
 
 
-        mCustomItemIcon.setOnItemClickListener(this,Constant.TYPE_ICON);
-        mCustomItemName.setOnItemClickListener(this,Constant.TYPE_NAME);
-        mCustomItemGender.setOnItemClickListener(this,Constant.TYPE_GENDER);
-        mCustomItemPhone.setOnItemClickListener(this,Constant.TYPE_PHONE);
-        mCustomItemChildcare.setOnItemClickListener(this,Constant.TYPE_CHILDCARE_NAME);
-        mCustomItemSchool.setOnItemClickListener(this,Constant.TYPE_SCHOOL);
-        mCustomItemGrade.setOnItemClickListener(this,Constant.TYPE_GRADE);
-        mCustomItemCourse.setOnItemClickListener(this,Constant.TYPE_COURSE);
-        mCustomItemAddress.setOnItemClickListener(this,Constant.TYPE_ADDRESS);
+        mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_ICON);
+        mCustomItemName.setOnItemClickListener(this, Constant.TYPE_NAME);
+        mCustomItemGender.setOnItemClickListener(this, Constant.TYPE_GENDER);
+        mCustomItemPhone.setOnItemClickListener(this, Constant.TYPE_PHONE);
+        mCustomItemChildcare.setOnItemClickListener(this, Constant.TYPE_CHILDCARE_NAME);
+        mCustomItemSchool.setOnItemClickListener(this, Constant.TYPE_SCHOOL);
+        mCustomItemGrade.setOnItemClickListener(this, Constant.TYPE_GRADE);
+        mCustomItemCourse.setOnItemClickListener(this, Constant.TYPE_COURSE);
+        mCustomItemAddress.setOnItemClickListener(this, Constant.TYPE_ADDRESS);
         mCustomItemQrCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
-
 
 
         ACache aCache = ACache.get(this);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
 
-        if(teacherBean == null){
+        if (teacherBean == null) {
             return;
         }
 
@@ -107,6 +114,11 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     }
 
+    protected int getScreenWidth(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
 
 
     /**
@@ -129,37 +141,37 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 //            mCustomItemIcon.setIcon(icon);
 //        }
 
-        if(CheckUtils.checkString(name)){
+        if (CheckUtils.checkString(name)) {
             mCustomItemName.setContent(name);
         }
 
-        if(CheckUtils.checkString(phone)){
+        if (CheckUtils.checkString(phone)) {
             mCustomItemPhone.setContent(phone);
         }
 
-        if(CheckUtils.checkString(childcareName)){
+        if (CheckUtils.checkString(childcareName)) {
             mCustomItemChildcare.setContent(childcareName);
         }
 
-        if(CheckUtils.checkString(schoolName)){
+        if (CheckUtils.checkString(schoolName)) {
             mCustomItemSchool.setContent(schoolName);
         }
 
-        if(CheckUtils.checkString(gradeName)){
+        if (CheckUtils.checkString(gradeName)) {
             mCustomItemGrade.setContent(gradeName);
         }
 
-        if(CheckUtils.checkString(courseName)){
+        if (CheckUtils.checkString(courseName)) {
             mCustomItemCourse.setContent(courseName);
         }
 
-        if(CheckUtils.checkString(address)){
+        if (CheckUtils.checkString(address)) {
             mCustomItemAddress.setContent(address);
         }
 
-        if(gender == 0){
+        if (gender == 0) {
             mCustomItemGender.setContent("女");
-        }else {
+        } else {
             mCustomItemGender.setContent("男");
         }
 
@@ -168,7 +180,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @Override
     public void itemClick(int type) {
 
-        mPresenter.updateTeacherByType(type);
+        mPresenter.updateTeacherByType(type,mRootView,mScreenWidth);
 
     }
 
@@ -188,10 +200,11 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     }
 
     @Override
-    public void updateSuccess(String title,TeacherBean teacherBean) {
+    public void updateSuccess(String title, TeacherBean teacherBean) {
 
-        ToastUtils.SimpleToast(this,"更新"+title+"成功");
+        ToastUtils.SimpleToast(this, "更新" + title + "成功");
         initData(teacherBean);
 
     }
+
 }

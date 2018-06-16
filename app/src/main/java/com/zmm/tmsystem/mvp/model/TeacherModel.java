@@ -1,11 +1,13 @@
 package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 
 import java.io.File;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -34,6 +36,11 @@ public class TeacherModel implements TeacherContract.ITeacherModel {
     @Override
     public Observable<BaseBean<TeacherBean>> updateTeacherByType(String id, int type, String content) {
         return mApiService.updateTeacherByType(id,type,content);
+    }
+
+    @Override
+    public Observable<BaseBean<List<SchoolBean>>> querySchools() {
+        return mApiService.querySchools();
     }
 
     @Override

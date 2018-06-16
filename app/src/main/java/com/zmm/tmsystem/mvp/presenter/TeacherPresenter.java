@@ -1,7 +1,9 @@
 package com.zmm.tmsystem.mvp.presenter;
 
 import android.text.TextUtils;
+import android.widget.LinearLayout;
 
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
@@ -11,6 +13,10 @@ import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
+import com.zmm.tmsystem.ui.widget.SingleSelectView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +33,13 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
 
 
     private String title = null;
+    private String hint = null;
+    private int type;
+    private LinearLayout mRootView;
+    private int mScreenWidth;
+    private String id;
+    private List<String> mList;
+
 
 
     @Inject
@@ -34,7 +47,19 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         super(model, view);
     }
 
-    public void updateTeacherByType(int type){
+    public void updateTeacherByType(int type,LinearLayout rootView,int screenWidth){
+
+        ACache aCache = ACache.get(mContext);
+        id = aCache.getAsString(Constant.TEACHER_ID);
+
+        mRootView = rootView;
+        mScreenWidth = screenWidth;
+        this.type = type;
+
+        if(mList != null){
+            mList.clear();
+            mList = null;
+        }
 
         switch (type){
 
@@ -42,28 +67,57 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                 uloadIcon();
                 break;
             case Constant.TYPE_NAME:
-                inputString(Constant.TYPE_NAME);
+                title = "姓名";
+                hint = "请输入您的姓名";
+                inputString();
                 break;
             case Constant.TYPE_GENDER:
-                selectString(Constant.TYPE_GENDER);
+                title = "性别";
+                mList = new ArrayList<>();
+                mList.add("女");
+                mList.add("男");
+
+                selectString();
                 break;
             case Constant.TYPE_PHONE:
-                inputString(Constant.TYPE_PHONE);
+                title = "联系电话";
+                hint = "请输入联系电话";
+                inputString();
                 break;
             case Constant.TYPE_CHILDCARE_NAME:
-                inputString(Constant.TYPE_CHILDCARE_NAME);
+                title = "托管机构";
+                hint = "请输入机构名称";
+                inputString();
                 break;
             case Constant.TYPE_SCHOOL:
-                selectString(Constant.TYPE_SCHOOL);
+                title = "在职学校";
+                queryAllSchools();
                 break;
             case Constant.TYPE_GRADE:
-                selectString(Constant.TYPE_GRADE);
+                title = "授课年级";
+                mList = new ArrayList<>();
+                mList.add("一年级");
+                mList.add("二年级");
+                mList.add("三年级");
+                mList.add("四年级");
+                mList.add("五年级");
+                mList.add("六年级");
+                mList.add("七年级");
+                mList.add("八年级");
+                mList.add("九年级");
+                mList.add("高一");
+                mList.add("高二");
+                mList.add("高三");
+                selectString();
                 break;
             case Constant.TYPE_COURSE:
-                selectString(Constant.TYPE_COURSE);
+                title = "授课学科";
+                selectString();
                 break;
             case Constant.TYPE_ADDRESS:
-                inputString(Constant.TYPE_ADDRESS);
+                title = "地址";
+                hint = "请输入您的地址";
+                inputString();
                 break;
             case Constant.TYPE_QR_CODE:
                 showQrCode();
@@ -72,7 +126,34 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         }
     }
 
+    private void queryAllSchools() {
 
+        mModel.querySchools()
+                .compose(RxHttpResponseCompat.<List<SchoolBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<SchoolBean>>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<SchoolBean> schoolBeans) {
+                        if(schoolBeans != null && schoolBeans.size() > 0){
+                            mList = new ArrayList<>();
+                            for (SchoolBean school:schoolBeans) {
+                                mList.add(school.getName());
+                            }
+
+                            selectString();
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 
     private void uloadIcon() {
@@ -86,36 +167,8 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
 
     /**
      * 输入框修改
-     * @param type
      */
-    private void inputString(final int type) {
-
-        String hint = null;
-
-        switch (type){
-
-            case Constant.TYPE_NAME:
-                title = "姓名";
-                hint = "请输入您的姓名";
-                break;
-
-            case Constant.TYPE_PHONE:
-                title = "联系电话";
-                hint = "请输入联系电话";
-                break;
-
-            case Constant.TYPE_CHILDCARE_NAME:
-                title = "托管机构";
-                hint = "请输入机构名称";
-                break;
-
-            case Constant.TYPE_ADDRESS:
-                title = "地址";
-                hint = "请输入您的地址";
-                break;
-
-
-        }
+    private void inputString() {
 
         final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint);
 
@@ -145,10 +198,23 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
 
     /**
      * 选择框修改
-     * @param type
      */
-    private void selectString(int type) {
+    private void selectString() {
 
+
+        SingleSelectView singleSelectView = new SingleSelectView(mContext,mRootView,mScreenWidth,title,mList);
+
+        singleSelectView.setOnSelectClickListener(new SingleSelectView.OnSelectClickListener() {
+            @Override
+            public void onCancel() {
+                System.out.println("取消");
+            }
+
+            @Override
+            public void onConfirm(String content) {
+                System.out.println("content = "+content);
+            }
+        });
     }
 
 
@@ -158,9 +224,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
      * @param content
      */
     private void update2Server(int type, String content) {
-
-        ACache aCache = ACache.get(mContext);
-        String id = aCache.getAsString(Constant.TEACHER_ID);
 
         mModel.updateTeacherByType(id,type,content)
                 .compose(RxHttpResponseCompat.<TeacherBean>compatResult())

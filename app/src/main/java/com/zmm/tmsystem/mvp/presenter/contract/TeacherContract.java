@@ -1,10 +1,12 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
 import java.io.File;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -24,6 +26,8 @@ public interface TeacherContract {
         Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile);
 
         Observable<BaseBean<TeacherBean>> updateTeacherByType(String id, int type, String content);
+
+        Observable<BaseBean<List<SchoolBean>>> querySchools();
     }
 
     public interface TeacherView extends BaseView {
