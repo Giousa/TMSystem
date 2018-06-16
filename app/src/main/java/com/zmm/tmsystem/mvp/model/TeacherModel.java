@@ -30,8 +30,15 @@ public class TeacherModel implements TeacherContract.ITeacherModel {
         return mApiService.updateTeacherInfo(teacherBean);
     }
 
+
+    @Override
+    public Observable<BaseBean<TeacherBean>> updateTeacherByType(String id, int type, String content) {
+        return mApiService.updateTeacherByType(id,type,content);
+    }
+
     @Override
     public Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile) {
         return null;
     }
+
 }

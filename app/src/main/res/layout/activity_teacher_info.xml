@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isShowPic="0"
-        app:title="托管机构名称"/>
+        app:title="托管机构"/>
 
     <com.zmm.tmsystem.ui.widget.CustomInfoItemView
         android:id="@+id/custom_item_school"

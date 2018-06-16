@@ -31,8 +31,6 @@ public interface HomeContract {
 
     interface HomeView extends BaseView{
 
-        void showTeacherInfo(TeacherBean teacherBean);
-
         void signInfoSuccess(String msg);
         void signSuccess();
     }

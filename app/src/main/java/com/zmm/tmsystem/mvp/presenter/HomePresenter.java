@@ -32,23 +32,25 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
     }
 
 
-    public void getTeacherById(){
-
-        ACache aCache = ACache.get(mContext);
-        String tId = aCache.getAsString(Constant.TEACHER_ID);
-
-        mModel.getTeacherById(tId)
-                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
-                .subscribe(new ProgressSubcriber<TeacherBean>(mContext,mView) {
-                    @Override
-                    public void onNext(TeacherBean teacherBean) {
-                        mView.showTeacherInfo(teacherBean);
-                    }
-
-                });
-
-
-    }
+//    public void getTeacherById(){
+//
+//        final ACache aCache = ACache.get(mContext);
+//        String tId = aCache.getAsString(Constant.TEACHER_ID);
+//
+//        mModel.getTeacherById(tId)
+//                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
+//                .subscribe(new ProgressSubcriber<TeacherBean>(mContext,mView) {
+//                    @Override
+//                    public void onNext(TeacherBean teacherBean) {
+//
+//                        aCache.put(Constant.TEACHER,teacherBean);
+//                        mView.showTeacherInfo(teacherBean);
+//                    }
+//
+//                });
+//
+//
+//    }
 
     public void getSignInfo(){
 

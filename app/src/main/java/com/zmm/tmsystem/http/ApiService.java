@@ -96,6 +96,17 @@ public interface ApiService {
     Observable<BaseBean<TeacherBean>> updateTeacherInfo(@Body TeacherBean teacherBean);
 
     /**
+     * 根据类型更新教师信息
+     * @param id
+     * @param type
+     * @param content
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("updateTeacherByType/")
+    Observable<BaseBean<TeacherBean>> updateTeacherByType(@Field("id")String id, @Field("type")int type, @Field("content")String content);
+
+    /**
      * 获取当前签到信息
      * @param tId
      * @return

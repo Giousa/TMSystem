@@ -36,6 +36,8 @@ public class SplashActivity extends BaseActivity {
                 ACache aCache = ACache.get(SplashActivity.this);
                 String asString = aCache.getAsString(Constant.TEACHER_ID);
 
+//                startActivity(LoginActivity.class);
+
                 if(!TextUtils.isEmpty(asString)){
                     startActivity(MainActivity.class);
                 }else {

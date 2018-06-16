@@ -22,12 +22,14 @@ public interface TeacherContract {
         Observable<BaseBean<TeacherBean>> updateTeacherInfo(TeacherBean teacherBean);
 
         Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile);
+
+        Observable<BaseBean<TeacherBean>> updateTeacherByType(String id, int type, String content);
     }
 
     public interface TeacherView extends BaseView {
 
 
-        void updateSuccess(String msg);
+        void updateSuccess(String title,TeacherBean teacherBean);
 
     }
 }

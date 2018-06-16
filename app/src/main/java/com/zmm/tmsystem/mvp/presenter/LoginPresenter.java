@@ -1,8 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter;
 
 import com.zmm.tmsystem.bean.TeacherBean;
-import com.zmm.tmsystem.common.Constant;
-import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
 import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.mvp.presenter.contract.LoginContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
@@ -65,22 +64,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,Logi
                     public void onNext(TeacherBean teacherBean) {
                         mView.dismissLoading();
                         mView.loginSuccess();
-                        saveUser(teacherBean);
-
-                        //登录成功，发送消息
-//                        RxBus.get().post(loginBean.getUser());
-//                        RxBus.getDefault().post(loginBean.getUser());
+                        TeacherCacheUtil.save(mContext,teacherBean);
                     }
                 });
     }
 
-
-    private void saveUser(TeacherBean teacherBean){
-
-        ACache aCache = ACache.get(mContext);
-
-        aCache.put(Constant.TEACHER_ID,teacherBean.getId());
-    }
 
 
 }

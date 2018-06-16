@@ -7,15 +7,18 @@ import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.CheckUtils;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerTeacherComponent;
 import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description:
@@ -91,16 +94,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         mCustomItemAddress.setOnItemClickListener(this,Constant.TYPE_ADDRESS);
         mCustomItemQrCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
 
-        initData();
 
-    }
-
-
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
 
         ACache aCache = ACache.get(this);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
@@ -109,19 +103,31 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
             return;
         }
 
+        initData(teacherBean);
+
+    }
+
+
+
+    /**
+     * 初始化数据
+     */
+    private void initData(TeacherBean teacherBean) {
+
+
         String icon = teacherBean.getIcon();
         String name = teacherBean.getName();
         int gender = teacherBean.getGender();
-        String phone = teacherBean.getPhone();
+        String phone = teacherBean.getPhoneNum1();
         String childcareName = teacherBean.getChildcareName();
         String schoolName = teacherBean.getSchoolName();
         String gradeName = teacherBean.getGradeName();
         String courseName = teacherBean.getCourseName();
         String address = teacherBean.getAddress();
 
-        if(CheckUtils.checkString(icon)){
-            mCustomItemIcon.setIcon(icon);
-        }
+//        if(CheckUtils.checkString(icon)){
+//            mCustomItemIcon.setIcon(icon);
+//        }
 
         if(CheckUtils.checkString(name)){
             mCustomItemName.setContent(name);
@@ -160,9 +166,9 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     }
 
     @Override
-    public void itemClick(int id) {
+    public void itemClick(int type) {
 
-        mPresenter.updateTeacherInfo(id);
+        mPresenter.updateTeacherByType(type);
 
     }
 
@@ -182,7 +188,10 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     }
 
     @Override
-    public void updateSuccess(String msg) {
+    public void updateSuccess(String title,TeacherBean teacherBean) {
+
+        ToastUtils.SimpleToast(this,"更新"+title+"成功");
+        initData(teacherBean);
 
     }
 }

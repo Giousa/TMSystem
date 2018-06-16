@@ -28,19 +28,19 @@ public class CustomInfoItemView extends LinearLayout{
     private TextView mTvItemContent;
     private boolean isShowPic = false;
 
-    private int id;
+    private int type;
 
     private OnItemClickListener mItemClickListener;
     private RelativeLayout mRl_item;
     private ImageView mIvIcon;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener,int id) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener,int type) {
         mItemClickListener = onItemClickListener;
-        this.id = id;
+        this.type = type;
     }
 
     public interface OnItemClickListener{
-        void itemClick(int id);
+        void itemClick(int type);
     }
 
 
@@ -78,7 +78,7 @@ public class CustomInfoItemView extends LinearLayout{
             @Override
             public void onClick(View v) {
                 if(mItemClickListener != null){
-                    mItemClickListener.itemClick(id);
+                    mItemClickListener.itemClick(type);
                 }
             }
         });
