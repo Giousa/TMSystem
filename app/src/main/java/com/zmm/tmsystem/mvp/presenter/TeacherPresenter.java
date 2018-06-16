@@ -35,6 +35,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
     private String title = null;
     private String hint = null;
     private int type;
+    private String name;
     private LinearLayout mRootView;
     private int mScreenWidth;
     private String id;
@@ -47,7 +48,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         super(model, view);
     }
 
-    public void updateTeacherByType(int type,LinearLayout rootView,int screenWidth){
+    public void updateTeacherByType(int type,String name,LinearLayout rootView,int screenWidth){
 
         ACache aCache = ACache.get(mContext);
         id = aCache.getAsString(Constant.TEACHER_ID);
@@ -55,6 +56,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         mRootView = rootView;
         mScreenWidth = screenWidth;
         this.type = type;
+        this.name = name;
 
         if(mList != null){
             mList.clear();
@@ -96,6 +98,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
             case Constant.TYPE_GRADE:
                 title = "授课年级";
                 mList = new ArrayList<>();
+                mList.add("幼儿园");
                 mList.add("一年级");
                 mList.add("二年级");
                 mList.add("三年级");
@@ -112,6 +115,17 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                 break;
             case Constant.TYPE_COURSE:
                 title = "授课学科";
+                mList = new ArrayList<>();
+                mList.add("语文");
+                mList.add("数学");
+                mList.add("英语");
+                mList.add("生物");
+                mList.add("化学");
+                mList.add("物理");
+                mList.add("历史");
+                mList.add("政治");
+                mList.add("体育");
+                mList.add("音乐");
                 selectString();
                 break;
             case Constant.TYPE_ADDRESS:
@@ -170,20 +184,18 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
      */
     private void inputString() {
 
-        final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint);
+        final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint,name);
 
         simpleInputDialog.setOnClickListener(new SimpleInputDialog.OnClickListener() {
             @Override
             public void onCancel() {
                 simpleInputDialog.dismiss();
-                System.out.println("---cancel---");
 
             }
 
             @Override
             public void onConfirm(String content) {
                 simpleInputDialog.dismiss();
-                System.out.println("---confirm---" + content);
                 if(TextUtils.isEmpty(content)){
                     return;
                 }
@@ -207,12 +219,11 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         singleSelectView.setOnSelectClickListener(new SingleSelectView.OnSelectClickListener() {
             @Override
             public void onCancel() {
-                System.out.println("取消");
             }
 
             @Override
             public void onConfirm(String content) {
-                System.out.println("content = "+content);
+                update2Server(type,content);
             }
         });
     }

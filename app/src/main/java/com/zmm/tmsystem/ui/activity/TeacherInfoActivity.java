@@ -178,9 +178,9 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     }
 
     @Override
-    public void itemClick(int type) {
+    public void itemClick(int type,String name) {
 
-        mPresenter.updateTeacherByType(type,mRootView,mScreenWidth);
+        mPresenter.updateTeacherByType(type,name,mRootView,mScreenWidth);
 
     }
 

@@ -56,8 +56,8 @@
                         android:id="@+id/iv_head_gender"
                         android:layout_marginLeft="@dimen/dp_size_10"
                         android:src="@drawable/bg_btn"
-                        android:layout_width="@dimen/dp_size_25"
-                        android:layout_height="@dimen/dp_size_25"/>
+                        android:layout_width="@dimen/dp_size_15"
+                        android:layout_height="@dimen/dp_size_15"/>
 
                 </LinearLayout>
 
@@ -151,7 +151,6 @@
 
 
                 <TextView
-                    android:id="@+id/tv_head_grade_name"
                     android:text="年级:  "
                     android:textSize="@dimen/text_size_15"
                     android:textColor="@color/white"
@@ -159,6 +158,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tv_head_grade_name"
                     android:text=""
                     android:textSize="@dimen/text_size_15"
                     android:textColor="@color/white"

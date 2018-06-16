@@ -3,6 +3,7 @@ package com.zmm.tmsystem.ui.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class SimpleInputDialog extends Dialog {
     private Button mConfirm;
     private String title;
     private String hint;
+    private String name;
 
 
 
@@ -36,10 +38,11 @@ public class SimpleInputDialog extends Dialog {
         mOnClickListener = onClickListener;
     }
 
-    public SimpleInputDialog(Context context, String title, String hint) {
+    public SimpleInputDialog(Context context, String title, String hint,String name) {
         super(context, R.style.SimpleDialog);
         this.title = title;
         this.hint = hint;
+        this.name = name;
     }
 
     public interface OnClickListener{
@@ -72,6 +75,12 @@ public class SimpleInputDialog extends Dialog {
 
         mTitle.setText(title);
         mEditText.setHint(hint);
+
+        if(!TextUtils.isEmpty(name)){
+            mEditText.setText(name);
+            mEditText.setSelection(name.length());
+        }
+        ;
 
     }
 

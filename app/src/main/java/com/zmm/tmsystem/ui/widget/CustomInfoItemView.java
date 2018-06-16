@@ -40,7 +40,7 @@ public class CustomInfoItemView extends LinearLayout{
     }
 
     public interface OnItemClickListener{
-        void itemClick(int type);
+        void itemClick(int type,String name);
     }
 
 
@@ -57,7 +57,7 @@ public class CustomInfoItemView extends LinearLayout{
         //获取设置的自定义属性
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomInfoItemView);
         String titlename = typedArray.getString(R.styleable.CustomInfoItemView_title);
-        int isShow = typedArray.getInteger(0,R.styleable.CustomInfoItemView_isShowPic);
+        final int isShow = typedArray.getInteger(0,R.styleable.CustomInfoItemView_isShowPic);
         if(isShow == 1){
             isShowPic = true;
         }else {
@@ -78,7 +78,12 @@ public class CustomInfoItemView extends LinearLayout{
             @Override
             public void onClick(View v) {
                 if(mItemClickListener != null){
-                    mItemClickListener.itemClick(type);
+                    if(isShowPic){
+                        mItemClickListener.itemClick(type,"");
+                    }else {
+                        mItemClickListener.itemClick(type,getContent());
+                    }
+
                 }
             }
         });
