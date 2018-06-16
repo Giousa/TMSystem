@@ -16,6 +16,8 @@
     <color name="stroke">#cac7c7</color>
     <color name="black">#000000</color>
 
+    <!--灰白背景色-->
+    <color name="view_bg">#edeff5</color>
 
     <color name="md_amber_100">#FFECB3</color>
     <color name="md_amber_200">#FFE082</color>

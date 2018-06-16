@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
@@ -65,7 +67,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     protected void init() {
 
 
-        mTitleBar.setNavigationIcon(R.drawable.ic_action_back);
+        mTitleBar.setNavigationIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_android_arrow_back)
+                .sizeDp(20)
+                .color(getResources().getColor(R.color.white)
+                ));
         mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

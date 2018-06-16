@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_size_1"
-        android:background="@color/deepGrey"/>
+        android:background="@color/view_bg"/>
 
 
 </LinearLayout>

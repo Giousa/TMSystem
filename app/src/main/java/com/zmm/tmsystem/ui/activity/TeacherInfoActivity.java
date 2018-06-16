@@ -5,6 +5,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
@@ -82,7 +84,11 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         mScreenWidth = getScreenWidth();
 
         mTitleBar.setCenterTitle("教师信息");
-        mTitleBar.setNavigationIcon(R.drawable.ic_action_back);
+        mTitleBar.setNavigationIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_android_arrow_back)
+                .sizeDp(20)
+                .color(getResources().getColor(R.color.white)
+                ));
         mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
