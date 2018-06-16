@@ -8,6 +8,10 @@ import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.CheckUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.dagger.component.DaggerTeacherComponent;
+import com.zmm.tmsystem.dagger.module.TeacherModule;
+import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
+import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -20,7 +24,8 @@ import butterknife.BindView;
  * Time:下午4:09
  */
 
-public class TeacherInfoActivity extends BaseActivity implements CustomInfoItemView.OnItemClickListener {
+public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implements
+        CustomInfoItemView.OnItemClickListener,TeacherContract.TeacherView{
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -45,21 +50,22 @@ public class TeacherInfoActivity extends BaseActivity implements CustomInfoItemV
     @BindView(R.id.custom_item_qr_code)
     CustomInfoItemView mCustomItemQrCode;
 
-    private final int TYPE_ICON = 0;
-    private final int TYPE_NAME = 1;
-    private final int TYPE_GENDER = 2;
-    private final int TYPE_PHONE = 3;
-    private final int TYPE_CHILDCARE_NAME = 4;
-    private final int TYPE_SCHOOL = 5;
-    private final int TYPE_GRADE = 6;
-    private final int TYPE_COURSE = 7;
-    private final int TYPE_ADDRESS = 8;
-    private final int TYPE_QR_CODE = 9;
 
     @Override
     protected int setLayout() {
         return R.layout.activity_teacher_info;
     }
+
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+        DaggerTeacherComponent.builder()
+                .appComponent(appComponent)
+                .teacherModule(new TeacherModule(this))
+                .build()
+                .inject(this);
+    }
+
 
     @Override
     protected void init() {
@@ -74,20 +80,22 @@ public class TeacherInfoActivity extends BaseActivity implements CustomInfoItemV
         });
 
 
-        mCustomItemIcon.setOnItemClickListener(this,TYPE_ICON);
-        mCustomItemName.setOnItemClickListener(this,TYPE_NAME);
-        mCustomItemGender.setOnItemClickListener(this,TYPE_GENDER);
-        mCustomItemPhone.setOnItemClickListener(this,TYPE_PHONE);
-        mCustomItemChildcare.setOnItemClickListener(this,TYPE_CHILDCARE_NAME);
-        mCustomItemSchool.setOnItemClickListener(this,TYPE_SCHOOL);
-        mCustomItemGrade.setOnItemClickListener(this,TYPE_GRADE);
-        mCustomItemCourse.setOnItemClickListener(this,TYPE_COURSE);
-        mCustomItemAddress.setOnItemClickListener(this,TYPE_ADDRESS);
-        mCustomItemQrCode.setOnItemClickListener(this, TYPE_QR_CODE);
+        mCustomItemIcon.setOnItemClickListener(this,Constant.TYPE_ICON);
+        mCustomItemName.setOnItemClickListener(this,Constant.TYPE_NAME);
+        mCustomItemGender.setOnItemClickListener(this,Constant.TYPE_GENDER);
+        mCustomItemPhone.setOnItemClickListener(this,Constant.TYPE_PHONE);
+        mCustomItemChildcare.setOnItemClickListener(this,Constant.TYPE_CHILDCARE_NAME);
+        mCustomItemSchool.setOnItemClickListener(this,Constant.TYPE_SCHOOL);
+        mCustomItemGrade.setOnItemClickListener(this,Constant.TYPE_GRADE);
+        mCustomItemCourse.setOnItemClickListener(this,Constant.TYPE_COURSE);
+        mCustomItemAddress.setOnItemClickListener(this,Constant.TYPE_ADDRESS);
+        mCustomItemQrCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
 
         initData();
 
     }
+
+
 
     /**
      * 初始化数据
@@ -152,45 +160,29 @@ public class TeacherInfoActivity extends BaseActivity implements CustomInfoItemV
     }
 
     @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
+    public void itemClick(int id) {
+
+        mPresenter.updateTeacherInfo(id);
 
     }
 
     @Override
-    public void itemClick(int id) {
-        switch (id){
-            case TYPE_ICON:
+    public void showLoading() {
 
-                break;
+    }
 
-            case TYPE_NAME:
+    @Override
+    public void showError(String msg) {
 
-                break;
-            case TYPE_GENDER:
+    }
 
-                break;
-            case TYPE_PHONE:
+    @Override
+    public void dismissLoading() {
 
-                break;
-            case TYPE_CHILDCARE_NAME:
+    }
 
-                break;
-            case TYPE_SCHOOL:
+    @Override
+    public void updateSuccess(String msg) {
 
-                break;
-            case TYPE_GRADE:
-
-                break;
-            case TYPE_COURSE:
-
-                break;
-            case TYPE_ADDRESS:
-
-                break;
-            case TYPE_QR_CODE:
-
-                break;
-
-        }
     }
 }

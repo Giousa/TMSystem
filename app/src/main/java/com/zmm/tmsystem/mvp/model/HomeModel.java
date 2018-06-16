@@ -32,19 +32,6 @@ public class HomeModel implements HomeContract.IHomeModel {
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> updateTeacherInfo(TeacherBean teacherBean) {
-
-        Observable<BaseBean<TeacherBean>> observable = mApiService.updateTeacherInfo(teacherBean);
-
-        return observable;
-    }
-
-    @Override
-    public Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile) {
-        return null;
-    }
-
-    @Override
     public Observable<BaseBean<String>> signInfo(String tId) {
 
         Observable<BaseBean<String>> observable = mApiService.signInfo(tId);

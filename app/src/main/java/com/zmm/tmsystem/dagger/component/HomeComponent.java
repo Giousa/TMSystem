@@ -2,6 +2,7 @@ package com.zmm.tmsystem.dagger.component;
 
 import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.dagger.scope.ActivityScope;
+import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
 import com.zmm.tmsystem.ui.fragment.HomeFragment;
 
 import dagger.Component;
@@ -16,6 +17,5 @@ import dagger.Component;
 @Component(modules = HomeModule.class,dependencies = AppComponent.class)
 public interface HomeComponent {
 
-    //TODO 暂时关闭
     void inject(HomeFragment fragment);
 }

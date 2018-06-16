@@ -22,10 +22,6 @@ public interface HomeContract {
 
         Observable<BaseBean<TeacherBean>> getTeacherById(String id);
 
-        Observable<BaseBean<TeacherBean>> updateTeacherInfo(TeacherBean teacherBean);
-
-        Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile);
-
         Observable<BaseBean<String>> signInfo(String tId);
 
         Observable<BaseBean<String>> sign(String tId);

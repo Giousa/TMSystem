@@ -107,6 +107,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
                     public void onNext(String s) {
                         mView.signSuccess();
                         aCache.put(Constant.SIGN,"sign");
+                        ToastUtils.SimpleToast(mContext,s);
                     }
 
                     @Override
@@ -116,5 +117,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
                 });
 
     }
+
+
 
 }

@@ -10,6 +10,12 @@
     <color name="gray_btn_bg">#EAEAEA</color>
     <color name="deepGrey">#a1a1a1</color>
 
+    <!--选择器和输入框-->
+    <color name="chart_text">#4c5362</color>
+    <color name="lable_blue">#3DB0FD</color>
+    <color name="stroke">#cac7c7</color>
+    <color name="black">#000000</color>
+
 
     <color name="md_amber_100">#FFECB3</color>
     <color name="md_amber_200">#FFE082</color>

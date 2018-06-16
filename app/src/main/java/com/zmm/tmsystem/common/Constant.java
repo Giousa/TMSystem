@@ -18,4 +18,17 @@ public class Constant {
     public static final String TEACHER_ID = "TEACHER_ID";
     public static final String TMS_COOKIE = "tms_cookie";
     public static final String SIGN = "sign";
+
+
+    //-----------------教师用户信息点击------------------
+    public static final int TYPE_ICON = 0;
+    public static final int TYPE_NAME = 1;
+    public static final int TYPE_GENDER = 2;
+    public static final int TYPE_PHONE = 3;
+    public static final int TYPE_CHILDCARE_NAME = 4;
+    public static final int TYPE_SCHOOL = 5;
+    public static final int TYPE_GRADE = 6;
+    public static final int TYPE_COURSE = 7;
+    public static final int TYPE_ADDRESS = 8;
+    public static final int TYPE_QR_CODE = 9;
 }

@@ -1,9 +1,6 @@
 package com.zmm.tmsystem.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +17,7 @@ import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
 import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -81,6 +76,14 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
                 .color(getResources().getColor(R.color.colorAccent)));
 
 
+        mPresenter.getTeacherById();
+
+        mPresenter.getSignInfo();
+    }
+
+    @Override
+    protected void onEmptyViewClick() {
+        super.onEmptyViewClick();
         mPresenter.getTeacherById();
 
         mPresenter.getSignInfo();
