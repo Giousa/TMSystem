@@ -3,6 +3,7 @@ package com.zmm.tmsystem.ui.activity;
 import android.graphics.drawable.Drawable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.ui.widget.BottomBar;
 import com.zmm.tmsystem.ui.fragment.CommentFragment;
@@ -140,7 +142,24 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        System.out.println("设置按钮，被点击了");
+        startActivity(SettingActivity.class,false);
         return false;
+    }
+
+    private long time = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == event.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - time > 2000) {
+                time = System.currentTimeMillis();
+                ToastUtils.SimpleToast(this,"再次点击，退出应用");
+            } else {
+                removeAllActivity();
+            }
+        }
+
+        return true;
     }
 }

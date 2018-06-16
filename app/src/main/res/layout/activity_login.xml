@@ -23,9 +23,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/pic"
-            android:layout_height="@dimen/pic"
-            android:layout_marginTop="@dimen/bigMargin"
+            android:layout_width="@dimen/dp_size_120"
+            android:layout_height="@dimen/dp_size_120"
             android:src="@drawable/login_header"/>
 
         <!--账号-->

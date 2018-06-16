@@ -139,7 +139,7 @@ public class CustomInfoItemView extends LinearLayout{
                 .transform(new GlideCircleTransform(mContext))
                 .error(new IconicsDrawable(mContext)
                         .icon(Ionicons.Icon.ion_android_contact)
-                        .color(getResources().getColor(R.color.colorAccent)
+                        .color(getResources().getColor(R.color.md_blue_500)
                         ))
                 .into(mIvIcon);
         }

@@ -21,4 +21,11 @@ public class TeacherCacheUtil {
         aCache.put(Constant.TEACHER_ID,teacherBean.getId());
         aCache.put(Constant.TEACHER,teacherBean);
     }
+
+    public static void clear(Context context){
+        ACache aCache = ACache.get(context);
+
+        aCache.put(Constant.TEACHER_ID,"");
+        aCache.put(Constant.TEACHER,"");
+    }
 }

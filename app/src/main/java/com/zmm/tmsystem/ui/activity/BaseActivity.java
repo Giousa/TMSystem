@@ -30,6 +30,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     private Unbinder mUnbinder;
     protected AppApplication mAppApplication;
 
+    private BaseActivity mBaseActivity;
+
     @Inject
     T mPresenter;
 
@@ -47,7 +49,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         mUnbinder = ButterKnife.bind(this);
 
+        mBaseActivity = this;
+
         mAppApplication = (AppApplication) getApplication();
+
+        addActivity();
+
         setupActivityComponent(mAppApplication.getAppComponent());
 
         init();
@@ -58,6 +65,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        removeActivity();
         if(mUnbinder != Unbinder.EMPTY){
             mUnbinder.unbind();
         }
@@ -90,5 +98,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.finish();
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
+    }
+
+
+    public void addActivity() {
+        mAppApplication.addActivity_(mBaseActivity);
+    }
+
+    public void removeActivity(){
+        mAppApplication.removeActivity_(mBaseActivity);
+    }
+
+    public void removeAllActivity() {
+        mAppApplication.removeAllActivity_();
     }
 }

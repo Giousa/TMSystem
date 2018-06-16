@@ -133,9 +133,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                 hint = "请输入您的地址";
                 inputString();
                 break;
-            case Constant.TYPE_QR_CODE:
-                showQrCode();
-                break;
 
         }
     }
@@ -173,11 +170,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
     private void uloadIcon() {
 
     }
-
-    private void showQrCode() {
-
-    }
-
 
     /**
      * 输入框修改

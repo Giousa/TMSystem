@@ -30,5 +30,8 @@ public class Constant {
     public static final int TYPE_GRADE = 6;
     public static final int TYPE_COURSE = 7;
     public static final int TYPE_ADDRESS = 8;
-    public static final int TYPE_QR_CODE = 9;
+    public static final int TYPE_PHONE_LOGIN = 9;
+    public static final int TYPE_PASSWORD = 10;
+    public static final int TYPE_QR_CODE = 11;
+    public static final int TYPE_CHANGE = 12;
 }

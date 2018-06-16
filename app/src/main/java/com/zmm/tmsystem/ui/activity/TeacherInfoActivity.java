@@ -5,6 +5,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -19,6 +20,7 @@ import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
+import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
@@ -54,8 +56,6 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     CustomInfoItemView mCustomItemCourse;
     @BindView(R.id.custom_item_address)
     CustomInfoItemView mCustomItemAddress;
-    @BindView(R.id.custom_item_qr_code)
-    CustomInfoItemView mCustomItemQrCode;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
 
@@ -106,15 +106,10 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         mCustomItemGrade.setOnItemClickListener(this, Constant.TYPE_GRADE);
         mCustomItemCourse.setOnItemClickListener(this, Constant.TYPE_COURSE);
         mCustomItemAddress.setOnItemClickListener(this, Constant.TYPE_ADDRESS);
-        mCustomItemQrCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
 
 
         ACache aCache = ACache.get(this);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
-
-        if (teacherBean == null) {
-            return;
-        }
 
         initData(teacherBean);
 
@@ -143,9 +138,9 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         String courseName = teacherBean.getCourseName();
         String address = teacherBean.getAddress();
 
-//        if(CheckUtils.checkString(icon)){
-//            mCustomItemIcon.setIcon(icon);
-//        }
+        if(CheckUtils.checkString(icon)){
+            mCustomItemIcon.setIcon(icon);
+        }
 
         if (CheckUtils.checkString(name)) {
             mCustomItemName.setContent(name);
