@@ -50,6 +50,11 @@
             android:launchMode="singleTask"/>
 
         <activity
+            android:name=".ui.activity.ModifyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
+        <activity
             android:name=".ui.activity.TeacherInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>

@@ -70,17 +70,17 @@ public interface ApiService {
     @POST("forgetPassword/")
     Observable<BaseBean<String>> forgetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
-
     /**
-     * 修改密码
+     * 修改手机号或密码
      * @param id
-     * @param newPassword
+     * @param type
+     * @param content
      * @param verifyCode
      * @return
      */
     @FormUrlEncoded
-    @POST("modifyPassword/")
-    Observable<BaseBean<String>> modifyPassword(@Field("id") String id, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+    @POST("modifyByType/")
+    Observable<BaseBean<String>> modifyByType(@Field("id") String id, @Field("type") int type, @Field("content") String content, @Field("verifyCode") String verifyCode);
 
 
     /**

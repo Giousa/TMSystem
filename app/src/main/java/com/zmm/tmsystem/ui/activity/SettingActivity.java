@@ -1,8 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +19,6 @@ import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -42,8 +40,6 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
     CustomInfoItemView mSettingItemPassword;
     @BindView(R.id.setting_item_code)
     CustomInfoItemView mSettingItemCode;
-    @BindView(R.id.setting_item_change)
-    CustomInfoItemView mSettingItemChange;
 
     @Override
     protected int setLayout() {
@@ -87,10 +83,9 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
                     ));
         }
 
-        mSettingItemPhone.setOnItemClickListener(this, Constant.TYPE_PHONE_LOGIN);
-        mSettingItemPassword.setOnItemClickListener(this, Constant.TYPE_PASSWORD);
+        mSettingItemPhone.setOnItemClickListener(this, Constant.TYPE_MODIFY_PHONE);
+        mSettingItemPassword.setOnItemClickListener(this, Constant.TYPE_MODIFY_PASSWORD);
         mSettingItemCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
-        mSettingItemChange.setOnItemClickListener(this, Constant.TYPE_CHANGE);
 
 
     }
@@ -103,19 +98,23 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
 
     @Override
     public void itemClick(int type, String name) {
+
+        System.out.println("type = "+type);
         switch (type) {
 
-            case Constant.TYPE_PHONE_LOGIN:
+            case Constant.TYPE_MODIFY_PHONE:
 
+                Intent intent1 = new Intent(this, ModifyActivity.class);
+                intent1.putExtra(Constant.MODIFY_PARAM, 1);
+                startActivity(intent1);
                 break;
-            case Constant.TYPE_PASSWORD:
-
+            case Constant.TYPE_MODIFY_PASSWORD:
+                Intent intent2 = new Intent(this, ModifyActivity.class);
+                intent2.putExtra(Constant.MODIFY_PARAM, 2);
+                startActivity(intent2);
                 break;
             case Constant.TYPE_QR_CODE:
 
-                break;
-            case Constant.TYPE_CHANGE:
-                startActivity(LoginActivity.class, false);
                 break;
 
         }

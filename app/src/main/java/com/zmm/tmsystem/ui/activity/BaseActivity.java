@@ -73,9 +73,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected abstract int setLayout();
 
+    protected abstract void setupActivityComponent(AppComponent appComponent);
+
     protected abstract void init();
 
-    protected abstract void setupActivityComponent(AppComponent appComponent);
 
     protected void startActivity(Class activity) {
 

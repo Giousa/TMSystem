@@ -1,7 +1,6 @@
 package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
-import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.RegisterContract;
 
@@ -26,32 +25,25 @@ public class RegisterModel implements RegisterContract.IRegisterModel {
     @Override
     public Observable<BaseBean<String>> getVerifyCode(String phone) {
 
-        Observable<BaseBean<String>> verifyCode = mApiService.getVerifyCode(phone);
-
-        return verifyCode;
+        return mApiService.getVerifyCode(phone);
     }
 
     @Override
     public Observable<BaseBean<String>> register(String phone, String password, String verifyCode) {
 
-        Observable<BaseBean<String>> register = mApiService.register(phone, password,verifyCode);
-        return register;
+        return mApiService.register(phone, password,verifyCode);
     }
 
     @Override
     public Observable<BaseBean<String>> forgetPassword(String phone, String newPassword, String verifyCode) {
 
-        Observable<BaseBean<String>> forgetPassword = mApiService.forgetPassword(phone, newPassword, verifyCode);
-        return forgetPassword;
+        return mApiService.forgetPassword(phone, newPassword, verifyCode);
     }
 
     @Override
-    public Observable<BaseBean<String>> modifyPassword(String id, String newPassword, String verifyCode) {
-        return null;
+    public Observable<BaseBean<String>> modifyByType(String id, int type, String content, String verifyCode) {
+        return mApiService.modifyByType(id,type,content,verifyCode);
     }
 
-    @Override
-    public Observable<BaseBean<String>> oneKeyRegister(String phone, String verifyCode) {
-        return null;
-    }
+
 }

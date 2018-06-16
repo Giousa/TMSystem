@@ -44,17 +44,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
     @Override
     protected void init() {
 
+        //这里一定要加上，否则menu不显示
         setSupportActionBar(mTitleBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-//        Glide.with(this)
-//                .load(url)
-//                .transform(new GlideCircleTransform(this))
-//                .error(new IconicsDrawable(this)
-//                        .icon(Ionicons.Icon.ion_android_contact)
-//                        .color(getResources().getColor(R.color.colorAccent)
-//                        ))
-//                .into(mIvHeader);
 
         mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_home));
 

@@ -52,10 +52,9 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="请输入手机号"
+                android:hint="请输入11位手机号"
                 android:inputType="number"
-                android:padding="@dimen/smallerMargin"
-                android:text="13764503367"/>
+                android:padding="@dimen/smallerMargin"/>
         </LinearLayout>
 
         <!--密码-->
@@ -81,10 +80,9 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="请输入密码"
+                android:hint="请输入6~16位密码"
                 android:inputType="textPassword"
-                android:padding="@dimen/smallerMargin"
-                android:text="123456"/>
+                android:padding="@dimen/smallerMargin"/>
         </LinearLayout>
 
         <!--验证码-->
@@ -145,19 +143,6 @@
             android:background="@drawable/bg_btn"
             app:progressColor="@color/colorAccent"
             app:textColor="@color/white"/>
-
-        <!--<TextView-->
-        <!--android:id="@+id/register"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/bigMenu"-->
-        <!--android:layout_marginLeft="@dimen/smallBiggerMargin"-->
-        <!--android:layout_marginRight="@dimen/smallBiggerMargin"-->
-        <!--android:layout_marginTop="@dimen/bigMargin"-->
-        <!--android:background="@drawable/green_solid_small_corner"-->
-        <!--android:gravity="center"-->
-        <!--android:text="立即注册"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:textSize="@dimen/textSize"/>-->
 
     </LinearLayout>
 

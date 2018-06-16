@@ -18,13 +18,7 @@ public interface LoginContract {
 
     interface ILoginModel{
 
-
-        Observable<BaseBean<String>> getVerifyCode(String phone);
-
         Observable<BaseBean<TeacherBean>> login(String phone, String password);
-
-        Observable<BaseBean<TeacherBean>> oneKeyLogin(String phone, String verifyCode);
-
 
     }
 

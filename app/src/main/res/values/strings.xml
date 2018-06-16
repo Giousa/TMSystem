@@ -34,6 +34,7 @@
     <string name="modify_password">修改密码</string>
     <string name="modify_password_loading">正在修改</string>
     <string name="modify_phone">修改手机号</string>
+    <string name="input_new_phone">请输入新手机号</string>
     <string name="default_loading">loading</string>
     <string name="exception">服务器繁忙，请稍后继续</string>
     <string name="check_phone_error">手机格式不正确</string>

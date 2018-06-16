@@ -14,6 +14,7 @@ public class Constant {
 
     public static final String BUNDLE_PARAM = "BUNDLE_PARAM";
     public static final String REGISTER_PARAM = "REGISTER_PARAM";
+    public static final String MODIFY_PARAM = "MODIFY_PARAM";
     public static final String TEACHER = "TEACHER";
     public static final String TEACHER_ID = "TEACHER_ID";
     public static final String TMS_COOKIE = "tms_cookie";
@@ -30,8 +31,8 @@ public class Constant {
     public static final int TYPE_GRADE = 6;
     public static final int TYPE_COURSE = 7;
     public static final int TYPE_ADDRESS = 8;
-    public static final int TYPE_PHONE_LOGIN = 9;
-    public static final int TYPE_PASSWORD = 10;
+    public static final int TYPE_MODIFY_PHONE = 9;
+    public static final int TYPE_MODIFY_PASSWORD = 10;
     public static final int TYPE_QR_CODE = 11;
     public static final int TYPE_CHANGE = 12;
 }

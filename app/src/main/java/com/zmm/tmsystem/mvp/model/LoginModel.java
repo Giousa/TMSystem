@@ -23,10 +23,6 @@ public class LoginModel implements LoginContract.ILoginModel{
         mApiService = apiService;
     }
 
-    @Override
-    public Observable<BaseBean<String>> getVerifyCode(String phone) {
-        return null;
-    }
 
     @Override
     public Observable<BaseBean<TeacherBean>> login(String phone, String password) {
@@ -36,8 +32,4 @@ public class LoginModel implements LoginContract.ILoginModel{
         return login;
     }
 
-    @Override
-    public Observable<BaseBean<TeacherBean>> oneKeyLogin(String phone, String verifyCode) {
-        return null;
-    }
 }

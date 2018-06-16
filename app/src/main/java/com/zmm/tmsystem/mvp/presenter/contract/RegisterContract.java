@@ -23,17 +23,17 @@ public interface RegisterContract {
 
         Observable<BaseBean<String>> forgetPassword(String phone, String newPassword, String verifyCode);
 
-        Observable<BaseBean<String>> modifyPassword(String id, String newPassword, String verifyCode);
+        Observable<BaseBean<String>> modifyByType(String id,int type, String content, String verifyCode);
 
-        Observable<BaseBean<String>> oneKeyRegister(String phone, String verifyCode);
 
     }
 
     interface RegisterView extends BaseView{
 
         void checkPhoneError();
-        void checkPasswprdError();
+        void checkPasswordError();
 
+        void sendVerifyCodeSuccess();
         void performSuccess(String msg);
 
     }
