@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.zmm.tmsystem.R;
@@ -112,5 +115,33 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void removeAllActivity() {
         mAppApplication.removeAllActivity_();
+    }
+
+
+
+    public int getScreenWidth(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
+
+
+    /**
+     * 让屏幕变暗
+     */
+    protected void makeWindowDark(){
+        Window window = getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.alpha = 0.5f;
+        window.setAttributes(lp);
+    }
+    /**
+     * 让屏幕变亮
+     */
+    protected void makeWindowLight(){
+        Window window = getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.alpha = 1f;
+        window.setAttributes(lp);
     }
 }

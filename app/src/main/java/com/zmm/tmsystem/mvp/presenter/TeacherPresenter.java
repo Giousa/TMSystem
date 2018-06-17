@@ -179,10 +179,11 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint,name);
 
         simpleInputDialog.setOnClickListener(new SimpleInputDialog.OnClickListener() {
+
             @Override
             public void onCancel() {
                 simpleInputDialog.dismiss();
-
+                mView.dismissLoading();
             }
 
             @Override
@@ -192,11 +193,14 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                     return;
                 }
                 update2Server(type,content);
-
+                mView.dismissLoading();
             }
         });
 
         simpleInputDialog.show();
+
+        //这里的功能，是用来显示 makeWindowDark()  背景变暗
+        mView.showLoading();
     }
 
 
@@ -211,13 +215,18 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         singleSelectView.setOnSelectClickListener(new SingleSelectView.OnSelectClickListener() {
             @Override
             public void onCancel() {
+
+                mView.dismissLoading();
             }
 
             @Override
             public void onConfirm(String content) {
                 update2Server(type,content);
+                mView.dismissLoading();
             }
         });
+
+        mView.showLoading();
     }
 
 

@@ -58,7 +58,7 @@ public class SimpleInputDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_simple_input_dialog);
         //按空白处不能取消dialog
-//        setCanceledOnTouchOutside(false);
+        setCanceledOnTouchOutside(false);
 
         initView();
 

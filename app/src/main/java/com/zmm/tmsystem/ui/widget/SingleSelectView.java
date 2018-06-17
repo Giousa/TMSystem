@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,12 +40,13 @@ public class SingleSelectView extends View {
     private WheelView mWheelView;
 
     private OnSelectClickListener mOnSelectClickListener;
+    private PopupWindow mPopupWindow;
 
     public void setOnSelectClickListener(OnSelectClickListener onSelectClickListener) {
         mOnSelectClickListener = onSelectClickListener;
     }
 
-    public interface OnSelectClickListener{
+    public interface OnSelectClickListener {
 
         void onCancel();
 
@@ -52,7 +54,7 @@ public class SingleSelectView extends View {
     }
 
 
-    public SingleSelectView(Context context,LinearLayout rootView, int screenWidth,String title, List<String> list) {
+    public SingleSelectView(Context context, LinearLayout rootView, int screenWidth, String title, List<String> list) {
         super(context);
         mContext = context;
         mRootView = rootView;
@@ -71,10 +73,10 @@ public class SingleSelectView extends View {
         mTvTitle = view.findViewById(R.id.pop_title);
         mWheelView = view.findViewById(R.id.pop_wl);
 
-        final PopupWindow popupWindow = new PopupWindow(view, mScreenWidth, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-
+        mPopupWindow = new PopupWindow(view, mScreenWidth, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+//        mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mPopupWindow.setFocusable(false);
+        mPopupWindow.setOutsideTouchable(false);
 
         mTvTitle.setText(mTitle);
         mListStringWheelAdapter = new ListStringWheelAdapter(mContext, mList);
@@ -89,8 +91,8 @@ public class SingleSelectView extends View {
             @Override
             public void onClick(View v) {
 
-                popupWindow.dismiss();
-                if(mOnSelectClickListener != null){
+                mPopupWindow.dismiss();
+                if (mOnSelectClickListener != null) {
                     mOnSelectClickListener.onCancel();
                 }
             }
@@ -100,14 +102,14 @@ public class SingleSelectView extends View {
         confirm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.dismiss();
-                if(mOnSelectClickListener != null){
+                mPopupWindow.dismiss();
+                if (mOnSelectClickListener != null) {
                     mOnSelectClickListener.onConfirm(mList.get(mWheelView.getCurrentItem()));
                 }
             }
         });
 
-        popupWindow.showAtLocation(mRootView, Gravity.BOTTOM, 0, 0);
+        mPopupWindow.showAtLocation(mRootView, Gravity.BOTTOM, 0, 0);
     }
 
 

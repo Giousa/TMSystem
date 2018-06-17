@@ -3,6 +3,8 @@ package com.zmm.tmsystem.ui.activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -115,11 +117,6 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     }
 
-    protected int getScreenWidth(){
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.widthPixels;
-    }
 
 
     /**
@@ -187,7 +184,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     @Override
     public void showLoading() {
-
+        makeWindowDark();
     }
 
     @Override
@@ -197,7 +194,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     @Override
     public void dismissLoading() {
-
+        makeWindowLight();
     }
 
     @Override
@@ -207,5 +204,6 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         initData(teacherBean);
 
     }
+
 
 }
