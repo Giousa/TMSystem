@@ -1,12 +1,9 @@
 package com.zmm.tmsystem.ui.activity;
 
-import android.graphics.drawable.Drawable;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -21,8 +18,6 @@ import com.zmm.tmsystem.ui.fragment.HomeFragment;
 import com.zmm.tmsystem.ui.fragment.ManageFragment;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
-import java.lang.reflect.Method;
-
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFragmentListener, Toolbar.OnMenuItemClickListener {
@@ -34,7 +29,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
     @BindView(R.id.bottom_bar)
     BottomBar mBottomBar;
     private String url = "http://uog.oss-cn-shanghai.aliyuncs.com/icon_head/92edb0c47af3556d1f40d538c4e25e2b_xll.jpg";
-    private MenuItem mMenuItem;
+    private MenuItem mMenuItemSetting;
+    private MenuItem mMenuItemAdd;
+    private int index = 0;
 
     @Override
     protected int setLayout() {
@@ -92,27 +89,32 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
     @Override
     public void onSwitchFragment(int index) {
 
+        this.index = index;
 
         switch (index){
 
             case 0:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_home));
-                mMenuItem.setVisible(true);
+                mMenuItemSetting.setVisible(true);
+                mMenuItemAdd.setVisible(false);
                 break;
 
             case 1:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_manager));
-                mMenuItem.setVisible(false);
+                mMenuItemSetting.setVisible(true);
+                mMenuItemAdd.setVisible(true);
                 break;
 
             case 2:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_cram));
-                mMenuItem.setVisible(false);
+                mMenuItemSetting.setVisible(false);
+                mMenuItemAdd.setVisible(true);
                 break;
 
             case 3:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_comment));
-                mMenuItem.setVisible(false);
+                mMenuItemSetting.setVisible(false);
+                mMenuItemAdd.setVisible(false);
                 break;
 
         }
@@ -122,19 +124,45 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-        mMenuItem = menu.findItem(R.id.menu_right);
-        mMenuItem.setIcon(new IconicsDrawable(this)
+        mMenuItemSetting = menu.findItem(R.id.menu_setting);
+        mMenuItemAdd = menu.findItem(R.id.menu_add);
+        mMenuItemSetting.setIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_settings)
                 .sizeDp(20)
                 .color(getResources().getColor(R.color.white)
                 ));
+
+        mMenuItemAdd.setIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_person_add)
+                .sizeDp(20)
+                .color(getResources().getColor(R.color.white)
+                ));
+
+        mMenuItemAdd.setVisible(false);
         return true;
     }
 
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        startActivity(SettingActivity.class,false);
+
+
+        switch (item.getItemId()){
+            case R.id.menu_setting:
+                if(index == 0){
+                    startActivity(SettingActivity.class,false);
+                }else if(index == 1){
+                    System.out.println("托管中心  设置界面");
+                }
+                break;
+
+            case R.id.menu_add:
+//                startActivity(SettingActivity.class,false);
+                System.out.println("托管中心  添加学生界面");
+
+                break;
+        }
+
         return false;
     }
 

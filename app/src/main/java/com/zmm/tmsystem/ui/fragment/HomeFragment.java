@@ -1,7 +1,6 @@
 package com.zmm.tmsystem.ui.fragment;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,13 +18,11 @@ import com.zmm.tmsystem.dagger.component.DaggerHomeComponent;
 import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.mvp.presenter.HomePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
-import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 /**
  * Description:
@@ -77,20 +74,16 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         mContext = getActivity();
 
+        mPresenter.getSignInfo();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         ACache aCache = ACache.get(mContext);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
-
         showTeacherInfo(teacherBean);
-
-        RxBus.getDefault().toObservable(TeacherBean.class).subscribe(new Consumer<TeacherBean>() {
-            @Override
-            public void accept(TeacherBean teacherBean) throws Exception {
-                System.out.println("HomeFragment  收到通知");
-                showTeacherInfo(teacherBean);
-            }
-        });
-
-        mPresenter.getSignInfo();
     }
 
     @Override
@@ -173,6 +166,11 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
     @Override
     public void signSuccess() {
+        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_success));
+    }
+
+    @Override
+    public void signExist() {
         mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
     }
 

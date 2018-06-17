@@ -33,5 +33,6 @@ public interface HomeContract {
 
         void signInfoSuccess(String msg);
         void signSuccess();
+        void signExist();
     }
 }

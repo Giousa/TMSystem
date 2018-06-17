@@ -51,6 +51,7 @@
 
 
     <string name="home_head_sign">签到</string>
+    <string name="home_head_sign_success">签到成功</string>
     <string name="home_head_sign_exist">已签到</string>
 
 

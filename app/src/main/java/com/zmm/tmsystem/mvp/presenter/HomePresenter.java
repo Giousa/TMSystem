@@ -91,6 +91,7 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
         String signStr = aCache.getAsString(Constant.SIGN);
 
         if(!TextUtils.isEmpty(signStr)){
+            mView.signExist();
             return;
         }
 
@@ -109,7 +110,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
                     public void onNext(String s) {
                         mView.signSuccess();
                         aCache.put(Constant.SIGN,"sign");
-                        ToastUtils.SimpleToast(mContext,s);
                     }
 
                     @Override

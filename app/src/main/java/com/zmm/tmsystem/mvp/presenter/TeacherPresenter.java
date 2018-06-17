@@ -9,7 +9,6 @@ import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
-import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
@@ -249,7 +248,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                     public void onNext(TeacherBean teacherBean) {
                         mView.updateSuccess(title,teacherBean);
                         TeacherCacheUtil.save(mContext,teacherBean);
-                        RxBus.getDefault().post(teacherBean);
                     }
 
                     @Override
