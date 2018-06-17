@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -16,6 +17,7 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.CheckUtils;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.common.utils.VerificationUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
@@ -23,6 +25,7 @@ import com.zmm.tmsystem.dagger.component.DaggerRegisterComponent;
 import com.zmm.tmsystem.dagger.module.RegisterModule;
 import com.zmm.tmsystem.mvp.presenter.RegisterPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.RegisterContract;
+import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import com.zmm.tmsystem.ui.widget.LoadingButton;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -105,6 +108,8 @@ public class ModifyActivity extends BaseActivity<RegisterPresenter> implements R
             mLoadingButton.setLoadingText(getResources().getString(R.string.modify_password_loading));
         }
 
+
+
         mTitleBar.setNavigationIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_arrow_back)
                 .sizeDp(20)
@@ -123,6 +128,9 @@ public class ModifyActivity extends BaseActivity<RegisterPresenter> implements R
 
         mPhone = teacherBean.getPhone();
         mId = teacherBean.getId();
+        String icon = teacherBean.getIcon();
+
+        initIconView(icon);
 
         InitialValueObservable<CharSequence> obModify= RxTextView.textChanges(mEtModify);
         InitialValueObservable<CharSequence> obYzm = RxTextView.textChanges(mEtYzm);
@@ -154,6 +162,25 @@ public class ModifyActivity extends BaseActivity<RegisterPresenter> implements R
             }
         });
 
+    }
+
+    private void initIconView(String icon) {
+        if(CheckUtils.checkString(icon)){
+
+            Glide.with(this)
+                    .load(icon)
+                    .transform(new GlideCircleTransform(this))
+                    .error(new IconicsDrawable(this)
+                            .icon(Ionicons.Icon.ion_android_contact)
+                            .color(getResources().getColor(R.color.md_blue_500)
+                            ))
+                    .into(mIvHead);
+
+        }else {
+            mIvHead.setImageDrawable(new IconicsDrawable(this)
+                    .icon(Ionicons.Icon.ion_android_contact)
+                    .color(getResources().getColor(R.color.md_blue_500)));
+        }
     }
 
 
