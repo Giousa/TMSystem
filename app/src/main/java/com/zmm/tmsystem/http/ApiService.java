@@ -23,8 +23,8 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-//    String BASE_URL = "http://192.168.1.101:8081/tms/";
-    String BASE_URL = "http://192.168.137.207:8081/tms/";
+    String BASE_URL = "http://192.168.1.100:8081/tms/";
+//    String BASE_URL = "http://192.168.137.207:8081/tms/";
 
 
     /**

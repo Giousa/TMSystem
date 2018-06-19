@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +10,12 @@ import android.widget.FrameLayout;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.TermBean;
+import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.BottomBar;
 import com.zmm.tmsystem.ui.fragment.CommentFragment;
 import com.zmm.tmsystem.ui.fragment.CramFragment;
@@ -19,6 +24,8 @@ import com.zmm.tmsystem.ui.fragment.ManageFragment;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFragmentListener, Toolbar.OnMenuItemClickListener {
 
@@ -28,10 +35,12 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
     FrameLayout mFlContainer;
     @BindView(R.id.bottom_bar)
     BottomBar mBottomBar;
-    private String url = "http://uog.oss-cn-shanghai.aliyuncs.com/icon_head/92edb0c47af3556d1f40d538c4e25e2b_xll.jpg";
     private MenuItem mMenuItemSetting;
     private MenuItem mMenuItemAdd;
     private int index = 0;
+    private ACache mACache;
+    private long time = 0;
+
 
     @Override
     protected int setLayout() {
@@ -40,6 +49,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
     @Override
     protected void init() {
+
+        //缓存工具类
+        mACache = ACache.get(this);
 
         //这里一定要加上，否则menu不显示
         setSupportActionBar(mTitleBar);
@@ -50,6 +62,8 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
         mTitleBar.setOnMenuItemClickListener(this);
 
         initTablayout();
+
+        operateBus();
 
 
     }
@@ -100,7 +114,13 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 break;
 
             case 1:
-                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
+
+                TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+                if(termBean == null){
+                    mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
+                }else {
+                    mTitleBar.setCenterTitle(termBean.getTitle());
+                }
                 mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(true);
                 break;
@@ -152,21 +172,21 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 if(index == 0){
                     startActivity(SettingActivity.class,false);
                 }else if(index == 1){
-                    System.out.println("托管中心  设置界面");
+//                    System.out.println("托管中心  设置界面");
                     startActivity(TermActivity.class,false);
                 }else if(index == 2){
-                    System.out.println("补习班中心  设置界面");
+//                    System.out.println("补习班中心  设置界面");
                 }
                 break;
 
             case R.id.menu_add:
-//                startActivity(SettingActivity.class,false);
 
                 if(index == 1){
-                    System.out.println("托管中心  添加学生界面");
+//                    System.out.println("托管中心  添加学生界面");
+                    RxBus.getDefault().post("addTermStudent");
 
                 }else if(index == 2){
-                    System.out.println("补习班中心  添加学生界面");
+//                    System.out.println("补习班中心  添加学生界面");
 
                 }
 
@@ -176,7 +196,6 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
         return false;
     }
 
-    private long time = 0;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -191,5 +210,31 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
         }
 
         return true;
+    }
+
+    /**
+     * RxBus  这里是更新选中的托管项目
+     */
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s) && s.equals("updateTitle")){
+                            TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+                            if(termBean == null){
+                                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
+                            }else {
+                                mTitleBar.setCenterTitle(termBean.getTitle());
+                            }
+                        }
+                    }
+                });
     }
 }

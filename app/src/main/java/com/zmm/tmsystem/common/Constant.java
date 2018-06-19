@@ -38,5 +38,6 @@ public class Constant {
 
     //缓存托管中心id
     public static final String TERM_ID = "TERM_ID";
+    public static final String TERM = "TERM";
 
 }

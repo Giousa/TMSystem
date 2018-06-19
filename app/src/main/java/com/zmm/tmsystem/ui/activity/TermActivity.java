@@ -20,6 +20,7 @@ import com.zmm.tmsystem.dagger.component.DaggerTermComponent;
 import com.zmm.tmsystem.dagger.module.TermModule;
 import com.zmm.tmsystem.mvp.presenter.TermPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TermContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.adapter.TermAdapter;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -45,6 +46,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     private TermAdapter mTermAdapter;
     private ACache mACache;
     private String mTermId;
+    private TermBean mTermBeanCache;
 
 
     @Override
@@ -65,7 +67,13 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     protected void init() {
 
         mACache = ACache.get(this);
-        mTermId = mACache.getAsString(Constant.TERM_ID);
+        mTermBeanCache = (TermBean) mACache.getAsObject(Constant.TERM);
+
+        if(mTermBeanCache == null){
+            mTermId = null;
+        }else {
+            mTermId = mTermBeanCache.getId();
+        }
 
         initToolBar();
 
@@ -94,6 +102,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         });
 
         mTitleBar.setOnMenuItemClickListener(this);
+
     }
 
 
@@ -105,9 +114,11 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mTermAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String id = mTermAdapter.getItem(position).getId();
-                mACache.put(Constant.TERM_ID,id);
-                mTermAdapter.setChecked(id);
+                TermBean item = mTermAdapter.getItem(position);
+                mACache.put(Constant.TERM,item);
+                mTermAdapter.setChecked(item.getId());
+
+                RxBus.getDefault().post("updateTitle");
 
             }
         });
@@ -136,9 +147,10 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     @Override
     public void updateSuccess(TermBean termBean) {
         ToastUtils.SimpleToast(this,"成功创建托管周期");
-        mACache.put(Constant.TERM_ID,termBean.getId());
+        mACache.put(Constant.TERM,termBean);
         mTermAdapter.setChecked(termBean.getId());
         mTermAdapter.addData(termBean);
+
     }
 
     @Override
