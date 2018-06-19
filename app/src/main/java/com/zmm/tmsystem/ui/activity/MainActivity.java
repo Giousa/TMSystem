@@ -100,14 +100,14 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 break;
 
             case 1:
-                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_manager));
+                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
                 mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(true);
                 break;
 
             case 2:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_cram));
-                mMenuItemSetting.setVisible(false);
+                mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(true);
                 break;
 
@@ -153,12 +153,22 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                     startActivity(SettingActivity.class,false);
                 }else if(index == 1){
                     System.out.println("托管中心  设置界面");
+                    startActivity(TermActivity.class,false);
+                }else if(index == 2){
+                    System.out.println("补习班中心  设置界面");
                 }
                 break;
 
             case R.id.menu_add:
 //                startActivity(SettingActivity.class,false);
-                System.out.println("托管中心  添加学生界面");
+
+                if(index == 1){
+                    System.out.println("托管中心  添加学生界面");
+
+                }else if(index == 2){
+                    System.out.println("补习班中心  添加学生界面");
+
+                }
 
                 break;
         }

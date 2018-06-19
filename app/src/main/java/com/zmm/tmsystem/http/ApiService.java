@@ -4,6 +4,7 @@ package com.zmm.tmsystem.http;
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.TeacherBean;
+import com.zmm.tmsystem.bean.TermBean;
 
 import java.util.List;
 
@@ -22,7 +23,8 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    String BASE_URL = "http://192.168.1.101:8081/tms/";
+//    String BASE_URL = "http://192.168.1.101:8081/tms/";
+    String BASE_URL = "http://192.168.137.207:8081/tms/";
 
 
     /**
@@ -149,5 +151,53 @@ public interface ApiService {
     @POST("updateTeacherByType/")
     Observable<BaseBean<TeacherBean>> updateTeacherByType(@Field("id")String id, @Field("type")int type, @Field("content")String content);
 
+
+    /**
+     * -----------------------------托管管理界面接口-----------------------------
+     */
+
+
+    /**
+     * 创建托管中心信息
+     * @param termBean
+     * @return
+     */
+    @POST("createNewTerm/")
+    Observable<BaseBean<String>> createNewTerm(@Body TermBean termBean);
+
+    /**
+     * 获取所有托管信列表
+     * @param tId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("queryAllTerm/")
+    Observable<BaseBean<List<TermBean>>> queryAllTerm(@Field("tId")String tId);
+
+    /**
+     * 根据id获取托管信息
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("queryTermById/")
+    Observable<BaseBean<TermBean>> queryTermById(@Field("id")String id);
+
+    /**
+     * 更新托管资料
+     * @param termBean
+     * @return
+     */
+    @POST("updateTerm/")
+    Observable<BaseBean<String>> updateTerm(@Body TermBean termBean);
+
+    /**
+     * 删除托管资料
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("deleteTerm/")
+    Observable<BaseBean<String>> deleteTerm(@Field("id")String id);
 
 }

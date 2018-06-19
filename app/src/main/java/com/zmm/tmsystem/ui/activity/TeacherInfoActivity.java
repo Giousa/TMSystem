@@ -1,13 +1,8 @@
 package com.zmm.tmsystem.ui.activity;
 
-import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -22,11 +17,9 @@ import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
-import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:

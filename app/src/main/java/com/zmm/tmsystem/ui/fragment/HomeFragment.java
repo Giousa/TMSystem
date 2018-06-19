@@ -13,6 +13,7 @@ import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.CheckUtils;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerHomeComponent;
 import com.zmm.tmsystem.dagger.module.HomeModule;
@@ -166,7 +167,8 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
     @Override
     public void signSuccess() {
-        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_success));
+        ToastUtils.SimpleToast(mContext,getResources().getString(R.string.home_head_sign_success));
+        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
     }
 
     @Override
