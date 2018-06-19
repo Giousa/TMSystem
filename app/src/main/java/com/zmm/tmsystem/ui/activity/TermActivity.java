@@ -12,6 +12,8 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TermBean;
+import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerTermComponent;
@@ -41,6 +43,8 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
 
     private MenuItem mMenuItemAdd;
     private TermAdapter mTermAdapter;
+    private ACache mACache;
+    private String mTermId;
 
 
     @Override
@@ -60,13 +64,14 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     @Override
     protected void init() {
 
+        mACache = ACache.get(this);
+        mTermId = mACache.getAsString(Constant.TERM_ID);
+
         initToolBar();
 
         initData();
 
     }
-
-
 
     private void initToolBar() {
 
@@ -96,12 +101,14 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mTermAdapter = new TermAdapter(this);
+        mTermAdapter = new TermAdapter(this,mTermId);
         mTermAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                System.out.println("position = "+position);
-                mTermAdapter.setChecked(position);
+                String id = mTermAdapter.getItem(position).getId();
+                mACache.put(Constant.TERM_ID,id);
+                mTermAdapter.setChecked(id);
+
             }
         });
         mRecyclerView.setAdapter(mTermAdapter);
@@ -129,15 +136,15 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     @Override
     public void updateSuccess(TermBean termBean) {
         ToastUtils.SimpleToast(this,"成功创建托管周期");
+        mACache.put(Constant.TERM_ID,termBean.getId());
+        mTermAdapter.setChecked(termBean.getId());
         mTermAdapter.addData(termBean);
-        mTermAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void getAllTerms(List<TermBean> list) {
 
         mTermAdapter.setNewData(list);
-        mTermAdapter.notifyDataSetChanged();
 
     }
 

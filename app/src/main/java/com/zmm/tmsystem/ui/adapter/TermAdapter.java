@@ -1,7 +1,7 @@
 package com.zmm.tmsystem.ui.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -10,8 +10,8 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TermBean;
-
-import java.util.List;
+import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
 
 /**
  * Description:
@@ -24,15 +24,22 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
 
 
     private Context mContext;
-    private int mCheckPosition = 0;
+    private String mTermId = null;
 
-    public TermAdapter(Context context) {
+    public TermAdapter(Context context,String id) {
         super(R.layout.item_term);
         mContext = context;
+        mTermId = id;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, TermBean item) {
+
+
+        if(TextUtils.isEmpty(mTermId)){
+            return;
+        }
+
         helper.setText(R.id.tv_term_title, item.getTitle());
         helper.setText(R.id.tv_term_year, item.getYear()+"");
         helper.setText(R.id.tv_term_month, item.getMonth()+"");
@@ -40,10 +47,7 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
 
         ImageView imageView = helper.getView(R.id.iv_term_checked);
 
-        int adapterPosition = helper.getAdapterPosition();
-        System.out.println("adapterPosition = "+adapterPosition);
-
-        if(adapterPosition == mCheckPosition){
+        if(item.getId().equals(mTermId)){
             imageView.setImageDrawable(new IconicsDrawable(mContext)
                     .icon(Ionicons.Icon.ion_android_checkbox_outline)
                     .color(mContext.getResources().getColor(R.color.colorAccent)));
@@ -57,8 +61,9 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
 
     }
 
-    public void setChecked(int position) {
-        mCheckPosition = position;
+    public void setChecked(String id) {
+
+        mTermId = id;
         notifyDataSetChanged();
     }
 }
