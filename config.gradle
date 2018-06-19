@@ -48,6 +48,8 @@ ext{
 
             "recycler-view"                      : "com.android.support:recyclerview-v7:${android["androidSupportVersion"]}",
 
+            "cardview-view"                      : "com.android.support:cardview-v7:${android["androidSupportVersion"]}",
+
     ]
 
 

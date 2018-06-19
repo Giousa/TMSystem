@@ -19,7 +19,7 @@ public interface TermContract {
 
     interface ITermModel{
 
-        Observable<BaseBean<String>> createNewTerm(TermBean termBean);
+        Observable<BaseBean<TermBean>> createNewTerm(TermBean termBean);
 
         Observable<BaseBean<List<TermBean>>> queryAllTerm(String tId);
 
@@ -33,7 +33,7 @@ public interface TermContract {
 
     interface TermView extends BaseView{
 
-        void updateSuccess();
+        void updateSuccess(TermBean termBean);
         void getAllTerms(List<TermBean> list);
 
     }

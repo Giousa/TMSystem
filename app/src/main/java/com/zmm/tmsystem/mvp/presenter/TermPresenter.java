@@ -98,7 +98,7 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
      * @param month
      * @param term
      */
-    private void update2Server(String title, int year, int month, String term) {
+    private void update2Server(String title, int year, int month, final String term) {
 
         ACache aCache = ACache.get(mContext);
         String tId = aCache.getAsString(Constant.TEACHER_ID);
@@ -111,16 +111,16 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
         termBean.setTerm(term);
 
         mModel.createNewTerm(termBean)
-                .compose(RxHttpResponseCompat.<String>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                .compose(RxHttpResponseCompat.<TermBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<TermBean>(mContext) {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        mView.updateSuccess();
+                    public void onNext(TermBean termBean) {
+                        mView.updateSuccess(termBean);
                     }
 
                     @Override

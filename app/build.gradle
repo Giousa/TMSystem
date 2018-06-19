@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["design"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
@@ -43,9 +43,7 @@ dependencies {
 
     //path
     compile 'com.eftimoff:android-pathview:1.0.8@aar'
-
     compile 'com.github.f0ris.sweetalert:library:1.5.1'
-
 
     //图片加载框架
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -54,9 +52,7 @@ dependencies {
 
     //分层加载列表
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.8.0'
-
     compile 'com.ms-square:expandableTextView:0.1.4'
-
     compile 'com.zoonref:simple-view-behavior:1.0'
 
     /////////////////////////////////////
@@ -66,36 +62,52 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     ////RxJava
-//    compile 'io.reactivex:rxandroid:1.2.1'
-//    compile 'io.reactivex:rxjava:1.1.6'
+
+    //    compile 'io.reactivex:rxandroid:1.2.1'
+
+    //    compile 'io.reactivex:rxjava:1.1.6'
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
 
     //retrofit
-    compile rootProject.ext.dependencies['retrofit'] // 需要升级
-    compile rootProject.ext.dependencies['retrofit-adapter-rxjava']// 需要升级
+    compile rootProject.ext.dependencies['retrofit']
+
+    // 需要升级
+    compile rootProject.ext.dependencies['retrofit-adapter-rxjava']
+
+    // 需要升级
     compile rootProject.ext.dependencies['retrofit-converter-gson']
 
     // okHttp
-    compile rootProject.ext.dependencies["okhttp"]  // 需要升级
+    compile rootProject.ext.dependencies["okhttp"]
+
+    // 需要升级
     compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
 
     //RxBinding
-//    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
-    compile rootProject.ext.dependencies["rxbinding"] // 需要升级
+
+    //    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+    compile rootProject.ext.dependencies["rxbinding"]
+
+    // 需要升级
 
     //RxBus
-//    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
+    //    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 
     //权限授权
-//    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.8.2@aar' //降级
+
+    //    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.8.2@aar'
+
+    //降级
 
     //持久化Cookie
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
-//    implementation rootProject.ext.dependencies["recycler-view"]
-
+    //    implementation rootProject.ext.dependencies["recycler-view"]
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
+    //cardview
+    implementation rootProject.ext.dependencies["cardview-view"]
 }

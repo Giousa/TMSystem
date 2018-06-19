@@ -40,6 +40,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     RecyclerView mRecyclerView;
 
     private MenuItem mMenuItemAdd;
+    private TermAdapter mTermAdapter;
 
 
     @Override
@@ -95,6 +96,16 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        mTermAdapter = new TermAdapter(this);
+        mTermAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                System.out.println("position = "+position);
+                mTermAdapter.setChecked(position);
+            }
+        });
+        mRecyclerView.setAdapter(mTermAdapter);
+
         mPresenter.queryAllTerm();
     }
 
@@ -116,21 +127,17 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     }
 
     @Override
-    public void updateSuccess() {
+    public void updateSuccess(TermBean termBean) {
         ToastUtils.SimpleToast(this,"成功创建托管周期");
+        mTermAdapter.addData(termBean);
+        mTermAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void getAllTerms(List<TermBean> list) {
 
-        TermAdapter termAdapter = new TermAdapter(list);
-        termAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                System.out.println("position = "+position);
-            }
-        });
-        mRecyclerView.setAdapter(termAdapter);
+        mTermAdapter.setNewData(list);
+        mTermAdapter.notifyDataSetChanged();
 
     }
 

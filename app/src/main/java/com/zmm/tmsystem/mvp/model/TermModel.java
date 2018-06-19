@@ -26,7 +26,7 @@ public class TermModel implements TermContract.ITermModel{
     }
 
     @Override
-    public Observable<BaseBean<String>> createNewTerm(TermBean termBean) {
+    public Observable<BaseBean<TermBean>> createNewTerm(TermBean termBean) {
         return mApiService.createNewTerm(termBean);
     }
 

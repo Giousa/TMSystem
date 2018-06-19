@@ -163,7 +163,7 @@ public interface ApiService {
      * @return
      */
     @POST("createNewTerm/")
-    Observable<BaseBean<String>> createNewTerm(@Body TermBean termBean);
+    Observable<BaseBean<TermBean>> createNewTerm(@Body TermBean termBean);
 
     /**
      * 获取所有托管信列表
