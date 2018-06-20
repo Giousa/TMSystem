@@ -3,6 +3,7 @@ package com.zmm.tmsystem.ui.fragment;
 import android.text.TextUtils;
 
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.rx.RxBus;
@@ -50,7 +51,7 @@ public class ManageFragment extends ProgressFragment {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals("addTermStudent")){
+                        if(!TextUtils.isEmpty(s) && s.equals(Constant.ADD_TERM_STUDENT)){
                             ToastUtils.SimpleToast(mApplication,"addTermStudent");
                         }
                     }

@@ -234,7 +234,7 @@ public class TermInfoActivity extends BaseActivity<TermPresenter> implements Ter
         if(id.equals(termBean.getId())){
             aCache.put(Constant.TERM,new TermBean());
         }
-        RxBus.getDefault().post("updateTerm");
+        RxBus.getDefault().post(Constant.UPDATE_TERM);
         finish();
     }
 

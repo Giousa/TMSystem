@@ -40,4 +40,11 @@ public class Constant {
     public static final String TERM_CLICKED = "TERM_CLICKED";
     public static final String TERM = "TERM";
 
+    //Rxbus消息
+    public static final String UPDATE_TITLE = "UPDATE_TITLE";
+    public static final String UPDATE_TERM = "UPDATE_TERM";
+    public static final String ADD_TERM_STUDENT = "ADD_TERM_STUDENT";
+
+
+
 }

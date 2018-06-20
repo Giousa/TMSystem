@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
                 if(index == 1){
 //                    System.out.println("托管中心  添加学生界面");
-                    RxBus.getDefault().post("addTermStudent");
+                    RxBus.getDefault().post(Constant.ADD_TERM_STUDENT);
 
                 }else if(index == 2){
 //                    System.out.println("补习班中心  添加学生界面");
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals("updateTitle")){
+                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_TITLE)){
                             TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
                             if(termBean == null){
                                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));

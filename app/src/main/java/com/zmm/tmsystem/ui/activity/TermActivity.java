@@ -133,7 +133,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
                 TermBean item = mTermAdapter.getItem(position);
                 mACache.put(Constant.TERM,item);
                 mTermAdapter.setChecked(item.getId());
-                RxBus.getDefault().post("updateTitle");
+                RxBus.getDefault().post(Constant.UPDATE_TITLE);
             }
         });
 
@@ -165,6 +165,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mACache.put(Constant.TERM,termBean);
         mTermAdapter.setChecked(termBean.getId());
         mTermAdapter.addData(termBean);
+        RxBus.getDefault().post(Constant.UPDATE_TITLE);
     }
 
     @Override
@@ -226,7 +227,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals("updateTerm")){
+                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_TERM)){
                             mPresenter.queryAllTerm();
                         }
                     }
