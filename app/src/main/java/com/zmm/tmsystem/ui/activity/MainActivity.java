@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
             case 1:
 
                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
-                if(termBean == null){
+                if(termBean == null || termBean.getId() == null){
                     mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
                 }else {
                     mTitleBar.setCenterTitle(termBean.getTitle());
