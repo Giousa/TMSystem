@@ -14,6 +14,7 @@ import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerTermComponent;
@@ -22,6 +23,7 @@ import com.zmm.tmsystem.mvp.presenter.TermPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TermContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.LoadingButton;
+import com.zmm.tmsystem.ui.widget.SimpleSelectDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.List;
@@ -40,8 +42,8 @@ import io.reactivex.functions.Function4;
  */
 
 public class TermInfoActivity extends BaseActivity<TermPresenter> implements TermContract.TermView {
-    @BindView(R.id.tv_dialog_top)
-    TextView mTvDialogTop;
+
+
     @BindView(R.id.et_dialog_title)
     EditText mEtDialogTitle;
     @BindView(R.id.et_dialog_year)
@@ -159,6 +161,22 @@ public class TermInfoActivity extends BaseActivity<TermPresenter> implements Ter
             @Override
             public void accept(Object o) throws Exception {
 //                mPresenter.updateTerm(mTermBean);
+                final SimpleSelectDialog simpleSelectDialog = new SimpleSelectDialog(TermInfoActivity.this);
+                simpleSelectDialog.setOnClickListener(new SimpleSelectDialog.OnClickListener() {
+                    @Override
+                    public void onCancel() {
+                        simpleSelectDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onConfirm() {
+                        simpleSelectDialog.dismiss();
+
+                        mPresenter.delete(mTermBean.getId());
+                    }
+                });
+
+                simpleSelectDialog.show();
             }
         });
 
@@ -209,14 +227,20 @@ public class TermInfoActivity extends BaseActivity<TermPresenter> implements Ter
     }
 
     @Override
+    public void deleteSuccess(String id) {
+
+        ACache aCache = ACache.get(this);
+        TermBean termBean = (TermBean) aCache.getAsObject(Constant.TERM);
+        if(id.equals(termBean.getId())){
+            aCache.put(Constant.TERM,new TermBean());
+        }
+        RxBus.getDefault().post("updateTerm");
+        finish();
+    }
+
+    @Override
     public void getAllTerms(List<TermBean> list) {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

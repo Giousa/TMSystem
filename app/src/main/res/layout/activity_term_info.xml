@@ -16,6 +16,7 @@
         android:padding="@dimen/dp_size_30">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_dialog_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -181,7 +182,7 @@
             android:background="@drawable/bg_btn"
             app:loadingText="正在修改"
             app:progressColor="@color/colorAccent"
-            app:text="确认修改"
+            app:text="修改"
             app:textColor="@color/white"/>
 
         <com.zmm.tmsystem.ui.widget.LoadingButton

@@ -173,6 +173,11 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     }
 
     @Override
+    public void deleteSuccess(String id) {
+
+    }
+
+    @Override
     public void getAllTerms(List<TermBean> list) {
 
         mTermAdapter.setNewData(list);

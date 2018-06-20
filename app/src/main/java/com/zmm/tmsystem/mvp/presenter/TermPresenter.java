@@ -162,4 +162,30 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
                     }
                 });
     }
+
+    /**
+     * 删除托管周期
+     * @param id
+     */
+    public void delete(final String id) {
+
+        mModel.deleteTerm(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteSuccess(id);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }

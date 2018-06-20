@@ -35,6 +35,7 @@ public interface TermContract {
 
         void createSuccess(TermBean termBean);
         void updateSuccess(String s);
+        void deleteSuccess(String id);
         void getAllTerms(List<TermBean> list);
 
     }
