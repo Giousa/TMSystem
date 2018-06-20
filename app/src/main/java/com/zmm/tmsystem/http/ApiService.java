@@ -3,6 +3,7 @@ package com.zmm.tmsystem.http;
 
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.SchoolBean;
+import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.bean.TermBean;
 
@@ -199,5 +200,56 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("deleteTerm/")
     Observable<BaseBean<String>> deleteTerm(@Field("id")String id);
+
+
+    /**
+     * -----------------------------学生相关接口-----------------------------
+     */
+
+    /**
+     * 添加学生
+     * @param studentBean
+     * @return
+     */
+    @POST("addStudent/")
+    Observable<BaseBean<StudentBean>> addStudent(@Body StudentBean studentBean);
+
+    /**
+     * 更新学生
+     * @param studentBean
+     * @return
+     */
+    @POST("updateStudent/")
+    Observable<BaseBean<String>> updateStudent(@Body StudentBean studentBean);
+
+
+    /**
+     * 删除学生
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("deleteStudent/")
+    Observable<BaseBean<String>> deleteStudent(@Field("id")String id);
+
+    /**
+     * 查询托管学生
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("queryAllStudentsByChildcareId/")
+    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByChildcareId(@Field("id")String id);
+
+    /**
+     * 查询补习班学生
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("queryAllStudentsByCramId/")
+    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByCramId(@Field("id")String id);
+
+
 
 }
