@@ -1,12 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@null"
+              android:orientation="vertical">
 
-    <TextView
-        android:text="周期详情信息界面"
+    <include layout="@layout/toolbar_content"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_corners_grey"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_size_30">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_dialog_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_size_5"
+            android:gravity="center_horizontal"
+            android:text="修改托管周期"
+            android:textColor="@color/chart_text"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_size_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标题："
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_dialog_title"
+                android:layout_width="@dimen/dp_size_250"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_size_15"
+                android:background="@drawable/shape_corners_bg"
+                android:hint="请输入标题"
+                android:imeOptions="actionDone"
+                android:padding="@dimen/dp_size_10"
+                android:singleLine="true"
+                android:textColor="@color/chart_text"
+                android:textSize="@dimen/text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_size_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="年份："
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_dialog_year"
+                android:layout_width="@dimen/dp_size_250"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_size_15"
+                android:background="@drawable/shape_corners_bg"
+                android:hint="请输入年份"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:padding="@dimen/dp_size_10"
+                android:singleLine="true"
+                android:textColor="@color/chart_text"
+                android:textSize="@dimen/text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_size_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="月份："
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_dialog_month"
+                android:layout_width="@dimen/dp_size_250"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_size_15"
+                android:background="@drawable/shape_corners_bg"
+                android:hint="请输入月份"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:padding="@dimen/dp_size_10"
+                android:singleLine="true"
+                android:textColor="@color/chart_text"
+                android:textSize="@dimen/text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_size_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周期："
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_dialog_term"
+                android:layout_width="@dimen/dp_size_250"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_size_15"
+                android:background="@drawable/shape_corners_bg"
+                android:hint="请输入周期"
+                android:imeOptions="actionDone"
+                android:padding="@dimen/dp_size_10"
+                android:singleLine="true"
+                android:textColor="@color/chart_text"
+                android:textSize="@dimen/text_size_15"/>
+
+        </LinearLayout>
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_dialog_update"-->
+        <!--android:layout_width="@dimen/dp_size_250"-->
+        <!--android:layout_height="@dimen/dp_size_40"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="@dimen/dp_size_30"-->
+        <!--android:background="@drawable/shape_corners_bt"-->
+        <!--android:text="确认修改"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/text_size_15"/>-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_dialog_delete"-->
+        <!--android:layout_width="@dimen/dp_size_250"-->
+        <!--android:layout_height="@dimen/dp_size_40"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="@dimen/dp_size_30"-->
+        <!--android:background="@color/md_red_A700"-->
+        <!--android:text="删除"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/text_size_15"/>-->
+
+        <com.zmm.tmsystem.ui.widget.LoadingButton
+            android:id="@+id/btn_dialog_update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_size_40"
+            android:layout_marginLeft="@dimen/dp_size_20"
+            android:layout_marginRight="@dimen/dp_size_20"
+            android:layout_marginTop="@dimen/dp_size_30"
+            android:background="@drawable/bg_btn"
+            app:loadingText="正在修改"
+            app:progressColor="@color/colorAccent"
+            app:text="确认修改"
+            app:textColor="@color/white"/>
+
+        <com.zmm.tmsystem.ui.widget.LoadingButton
+            android:id="@+id/btn_dialog_delete"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_size_40"
+            android:layout_marginLeft="@dimen/dp_size_20"
+            android:layout_marginRight="@dimen/dp_size_20"
+            android:layout_marginTop="@dimen/dp_size_30"
+            android:background="@drawable/shape_corners_red"
+            app:loadingText="正在删除"
+            app:progressColor="@color/colorPrimary"
+            app:text="删除"
+            app:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

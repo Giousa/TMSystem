@@ -37,7 +37,7 @@ public class Constant {
     public static final int TYPE_CHANGE = 12;
 
     //缓存托管中心id
-    public static final String TERM_ID = "TERM_ID";
+    public static final String TERM_CLICKED = "TERM_CLICKED";
     public static final String TERM = "TERM";
 
 }

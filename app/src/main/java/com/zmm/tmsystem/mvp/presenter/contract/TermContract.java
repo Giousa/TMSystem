@@ -33,7 +33,8 @@ public interface TermContract {
 
     interface TermView extends BaseView{
 
-        void updateSuccess(TermBean termBean);
+        void createSuccess(TermBean termBean);
+        void updateSuccess(String s);
         void getAllTerms(List<TermBean> list);
 
     }

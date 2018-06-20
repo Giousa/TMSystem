@@ -1,8 +1,10 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,8 @@ import com.zmm.tmsystem.ui.widget.TitleBar;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -79,6 +83,8 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
 
         initData();
 
+        operateBus();
+
     }
 
     private void initToolBar() {
@@ -114,8 +120,9 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mTermAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.SimpleToast(mAppApplication,"条目被点击了 position = "+position);
-                startActivity(TermInfoActivity.class,false);
+                Intent intent = new Intent(TermActivity.this,TermInfoActivity.class);
+                intent.putExtra(Constant.TERM_CLICKED,mTermAdapter.getItem(position));
+                startActivity(intent);
 
             }
         });
@@ -126,7 +133,6 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
                 TermBean item = mTermAdapter.getItem(position);
                 mACache.put(Constant.TERM,item);
                 mTermAdapter.setChecked(item.getId());
-
                 RxBus.getDefault().post("updateTitle");
             }
         });
@@ -154,11 +160,15 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     }
 
     @Override
-    public void updateSuccess(TermBean termBean) {
+    public void createSuccess(TermBean termBean) {
         ToastUtils.SimpleToast(this,"成功创建托管周期");
         mACache.put(Constant.TERM,termBean);
         mTermAdapter.setChecked(termBean.getId());
         mTermAdapter.addData(termBean);
+    }
+
+    @Override
+    public void updateSuccess(String s) {
 
     }
 
@@ -195,5 +205,26 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mPresenter.createTerm();
 
         return false;
+    }
+
+    /**
+     * RxBus  托管周期更新
+     */
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s) && s.equals("updateTerm")){
+                            mPresenter.queryAllTerm();
+                        }
+                    }
+                });
     }
 }

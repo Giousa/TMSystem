@@ -8,13 +8,7 @@
     android:background="#e1f0fc">
 
 
-    <com.zmm.tmsystem.ui.widget.TitleBar
-        android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:theme="@style/ToolBarTheme"/>
+    <include layout="@layout/toolbar_content"/>
 
 
     <LinearLayout

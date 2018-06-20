@@ -120,7 +120,7 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
 
                     @Override
                     public void onNext(TermBean termBean) {
-                        mView.updateSuccess(termBean);
+                        mView.createSuccess(termBean);
                     }
 
                     @Override
@@ -130,4 +130,36 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
                 });
     }
 
+    /**
+     * 更新数据
+     * @param termBean
+     */
+    public void updateTerm(TermBean termBean) {
+
+        mModel.updateTerm(termBean)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.updateSuccess(s);
+                        mView.dismissLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.dismissLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.dismissLoading();
+                    }
+                });
+    }
 }

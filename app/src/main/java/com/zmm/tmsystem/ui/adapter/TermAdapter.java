@@ -37,10 +37,6 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
     protected void convert(BaseViewHolder helper, TermBean item) {
 
 
-        if(TextUtils.isEmpty(mTermId)){
-            return;
-        }
-
         helper.setText(R.id.tv_term_title, item.getTitle());
         helper.setText(R.id.tv_term_year, item.getYear()+"");
         helper.setText(R.id.tv_term_month, item.getMonth()+"");
