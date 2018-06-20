@@ -35,6 +35,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     private BaseActivity mBaseActivity;
 
+    public int mScreenWidth;
+
+
     @Inject
     T mPresenter;
 
@@ -47,10 +50,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         super.onCreate(savedInstanceState);
 
-
         setContentView(setLayout());
 
         mUnbinder = ButterKnife.bind(this);
+
+        mScreenWidth = getScreenWidth();
 
         mBaseActivity = this;
 

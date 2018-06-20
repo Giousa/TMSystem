@@ -98,19 +98,4 @@ public class TermBean extends BaseEntity{
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
-
-    @Override
-    public String toString() {
-        return "TermBean{" +
-                "id='" + id + '\'' +
-                ", teacherId='" + teacherId + '\'' +
-                ", title='" + title + '\'' +
-                ", year=" + year +
-                ", month=" + month +
-                ", term='" + term + '\'' +
-                ", address='" + address + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

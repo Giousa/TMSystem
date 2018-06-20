@@ -1,22 +1,17 @@
 package com.zmm.tmsystem.ui.fragment;
 
-import android.text.TextUtils;
-
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
-import com.zmm.tmsystem.common.utils.ToastUtils;
+import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerStudentComponent;
 import com.zmm.tmsystem.dagger.module.StudentModule;
 import com.zmm.tmsystem.mvp.presenter.StudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
-import com.zmm.tmsystem.rx.RxBus;
 
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -44,33 +39,21 @@ public class ManageFragment extends ProgressFragment<StudentPresenter> implement
     @Override
     protected void init() {
 
-        operateBus();
+        ACache aCache = ACache.get(getActivity());
+        TermBean termBean = (TermBean) aCache.getAsObject(Constant.TERM);
 
-        
+        if(termBean != null && termBean.getId() != null){
+            mPresenter.queryAllStudents(termBean.getId());
+        }
+
     }
 
 
-    /**
-     * RxBus 这里响应MainActivity中ToolBar  Add按钮点击事件
-     */
-    private void operateBus() {
-        RxBus.getDefault().toObservable()
-                .map(new Function<Object, String>() {
-                    @Override
-                    public String apply(Object o) throws Exception {
-                        return (String) o;
-                    }
-                })
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals(Constant.ADD_TERM_STUDENT)){
-                            ToastUtils.SimpleToast(mApplication,"addTermStudent");
+    @Override
+    public void inputSuccess(int type, String content) {
 
-                        }
-                    }
-                });
     }
+
 
     @Override
     public void addSuccess(StudentBean studentBean) {

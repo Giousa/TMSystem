@@ -3,6 +3,7 @@ package com.zmm.tmsystem.ui.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +29,7 @@ public class SimpleInputDialog extends Dialog {
     private String title;
     private String hint;
     private String name;
+    private boolean isNumberType = false;
 
 
 
@@ -38,11 +40,12 @@ public class SimpleInputDialog extends Dialog {
         mOnClickListener = onClickListener;
     }
 
-    public SimpleInputDialog(Context context, String title, String hint,String name) {
+    public SimpleInputDialog(Context context, String title, String hint,String name,boolean isNumberType) {
         super(context, R.style.SimpleDialog);
         this.title = title;
         this.hint = hint;
         this.name = name;
+        this.isNumberType = isNumberType;
     }
 
     public interface OnClickListener{
@@ -75,6 +78,9 @@ public class SimpleInputDialog extends Dialog {
 
         mTitle.setText(title);
         mEditText.setHint(hint);
+        if(isNumberType){
+            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
 
         if(!TextUtils.isEmpty(name)){
             mEditText.setText(name);

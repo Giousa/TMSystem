@@ -25,13 +25,13 @@ public interface StudentContract {
 
         Observable<BaseBean<String>> deleteStudent(String id);
 
-        Observable<BaseBean<List<StudentBean>>> queryAllStudentsByChildcareId(String id);
-
-        Observable<BaseBean<List<StudentBean>>> queryAllStudentsByCramId(String id);
+        Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id);
 
     }
 
     interface StudentView extends BaseView{
+
+        void inputSuccess(int type,String content);
 
         void addSuccess(StudentBean studentBean);
 

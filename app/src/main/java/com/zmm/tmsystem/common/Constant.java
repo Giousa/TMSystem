@@ -9,6 +9,9 @@ package com.zmm.tmsystem.common;
 
 public class Constant {
 
+
+    public static final String BASE_URL="http://192.168.1.101:8081/tms/";
+
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 
 
@@ -44,6 +47,18 @@ public class Constant {
     public static final String UPDATE_TITLE = "UPDATE_TITLE";
     public static final String UPDATE_TERM = "UPDATE_TERM";
     public static final String ADD_TERM_STUDENT = "ADD_TERM_STUDENT";
+
+
+    //-----------------学生信息点击------------------
+    public static final int TYPE_STUDENT_ICON = 0;
+    public static final int TYPE_STUDENT_NAME = 1;
+    public static final int TYPE_STUDENT_GENDER = 2;
+    public static final int TYPE_STUDENT_PHONE = 3;
+    public static final int TYPE_STUDENT_ADDRESS = 4;
+    public static final int TYPE_STUDENT_GUARDIAN1 = 5;
+    public static final int TYPE_STUDENT_GUARDIANPHONE1 = 6;
+    public static final int TYPE_STUDENT_GUARDIAN2 = 7;
+    public static final int TYPE_STUDENT_GUARDIANPHONE2 = 8;
 
 
 

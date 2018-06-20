@@ -54,8 +54,6 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @BindView(R.id.root_view)
     LinearLayout mRootView;
 
-    private int mScreenWidth;
-
 
     @Override
     protected int setLayout() {
@@ -75,8 +73,6 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     @Override
     protected void init() {
-
-        mScreenWidth = getScreenWidth();
 
         mTitleBar.setCenterTitle("教师信息");
         mTitleBar.setNavigationIcon(new IconicsDrawable(this)

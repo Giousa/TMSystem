@@ -9,6 +9,7 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.google.gson.Gson;
 import com.zmm.tmsystem.application.AppApplication;
+import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.dagger.interceptor.AddCookiesInterceptor;
 import com.zmm.tmsystem.dagger.interceptor.ReceivedCookiesInterceptor;
 import com.zmm.tmsystem.http.ApiService;
@@ -78,7 +79,7 @@ public class HttpModule {
 
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(ApiService.BASE_URL)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient);

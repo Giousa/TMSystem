@@ -70,7 +70,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
             case Constant.TYPE_NAME:
                 title = "姓名";
                 hint = "请输入您的姓名";
-                inputString();
+                inputString(false);
                 break;
             case Constant.TYPE_GENDER:
                 title = "性别";
@@ -83,12 +83,12 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
             case Constant.TYPE_PHONE:
                 title = "联系电话";
                 hint = "请输入联系电话";
-                inputString();
+                inputString(true);
                 break;
             case Constant.TYPE_CHILDCARE_NAME:
                 title = "托管机构";
                 hint = "请输入机构名称";
-                inputString();
+                inputString(false);
                 break;
             case Constant.TYPE_SCHOOL:
                 title = "在职学校";
@@ -130,7 +130,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
             case Constant.TYPE_ADDRESS:
                 title = "地址";
                 hint = "请输入您的地址";
-                inputString();
+                inputString(false);
                 break;
 
         }
@@ -173,9 +173,9 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
     /**
      * 输入框修改
      */
-    private void inputString() {
+    private void inputString(boolean isNumberType) {
 
-        final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint,name);
+        final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext, title, hint,name,isNumberType);
 
         simpleInputDialog.setOnClickListener(new SimpleInputDialog.OnClickListener() {
 

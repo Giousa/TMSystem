@@ -13,27 +13,26 @@ public class StudentBean extends BaseEntity {
 
     private String teacherId;
 
-    private String childcareId;
-
-    private String cramId;
-
     private String name;
+
+    private Integer gender;
 
     private String icon;
 
     private long birthday;
 
-    private Integer type;
-
-    private Integer grade;
-
-    private Integer school;
-
     private String phone;
 
-    private Integer signDays;
-
     private String address;
+
+    private String guardian1;
+
+    private String guardian1Phone;
+
+    private String guardian2;
+
+    private String guardian2Phone;
+
 
     private long createTime;
 
@@ -55,28 +54,20 @@ public class StudentBean extends BaseEntity {
         this.teacherId = teacherId;
     }
 
-    public String getChildcareId() {
-        return childcareId;
-    }
-
-    public void setChildcareId(String childcareId) {
-        this.childcareId = childcareId;
-    }
-
-    public String getCramId() {
-        return cramId;
-    }
-
-    public void setCramId(String cramId) {
-        this.cramId = cramId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public String getIcon() {
@@ -95,30 +86,6 @@ public class StudentBean extends BaseEntity {
         this.birthday = birthday;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Integer getSchool() {
-        return school;
-    }
-
-    public void setSchool(Integer school) {
-        this.school = school;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -127,20 +94,44 @@ public class StudentBean extends BaseEntity {
         this.phone = phone;
     }
 
-    public Integer getSignDays() {
-        return signDays;
-    }
-
-    public void setSignDays(Integer signDays) {
-        this.signDays = signDays;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getGuardian1() {
+        return guardian1;
+    }
+
+    public void setGuardian1(String guardian1) {
+        this.guardian1 = guardian1;
+    }
+
+    public String getGuardian1Phone() {
+        return guardian1Phone;
+    }
+
+    public void setGuardian1Phone(String guardian1Phone) {
+        this.guardian1Phone = guardian1Phone;
+    }
+
+    public String getGuardian2() {
+        return guardian2;
+    }
+
+    public void setGuardian2(String guardian2) {
+        this.guardian2 = guardian2;
+    }
+
+    public String getGuardian2Phone() {
+        return guardian2Phone;
+    }
+
+    public void setGuardian2Phone(String guardian2Phone) {
+        this.guardian2Phone = guardian2Phone;
     }
 
     public long getCreateTime() {
