@@ -114,14 +114,23 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mTermAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.SimpleToast(mAppApplication,"条目被点击了 position = "+position);
+                startActivity(TermInfoActivity.class,false);
+
+            }
+        });
+
+        mTermAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TermBean item = mTermAdapter.getItem(position);
                 mACache.put(Constant.TERM,item);
                 mTermAdapter.setChecked(item.getId());
 
                 RxBus.getDefault().post("updateTitle");
-
             }
         });
+
         mRecyclerView.setAdapter(mTermAdapter);
 
         mPresenter.queryAllTerm();

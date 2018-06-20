@@ -18,6 +18,4 @@ import dagger.Component;
 public interface TermComponent {
 
     void inject(TermActivity activity);
-
-    void inject(ManageFragment fragment);
 }

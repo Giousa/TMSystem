@@ -2,6 +2,7 @@ package com.zmm.tmsystem.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -45,6 +46,8 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
         helper.setText(R.id.tv_term_month, item.getMonth()+"");
         helper.setText(R.id.tv_term_content, item.getTerm());
 
+        helper.addOnClickListener(R.id.iv_term_checked);
+
         ImageView imageView = helper.getView(R.id.iv_term_checked);
 
         if(item.getId().equals(mTermId)){
@@ -56,9 +59,6 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
                     .icon(Ionicons.Icon.ion_android_checkbox_outline)
                     .color(mContext.getResources().getColor(R.color.chart_text)));
         }
-
-
-
     }
 
     public void setChecked(String id) {
