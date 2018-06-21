@@ -52,7 +52,7 @@
                 android:id="@+id/tv_term_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="周期：上学期"
+                android:text="学期：上学期"
                 android:textSize="@dimen/text_size_15"/>
 
 

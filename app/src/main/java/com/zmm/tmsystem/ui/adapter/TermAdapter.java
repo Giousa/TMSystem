@@ -40,7 +40,7 @@ public class TermAdapter extends BaseQuickAdapter<TermBean,BaseViewHolder>{
         helper.setText(R.id.tv_term_title, item.getTitle());
         helper.setText(R.id.tv_term_year, "年份："+item.getYear()+"");
         helper.setText(R.id.tv_term_month, "月份："+item.getMonth()+"");
-        helper.setText(R.id.tv_term_content, "周期："+item.getTerm());
+        helper.setText(R.id.tv_term_content, "学期："+item.getTerm());
 
         helper.addOnClickListener(R.id.iv_term_checked);
 

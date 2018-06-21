@@ -126,7 +126,7 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:text="周期："
+                android:text="学期："
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                 android:layout_width="@dimen/dp_size_250"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_corners_bg"
-                android:hint="请输入周期"
+                android:hint="请输入学期"
                 android:imeOptions="actionDone"
                 android:padding="@dimen/dp_size_10"
                 android:singleLine="true"
