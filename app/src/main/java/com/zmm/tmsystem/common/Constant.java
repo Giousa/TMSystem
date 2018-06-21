@@ -26,6 +26,11 @@ public class Constant {
     public static final String SIGN = "sign";
     public static final String STUDENT = "STUDENT";
 
+    //-----------------托管周期点击------------------
+    public static final int TYPE_TERM_YEAR = 0;
+    public static final int TYPE_TERM_MONTH = 1;
+    public static final int TYPE_TERM_TERM = 2;
+
 
 
     //-----------------教师用户信息点击------------------

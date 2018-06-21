@@ -187,7 +187,7 @@ public interface ApiService {
      * @return
      */
     @POST("updateTerm/")
-    Observable<BaseBean<String>> updateTerm(@Body TermBean termBean);
+    Observable<BaseBean<TermBean>> updateTerm(@Body TermBean termBean);
 
     /**
      * 删除托管资料

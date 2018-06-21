@@ -25,7 +25,7 @@ public interface TermContract {
 
         Observable<BaseBean<TermBean>> queryTermById(String id);
 
-        Observable<BaseBean<String>> updateTerm(TermBean termBean);
+        Observable<BaseBean<TermBean>> updateTerm(TermBean termBean);
 
         Observable<BaseBean<String>> deleteTerm(String id);
 
@@ -33,8 +33,9 @@ public interface TermContract {
 
     interface TermView extends BaseView{
 
+        void insertContentSuccess(int type,String content);
         void createSuccess(TermBean termBean);
-        void updateSuccess(String s);
+        void updateSuccess(TermBean termBean);
         void deleteSuccess(String id);
         void getAllTerms(List<TermBean> list);
 

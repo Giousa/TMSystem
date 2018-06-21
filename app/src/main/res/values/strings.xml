@@ -58,6 +58,8 @@
 
 
     <string name="childcare_title_manager">托管中心管理</string>
+    <string name="childcare_add_success">成功创建托管周期</string>
+    <string name="childcare_update_success">更新资料成功</string>
     <!--学生-->
     <string name="student_add_success">添加学生成功</string>
     <string name="student_delete_success">学生删除成功</string>

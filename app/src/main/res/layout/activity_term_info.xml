@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/root_view"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@null"
@@ -16,7 +17,6 @@
         android:padding="@dimen/dp_size_30">
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_dialog_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +26,8 @@
             android:text="修改托管周期"
             android:textColor="@color/chart_text"
             android:textSize="@dimen/text_size_20"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,13 +44,13 @@
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_dialog_title"
                 android:layout_width="@dimen/dp_size_250"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_size_15"
                 android:background="@drawable/shape_corners_bg"
-                android:hint="请输入标题"
+                android:hint=""
                 android:imeOptions="actionDone"
                 android:padding="@dimen/dp_size_10"
                 android:singleLine="true"
@@ -73,7 +74,7 @@
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_dialog_year"
                 android:layout_width="@dimen/dp_size_250"
                 android:layout_height="wrap_content"
@@ -104,7 +105,7 @@
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_dialog_month"
                 android:layout_width="@dimen/dp_size_250"
                 android:layout_height="wrap_content"
@@ -135,7 +136,7 @@
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_dialog_term"
                 android:layout_width="@dimen/dp_size_250"
                 android:layout_height="wrap_content"
@@ -150,53 +151,18 @@
 
         </LinearLayout>
 
-        <!--<Button-->
-        <!--android:id="@+id/btn_dialog_update"-->
-        <!--android:layout_width="@dimen/dp_size_250"-->
-        <!--android:layout_height="@dimen/dp_size_40"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginTop="@dimen/dp_size_30"-->
-        <!--android:background="@drawable/shape_corners_bt"-->
-        <!--android:text="确认修改"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="@dimen/text_size_15"/>-->
-
-        <!--<Button-->
-        <!--android:id="@+id/btn_dialog_delete"-->
-        <!--android:layout_width="@dimen/dp_size_250"-->
-        <!--android:layout_height="@dimen/dp_size_40"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginTop="@dimen/dp_size_30"-->
-        <!--android:background="@color/md_red_A700"-->
-        <!--android:text="删除"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="@dimen/text_size_15"/>-->
-
-        <com.zmm.tmsystem.ui.widget.LoadingButton
+        <Button
             android:id="@+id/btn_dialog_update"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp_size_250"
             android:layout_height="@dimen/dp_size_40"
-            android:layout_marginLeft="@dimen/dp_size_20"
-            android:layout_marginRight="@dimen/dp_size_20"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_size_30"
-            android:background="@drawable/bg_btn"
-            app:loadingText="正在修改"
-            app:progressColor="@color/colorAccent"
-            app:text="修改"
-            app:textColor="@color/white"/>
+            android:background="@drawable/shape_corners_bt"
+            android:text="添加托管周期"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"/>
 
-        <com.zmm.tmsystem.ui.widget.LoadingButton
-            android:id="@+id/btn_dialog_delete"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_size_40"
-            android:layout_marginLeft="@dimen/dp_size_20"
-            android:layout_marginRight="@dimen/dp_size_20"
-            android:layout_marginTop="@dimen/dp_size_30"
-            android:background="@drawable/shape_corners_red"
-            app:loadingText="正在删除"
-            app:progressColor="@color/colorPrimary"
-            app:text="删除"
-            app:textColor="@color/white"/>
+
     </LinearLayout>
 
 </LinearLayout>

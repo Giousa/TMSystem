@@ -41,7 +41,7 @@ public class TermModel implements TermContract.ITermModel{
     }
 
     @Override
-    public Observable<BaseBean<String>> updateTerm(TermBean termBean) {
+    public Observable<BaseBean<TermBean>> updateTerm(TermBean termBean) {
         return mApiService.updateTerm(termBean);
     }
 

@@ -15,9 +15,9 @@ public class TermBean extends BaseEntity{
 
     private String title;
 
-    private Integer year;
+    private String year;
 
-    private Integer month;
+    private String month;
 
     private String term;
 
@@ -51,19 +51,19 @@ public class TermBean extends BaseEntity{
         this.title = title;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public Integer getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
@@ -97,5 +97,20 @@ public class TermBean extends BaseEntity{
 
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "TermBean{" +
+                "id='" + id + '\'' +
+                ", teacherId='" + teacherId + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", month='" + month + '\'' +
+                ", term='" + term + '\'' +
+                ", address='" + address + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

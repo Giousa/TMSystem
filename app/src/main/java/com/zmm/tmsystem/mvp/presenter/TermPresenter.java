@@ -1,13 +1,18 @@
 package com.zmm.tmsystem.mvp.presenter;
 
+import android.widget.LinearLayout;
+
+import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.mvp.presenter.contract.TermContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
+import com.zmm.tmsystem.ui.widget.SingleSelectView;
 import com.zmm.tmsystem.ui.widget.TermInfoDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +27,13 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermContract.TermView> {
+
+
+    private LinearLayout mRootView;
+    private int mScreenWidth;
+    private List<String> mList;
+    private String title = null;
+    private int type;
 
 
     @Inject
@@ -56,60 +68,99 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
                 });
     }
 
+
+
     /**
-     * 创建新的托管周期
+     * 填充内容
+     * @param typeTerm
+     * @param rootView
+     * @param screenWidth
      */
-    public void createTerm() {
+    public void insertContent(int typeTerm, LinearLayout rootView, int screenWidth) {
+        mRootView = rootView;
+        mScreenWidth = screenWidth;
+        type = typeTerm;
+        if(mList != null){
+            mList.clear();
+            mList = null;
+        }
 
-        System.out.println("开启dialog之前");
-        final TermInfoDialog termInfoDialog = new TermInfoDialog(mContext,null,null,null,null,null);
+        switch (typeTerm){
+            case Constant.TYPE_TERM_YEAR:
+                title = "年份";
+                mList = new ArrayList<>();
+                mList.add("2018年");
+                mList.add("2019年");
+                mList.add("2020年");
+                mList.add("2021年");
+                mList.add("2022年");
 
-        termInfoDialog.setOnClickListener(new TermInfoDialog.OnClickListener() {
-            @Override
-            public void onCancel() {
-                System.out.println("---cancel---");
-                termInfoDialog.dismiss();
-                mView.dismissLoading();
-            }
+                selectString();
+                break;
+            case Constant.TYPE_TERM_MONTH:
+                title = "月份";
+                mList = new ArrayList<>();
+                mList.add("1月");
+                mList.add("2月");
+                mList.add("3月");
+                mList.add("4月");
+                mList.add("5月");
+                mList.add("6月");
+                mList.add("7月");
+                mList.add("8月");
+                mList.add("9月");
+                mList.add("10月");
+                mList.add("11月");
+                mList.add("12月");
 
-            @Override
-            public void onConfirm(String title, int year, int month, String term) {
-                termInfoDialog.dismiss();
-                mView.dismissLoading();
-                System.out.println("---confirm---");
-                System.out.println("title = "+title);
-                System.out.println("year = "+year);
-                System.out.println("month = "+month);
-                System.out.println("term = "+term);
+                selectString();
+                break;
+            case Constant.TYPE_TERM_TERM:
+                title = "学期";
+                mList = new ArrayList<>();
+                mList.add("上学期");
+                mList.add("下学期");
+                mList.add("暑假");
+                mList.add("寒假");
+                mList.add("晚托班");
+                mList.add("走读");
 
-                update2Server(title,year,month,term);
-            }
-        });
-
-        termInfoDialog.show();
-        mView.showLoading();
+                selectString();
+                break;
+        }
 
     }
 
     /**
-     * 更新到服务器
-     * @param title
-     * @param year
-     * @param month
-     * @param term
+     * 选择框修改
      */
-    private void update2Server(String title, int year, int month, final String term) {
+    private void selectString() {
 
-        ACache aCache = ACache.get(mContext);
-        String tId = aCache.getAsString(Constant.TEACHER_ID);
 
-        TermBean termBean = new TermBean();
-        termBean.setTeacherId(tId);
-        termBean.setTitle(title);
-        termBean.setYear(year);
-        termBean.setMonth(month);
-        termBean.setTerm(term);
+        SingleSelectView singleSelectView = new SingleSelectView(mContext,mRootView,mScreenWidth,title,mList);
 
+        singleSelectView.setOnSelectClickListener(new SingleSelectView.OnSelectClickListener() {
+            @Override
+            public void onCancel() {
+
+                mView.dismissLoading();
+            }
+
+            @Override
+            public void onConfirm(String content) {
+                mView.dismissLoading();
+                mView.insertContentSuccess(type,content);
+            }
+        });
+
+        mView.showLoading();
+    }
+
+    /**
+     * 添加托管周期
+     * @param termBean
+     */
+    public void createTerm(TermBean termBean) {
         mModel.createNewTerm(termBean)
                 .compose(RxHttpResponseCompat.<TermBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TermBean>(mContext) {
@@ -137,31 +188,26 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
     public void updateTerm(TermBean termBean) {
 
         mModel.updateTerm(termBean)
-                .compose(RxHttpResponseCompat.<String>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                .compose(RxHttpResponseCompat.<TermBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<TermBean>(mContext) {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mView.showLoading();
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        mView.updateSuccess(s);
+                    public void onNext(TermBean termBean) {
                         mView.dismissLoading();
+                        mView.updateSuccess(termBean);
+
                     }
 
                     @Override
                     public void onComplete() {
-                        mView.dismissLoading();
                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        mView.dismissLoading();
-                    }
                 });
     }
+
 
     /**
      * 删除托管周期

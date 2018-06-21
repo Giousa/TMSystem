@@ -130,9 +130,9 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
         mTermAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                TermBean item = mTermAdapter.getItem(position);
-                mACache.put(Constant.TERM,item);
-                mTermAdapter.setChecked(item.getId());
+                TermBean termBean = mTermAdapter.getItem(position);
+                mACache.put(Constant.TERM,termBean);
+                mTermAdapter.setChecked(termBean.getId());
                 RxBus.getDefault().post(Constant.UPDATE_TITLE);
             }
         });
@@ -146,7 +146,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
 
     @Override
     public void showLoading() {
-        makeWindowDark();
+
     }
 
     @Override
@@ -156,20 +156,20 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
 
     @Override
     public void dismissLoading() {
-        makeWindowLight();
+
+    }
+
+    @Override
+    public void insertContentSuccess(int type, String content) {
+
     }
 
     @Override
     public void createSuccess(TermBean termBean) {
-        ToastUtils.SimpleToast(this,"成功创建托管周期");
-        mACache.put(Constant.TERM,termBean);
-        mTermAdapter.setChecked(termBean.getId());
-        mTermAdapter.addData(termBean);
-        RxBus.getDefault().post(Constant.UPDATE_TITLE);
     }
 
     @Override
-    public void updateSuccess(String s) {
+    public void updateSuccess(TermBean termBean) {
 
     }
 
@@ -206,9 +206,7 @@ public class TermActivity extends BaseActivity<TermPresenter> implements TermCon
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        System.out.println("托管 管理 add click");
-
-        mPresenter.createTerm();
+        startActivity(TermInfoActivity.class,false);
 
         return false;
     }
