@@ -15,7 +15,7 @@ public class StudentBean extends BaseEntity {
 
     private String name;
 
-    private Integer gender;
+    private int gender;
 
     private String icon;
 
@@ -33,10 +33,23 @@ public class StudentBean extends BaseEntity {
 
     private String guardian2Phone;
 
-
     private long createTime;
 
     private long updateTime;
+
+    private boolean isChecked = false;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked() {
+        if(isChecked){
+            isChecked = false;
+        }else {
+            isChecked = true;
+        }
+    }
 
     public String getId() {
         return id;
@@ -62,7 +75,7 @@ public class StudentBean extends BaseEntity {
         this.name = name;
     }
 
-    public Integer getGender() {
+    public int getGender() {
         return gender;
     }
 

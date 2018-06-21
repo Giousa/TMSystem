@@ -98,6 +98,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         mCustomItemCourse.setOnItemClickListener(this, Constant.TYPE_COURSE);
         mCustomItemAddress.setOnItemClickListener(this, Constant.TYPE_ADDRESS);
 
+        mCustomItemGender.setContent("女");
 
         ACache aCache = ACache.get(this);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);

@@ -1,8 +1,13 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.common.Constant;
@@ -17,9 +22,11 @@ import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -54,6 +61,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     CustomInfoItemView mCustomItemGuardianPhone2;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
+    @BindView(R.id.btn_select_confirm)
+    Button mBtnSelectConfirm;
+
+    private int mIntentParam;
+    private StudentBean mStudentBean;
 
 
     @Override
@@ -73,7 +85,38 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
+        mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
 
+        initToolBar();
+
+        initView();
+
+        if(mIntentParam == 1){
+            mBtnSelectConfirm.setText("修改学生信息");
+            mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
+
+            initData();
+        }
+
+    }
+
+    private void initToolBar() {
+
+        mTitleBar.setCenterTitle("学生详情");
+        mTitleBar.setNavigationIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_android_arrow_back)
+                .sizeDp(20)
+                .color(getResources().getColor(R.color.white)
+                ));
+        mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void initView() {
         mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
         mCustomItemName.setOnItemClickListener(this, Constant.TYPE_STUDENT_NAME);
         mCustomItemGender.setOnItemClickListener(this, Constant.TYPE_STUDENT_GENDER);
@@ -84,12 +127,73 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         mCustomItemGuardian2.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIAN2);
         mCustomItemGuardianPhone2.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE2);
 
+        mCustomItemGender.setContent("男");
     }
 
 
+    private void initData() {
+
+        String icon = mStudentBean.getIcon();
+        String name = mStudentBean.getName();
+        Integer gender = mStudentBean.getGender();
+        String phone = mStudentBean.getPhone();
+        String address = mStudentBean.getAddress();
+        String guardian1 = mStudentBean.getGuardian1();
+        String guardian1Phone = mStudentBean.getGuardian1Phone();
+        String guardian2 = mStudentBean.getGuardian2();
+        String guardian2Phone = mStudentBean.getGuardian2Phone();
+
+        if(!TextUtils.isEmpty(icon)){
+            mCustomItemIcon.setIcon(icon);
+        }
+
+        if(!TextUtils.isEmpty(name)){
+            mCustomItemName.setContent(name);
+        }
+
+        if (gender == 0) {
+            mCustomItemGender.setContent("女");
+        } else {
+            mCustomItemGender.setContent("男");
+        }
+
+        if(!TextUtils.isEmpty(phone)){
+            mCustomItemPhone.setContent(phone);
+        }
+
+        if(!TextUtils.isEmpty(address)){
+            mCustomItemAddress.setContent(address);
+        }
+
+        if(!TextUtils.isEmpty(guardian1)){
+            mCustomItemGuardian1.setContent(guardian1);
+        }
+
+        if(!TextUtils.isEmpty(guardian1Phone)){
+            mCustomItemGuardianPhone1.setContent(guardian1Phone);
+        }
+
+        if(!TextUtils.isEmpty(guardian2)){
+            mCustomItemGuardian2.setContent(guardian2);
+        }
+
+        if(!TextUtils.isEmpty(guardian2Phone)){
+            mCustomItemGuardianPhone2.setContent(guardian2Phone);
+        }
+
+
+    }
+
+
+    /**
+     * 条目点击事件
+     *
+     * @param type
+     * @param name
+     */
     @Override
     public void itemClick(int type, String name) {
-        mPresenter.addNewStudent(type,name,mRootView,mScreenWidth);
+        mPresenter.addNewStudent(type, name, mRootView, mScreenWidth);
     }
 
 
@@ -111,7 +215,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void inputSuccess(int type, String content) {
 
-        switch (type){
+        switch (type) {
             case Constant.TYPE_STUDENT_ICON:
 
                 break;
@@ -146,7 +250,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @Override
     public void addSuccess(StudentBean studentBean) {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_add_success));
+        ToastUtils.SimpleToast(this, getResources().getString(R.string.student_add_success));
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);
         finish();
     }
@@ -177,20 +281,20 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String guardian2 = mCustomItemGuardian2.getContent();
         String guardian_phone2 = mCustomItemGuardianPhone2.getContent();
 
-        if(TextUtils.isEmpty(name)){
-            ToastUtils.SimpleToast(this,"学生姓名不能为空");
+        if (TextUtils.isEmpty(name)) {
+            ToastUtils.SimpleToast(this, "学生姓名不能为空");
             return;
         }
 
-        if(TextUtils.isEmpty(guardian1)){
-            ToastUtils.SimpleToast(this,"监护人姓名不能为空");
+        if (TextUtils.isEmpty(guardian1)) {
+            ToastUtils.SimpleToast(this, "监护人姓名不能为空");
             return;
         }
 
         StudentBean studentBean = new StudentBean();
         studentBean.setName(name);
-        if(TextUtils.isEmpty(gender)){
-            studentBean.setGender(gender.equals("女")?0:1);
+        if (TextUtils.isEmpty(gender)) {
+            studentBean.setGender(gender.equals("女") ? 0 : 1);
         }
         studentBean.setPhone(phone);
         studentBean.setAddress(address);

@@ -33,29 +33,28 @@ public class StudentAdapter extends BaseQuickAdapter<StudentBean,BaseViewHolder>
     protected void convert(BaseViewHolder helper, StudentBean studentBean) {
 
 
-//        helper.setText(R.id.tv_term_title, item.getTitle());
-//        helper.setText(R.id.tv_term_year, "年份："+item.getYear()+"");
-//        helper.setText(R.id.tv_term_month, "月份："+item.getMonth()+"");
-//        helper.setText(R.id.tv_term_content, "周期："+item.getTerm());
-//
-//        helper.addOnClickListener(R.id.iv_term_checked);
-//
-//        ImageView imageView = helper.getView(R.id.iv_term_checked);
-//
-//        if(item.getId().equals(mStudentId)){
-//            imageView.setImageDrawable(new IconicsDrawable(mContext)
-//                    .icon(Ionicons.Icon.ion_android_checkbox_outline)
-//                    .color(mContext.getResources().getColor(R.color.colorAccent)));
-//        }else {
-//            imageView.setImageDrawable(new IconicsDrawable(mContext)
-//                    .icon(Ionicons.Icon.ion_android_checkbox_outline)
-//                    .color(mContext.getResources().getColor(R.color.chart_text)));
-//        }
+        helper.setText(R.id.tv_student_title, studentBean.getName());
+        helper.setText(R.id.tv_student_gender, "性别："+((studentBean.getGender() == 0)?"女":"男"));
+        helper.setText(R.id.tv_student_guardian, "监护人："+studentBean.getGuardian1());
+        helper.setText(R.id.tv_student_guardian_num, "监护人电话："+studentBean.getGuardian1Phone());
+
+        helper.addOnClickListener(R.id.iv_term_checked);
+
+        ImageView imageView = helper.getView(R.id.iv_term_checked);
+
+        if(studentBean.isChecked()){
+            imageView.setImageDrawable(new IconicsDrawable(mContext)
+                    .icon(Ionicons.Icon.ion_android_checkbox_outline)
+                    .color(mContext.getResources().getColor(R.color.colorAccent)));
+        }else {
+            imageView.setImageDrawable(new IconicsDrawable(mContext)
+                    .icon(Ionicons.Icon.ion_android_checkbox_outline)
+                    .color(mContext.getResources().getColor(R.color.chart_text)));
+        }
+
     }
 
-    public void setChecked(String id) {
-
-        mStudentId = id;
+    public void setChecked() {
         notifyDataSetChanged();
     }
 }

@@ -93,15 +93,22 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         mStudentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.SimpleToast(StudentActivity.this,"条目点击 position = "+position);
-
-            }
+            //条目点击，进入详情
+                StudentBean studentBean = (StudentBean) adapter.getItem(position);
+                Intent intent = new Intent(StudentActivity.this,StudentInfoActivity.class);
+                intent.putExtra(Constant.INTENT_PARAM,1);
+                intent.putExtra(Constant.STUDENT,studentBean);
+                startActivity(intent);
+                }
         });
 
         mStudentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.SimpleToast(StudentActivity.this,"子条目点击 position = "+position);
+                //子条目点击，切换选中状态
+                StudentBean studentBean = (StudentBean) adapter.getItem(position);
+                studentBean.setChecked();
+                mStudentAdapter.setChecked();
 
             }
         });
@@ -215,13 +222,22 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        startActivity(StudentInfoActivity.class,false);
+        Intent intent = new Intent(this,StudentInfoActivity.class);
+        intent.putExtra(Constant.INTENT_PARAM,0);
+        startActivity(intent);
         return false;
     }
 
 
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
+
+        List<StudentBean> data = mStudentAdapter.getData();
+        for (StudentBean studentBean:data) {
+            if(studentBean.isChecked()){
+                System.out.println("被选中的："+studentBean.getName());
+            }
+        }
     }
 
 
