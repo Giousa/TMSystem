@@ -1,7 +1,10 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -36,7 +39,7 @@ import butterknife.OnClick;
  * Time:下午3:57
  */
 
-public class StudentInfoActivity extends BaseActivity<StudentPresenter> implements StudentContract.StudentView, CustomInfoItemView.OnItemClickListener {
+public class StudentInfoActivity extends BaseActivity<StudentPresenter> implements StudentContract.StudentView, CustomInfoItemView.OnItemClickListener, Toolbar.OnMenuItemClickListener {
 
 
     @BindView(R.id.title_bar)
@@ -102,7 +105,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     private void initToolBar() {
 
-        mTitleBar.setCenterTitle("学生详情");
+        //这里一定要加上，否则menu不显示
+        setSupportActionBar(mTitleBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        mTitleBar.setCenterTitle("学生资料");
         mTitleBar.setNavigationIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_arrow_back)
                 .sizeDp(20)
@@ -114,6 +121,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                 finish();
             }
         });
+
+        mTitleBar.setOnMenuItemClickListener(this);
+
     }
 
     private void initView() {
@@ -257,12 +267,15 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @Override
     public void updateSuccess() {
-
+        ToastUtils.SimpleToast(this, getResources().getString(R.string.student_update_success));
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
     }
 
     @Override
     public void deleteStudent() {
-
+        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_delete_success));
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
+        finish();
     }
 
     @Override
@@ -272,6 +285,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
+
         String name = mCustomItemName.getContent();
         String gender = mCustomItemGender.getContent();
         String phone = mCustomItemPhone.getContent();
@@ -293,9 +307,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         StudentBean studentBean = new StudentBean();
         studentBean.setName(name);
-        if (TextUtils.isEmpty(gender)) {
-            studentBean.setGender(gender.equals("女") ? 0 : 1);
-        }
+        studentBean.setGender(gender.equals("女") ? 0 : 1);
         studentBean.setPhone(phone);
         studentBean.setAddress(address);
         studentBean.setGuardian1(guardian1);
@@ -306,8 +318,40 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String tId = ACache.get(this).getAsString(Constant.TEACHER_ID);
         studentBean.setTeacherId(tId);
 
-        mPresenter.addStudent(studentBean);
+        if(mIntentParam == 1){
+            studentBean.setId(mStudentBean.getId());
+            mPresenter.updateStudent(studentBean);
+        }else {
+            mPresenter.addStudent(studentBean);
+        }
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        if(mIntentParam == 1){
+
+            getMenuInflater().inflate(R.menu.menu_actionbar, menu);
+            menu.findItem(R.id.menu_setting).setVisible(false);
+            MenuItem item = menu.findItem(R.id.menu_add);
+
+            item.setIcon(new IconicsDrawable(this)
+                    .icon(Ionicons.Icon.ion_android_delete)
+                    .sizeDp(20)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            item.setVisible(true);
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        mPresenter.deleteStudent(mStudentBean.getId());
+        return false;
+    }
 }

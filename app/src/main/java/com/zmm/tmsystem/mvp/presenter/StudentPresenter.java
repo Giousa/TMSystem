@@ -218,5 +218,57 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
     }
 
 
+    /**
+     * 删除学生
+     * @param id
+     */
+    public void deleteStudent(String id) {
 
+
+
+        mModel.deleteStudent(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteStudent();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 更新学生资料
+     * @param studentBean
+     */
+    public void updateStudent(StudentBean studentBean) {
+
+        mModel.updateStudent(studentBean)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.updateSuccess();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }

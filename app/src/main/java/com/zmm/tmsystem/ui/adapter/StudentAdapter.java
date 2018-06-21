@@ -9,7 +9,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
-import com.zmm.tmsystem.bean.TermBean;
 
 /**
  * Description:
@@ -22,7 +21,6 @@ public class StudentAdapter extends BaseQuickAdapter<StudentBean,BaseViewHolder>
 
 
     private Context mContext;
-    private String mStudentId = null;
 
     public StudentAdapter(Context context) {
         super(R.layout.item_student);
