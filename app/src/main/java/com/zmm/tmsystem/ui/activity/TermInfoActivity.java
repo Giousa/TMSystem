@@ -223,7 +223,7 @@ public class TermInfoActivity extends BaseActivity<TermPresenter> implements Ter
     @Override
     public void updateSuccess(String s) {
         ToastUtils.SimpleToast(this, s);
-        RxBus.getDefault().post("updateTerm");
+        RxBus.getDefault().post(Constant.UPDATE_TERM);
     }
 
     @Override

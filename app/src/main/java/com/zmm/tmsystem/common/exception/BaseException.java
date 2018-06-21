@@ -36,6 +36,13 @@ public class BaseException extends Exception {
     public static final int ERROR_API_SIGN_EXIST= 504;
     //未签到
     public static final int ERROR_API_SINE_NONE = 505;
+    //学生已存在
+    public static final int ERROR_API_STUDENT_EXIST = 506;
+    //学生已添加
+    public static final int ERROR_API_STUDENT_ADD = 507;
+
+
+
     //验证码已发送
     public static final int ERROR_API_VERIFY_SEND = 400;
     //验证码过期

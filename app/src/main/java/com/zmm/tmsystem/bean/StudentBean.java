@@ -149,4 +149,24 @@ public class StudentBean extends BaseEntity {
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "StudentBean{" +
+                "id='" + id + '\'' +
+                ", teacherId='" + teacherId + '\'' +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", icon='" + icon + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", guardian1='" + guardian1 + '\'' +
+                ", guardian1Phone='" + guardian1Phone + '\'' +
+                ", guardian2='" + guardian2 + '\'' +
+                ", guardian2Phone='" + guardian2Phone + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

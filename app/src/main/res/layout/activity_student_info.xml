@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isShowPic="0"
-        app:title="①监护人"/>
+        app:title="监护人"/>
 
     <com.zmm.tmsystem.ui.widget.CustomInfoItemView
         android:id="@+id/custom_item_guardian_phone1"
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isShowPic="0"
-        app:title="②监护人"/>
+        app:title="备用监护人"/>
 
     <com.zmm.tmsystem.ui.widget.CustomInfoItemView
         android:id="@+id/custom_item_guardian_phone2"

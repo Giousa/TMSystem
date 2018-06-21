@@ -1,15 +1,19 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerStudentComponent;
 import com.zmm.tmsystem.dagger.module.StudentModule;
 import com.zmm.tmsystem.mvp.presenter.StudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -142,7 +146,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @Override
     public void addSuccess(StudentBean studentBean) {
-
+        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_add_success));
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
+        finish();
     }
 
     @Override
@@ -162,6 +168,42 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
+        String name = mCustomItemName.getContent();
+        String gender = mCustomItemGender.getContent();
+        String phone = mCustomItemPhone.getContent();
+        String address = mCustomItemAddress.getContent();
+        String guardian1 = mCustomItemGuardian1.getContent();
+        String guardian_phone1 = mCustomItemGuardianPhone1.getContent();
+        String guardian2 = mCustomItemGuardian2.getContent();
+        String guardian_phone2 = mCustomItemGuardianPhone2.getContent();
+
+        if(TextUtils.isEmpty(name)){
+            ToastUtils.SimpleToast(this,"学生姓名不能为空");
+            return;
+        }
+
+        if(TextUtils.isEmpty(guardian1)){
+            ToastUtils.SimpleToast(this,"监护人姓名不能为空");
+            return;
+        }
+
+        StudentBean studentBean = new StudentBean();
+        studentBean.setName(name);
+        if(TextUtils.isEmpty(gender)){
+            studentBean.setGender(gender.equals("女")?0:1);
+        }
+        studentBean.setPhone(phone);
+        studentBean.setAddress(address);
+        studentBean.setGuardian1(guardian1);
+        studentBean.setGuardian1Phone(guardian_phone1);
+        studentBean.setGuardian2(guardian2);
+        studentBean.setGuardian2Phone(guardian_phone2);
+
+        String tId = ACache.get(this).getAsString(Constant.TEACHER_ID);
+        studentBean.setTeacherId(tId);
+
+        mPresenter.addStudent(studentBean);
+
     }
 
 }

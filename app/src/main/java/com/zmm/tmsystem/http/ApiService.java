@@ -230,22 +230,14 @@ public interface ApiService {
     Observable<BaseBean<String>> deleteStudent(@Field("id")String id);
 
     /**
-     * 查询托管学生
+     * 查询学生
      * @param id
      * @return
      */
     @FormUrlEncoded
-    @POST("queryAllStudentsByChildcareId/")
-    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByChildcareId(@Field("id")String id);
+    @POST("queryAllStudentsByTeacherId/")
+    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(@Field("id")String id);
 
-    /**
-     * 查询补习班学生
-     * @param id
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("queryAllStudentsByCramId/")
-    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByCramId(@Field("id")String id);
 
 
 

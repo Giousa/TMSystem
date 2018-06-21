@@ -6,6 +6,8 @@ import android.widget.LinearLayout;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
+import com.zmm.tmsystem.rx.RxHttpResponseCompat;
+import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
 import com.zmm.tmsystem.ui.widget.SingleSelectView;
 
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Description:
@@ -41,9 +45,46 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
     public void queryAllStudents(String id) {
 
+        mModel.queryAllStudentsByTeacherId(id)
+                .compose(RxHttpResponseCompat.<List<StudentBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<StudentBean>>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<StudentBean> studentBeans) {
+                        mView.querySuccess(studentBeans);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     public void addStudent(StudentBean studentBean) {
+
+        mModel.addStudent(studentBean)
+                .compose(RxHttpResponseCompat.<StudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(StudentBean studentBean) {
+                        mView.addSuccess(studentBean);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
@@ -93,7 +134,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 inputString(false);
                 break;
             case Constant.TYPE_STUDENT_GUARDIAN1:
-                title = "①监护人";
+                title = "监护人";
                 hint = "请输入监护人姓名";
                 inputString(false);
                 break;
@@ -103,7 +144,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 inputString(true);
                 break;
             case Constant.TYPE_STUDENT_GUARDIAN2:
-                title = "②监护人";
+                title = "备用监护人";
                 hint = "请输入监护人姓名";
                 inputString(false);
                 break;

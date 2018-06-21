@@ -1,27 +1,40 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.TermBean;
+import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerStudentComponent;
 import com.zmm.tmsystem.dagger.module.StudentModule;
 import com.zmm.tmsystem.mvp.presenter.StudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
+import com.zmm.tmsystem.rx.RxBus;
+import com.zmm.tmsystem.ui.adapter.StudentAdapter;
+import com.zmm.tmsystem.ui.adapter.TermAdapter;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -35,12 +48,15 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
     @BindView(R.id.rv_list)
-    RecyclerView mRvList;
+    RecyclerView mRecyclerView;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
 
 
     private MenuItem mMenuItemAdd;
+    private StudentAdapter mStudentAdapter;
+    private ACache mACache;
+    private String mTId;
 
 
     @Override
@@ -63,6 +79,39 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
         initToolBar();
 
+        initData();
+
+        operateBus();
+    }
+
+    private void initData() {
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mStudentAdapter = new StudentAdapter(this);
+        mStudentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.SimpleToast(StudentActivity.this,"条目点击 position = "+position);
+
+            }
+        });
+
+        mStudentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.SimpleToast(StudentActivity.this,"子条目点击 position = "+position);
+
+            }
+        });
+
+        mRecyclerView.setAdapter(mStudentAdapter);
+
+        mACache = ACache.get(this);
+        mTId = mACache.getAsString(Constant.TEACHER_ID);
+
+        mPresenter.queryAllStudents(mTId);
     }
 
     private void initToolBar() {
@@ -124,7 +173,26 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     public void querySuccess(List<StudentBean> studentBeans) {
+        mStudentAdapter.setNewData(studentBeans);
+    }
 
+
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_STUDENT)){
+                            mPresenter.queryAllStudents(mTId);
+                        }
+                    }
+                });
     }
 
 
@@ -155,4 +223,6 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
     }
+
+
 }

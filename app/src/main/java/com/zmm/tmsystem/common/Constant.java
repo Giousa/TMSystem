@@ -10,7 +10,8 @@ package com.zmm.tmsystem.common;
 public class Constant {
 
 
-    public static final String BASE_URL="http://192.168.1.101:8081/tms/";
+//    public static final String BASE_URL="http://192.168.1.101:8081/tms/";
+    public static final String BASE_URL="http://172.28.21.5:8081/tms/";
 
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 
@@ -46,6 +47,7 @@ public class Constant {
     //Rxbus消息
     public static final String UPDATE_TITLE = "UPDATE_TITLE";
     public static final String UPDATE_TERM = "UPDATE_TERM";
+    public static final String UPDATE_STUDENT = "UPDATE_STUDENT";
     public static final String ADD_TERM_STUDENT = "ADD_TERM_STUDENT";
 
 
