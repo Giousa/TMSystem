@@ -1,5 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -187,7 +188,10 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                     TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
                     if(termBean != null && termBean.getId() != null){
-                        startActivity(StudentActivity.class,false);
+//                        startActivity(StudentActivity.class,false);
+                        Intent intent1 = new Intent(MainActivity.this,StudentActivity.class);
+                        intent1.putExtra(Constant.INTENT_PARAM,1);
+                        startActivity(intent1);
 
                     } else {
                         ToastUtils.SimpleToast(this,"请点击右边设置，选择托管周期");
@@ -195,7 +199,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
                 }else if(index == 2){
 //                    System.out.println("补习班中心  添加学生界面");
-
+                    Intent intent2 = new Intent(MainActivity.this,StudentActivity.class);
+                    intent2.putExtra(Constant.INTENT_PARAM,2);
+                    startActivity(intent2);
                 }
 
                 break;
@@ -237,7 +243,6 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                         if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_TITLE)){
                             TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
-                            System.out.println("main termBean = "+termBean);
                             if(termBean == null || termBean.getTitle()== null){
                                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
                             }else {

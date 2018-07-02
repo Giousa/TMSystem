@@ -10,8 +10,8 @@ package com.zmm.tmsystem.common;
 public class Constant {
 
 
-//    public static final String BASE_URL="http://192.168.1.101:8081/tms/";
-    public static final String BASE_URL="http://172.28.21.5:8081/tms/";
+    public static final String BASE_URL="http://192.168.137.180:8081/tms/";
+//    public static final String BASE_URL="http://172.28.20.20:8081/tms/";
 
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 

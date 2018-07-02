@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
@@ -26,6 +27,11 @@ public interface StudentContract {
         Observable<BaseBean<String>> deleteStudent(String id);
 
         Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id);
+
+        //添加托管学生
+        Observable<BaseBean<String>> addChildcareStudents(String termId,List<String> idList);
+
+
 
     }
 

@@ -57,6 +57,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     private StudentAdapter mStudentAdapter;
     private ACache mACache;
     private String mTId;
+    private int mIntExtra;
 
 
     @Override
@@ -76,6 +77,8 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     protected void init() {
+
+        mIntExtra = getIntent().getIntExtra(Constant.INTENT_PARAM, 1);
 
         initToolBar();
 
@@ -238,6 +241,8 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 System.out.println("被选中的："+studentBean.getName());
             }
         }
+
+        mPresenter.addSubStudents(mIntExtra,data);
     }
 
 

@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
@@ -43,5 +44,11 @@ public class StudentModel implements StudentContract.IStudentModel {
     public Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id) {
         return mApiService.queryAllStudentsByTeacherId(id);
     }
+
+    @Override
+    public Observable<BaseBean<String>> addChildcareStudents(String termId, List<String> idList) {
+        return mApiService.addChildcareStudents(termId,idList);
+    }
+
 
 }

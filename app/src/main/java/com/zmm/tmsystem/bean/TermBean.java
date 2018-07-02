@@ -23,9 +23,6 @@ public class TermBean extends BaseEntity{
 
     private String address;
 
-    private long createTime;
-
-    private long updateTime;
 
     public String getId() {
         return id;
@@ -83,34 +80,5 @@ public class TermBean extends BaseEntity{
         this.address = address;
     }
 
-    public long getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
-    public long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(long updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "TermBean{" +
-                "id='" + id + '\'' +
-                ", teacherId='" + teacherId + '\'' +
-                ", title='" + title + '\'' +
-                ", year='" + year + '\'' +
-                ", month='" + month + '\'' +
-                ", term='" + term + '\'' +
-                ", address='" + address + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

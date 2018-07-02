@@ -4,7 +4,9 @@ import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
@@ -270,5 +272,49 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
                     }
                 });
+    }
+
+    /**
+     * 添加托管学生或者补习班学生
+     * @param intExtra
+     * @param data
+     */
+    public void addSubStudents(int intExtra, List<StudentBean> data) {
+
+        if(intExtra == 1) {
+            //托管学生
+            TermBean termBean = (TermBean) ACache.get(mContext).getAsObject(Constant.TERM);
+            String id = termBean.getId();
+
+            List<String> list = new ArrayList<>();
+            for (StudentBean studentBean:data) {
+                list.add(studentBean.getId());
+            }
+
+            mModel.addChildcareStudents(id,list)
+                    .compose(RxHttpResponseCompat.<String>compatResult())
+                    .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            System.out.println("s = "+s);
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+
+        }else {
+            //补习学生
+
+        }
+
     }
 }

@@ -43,8 +43,6 @@ public class TeacherBean extends BaseEntity{
     private String childcareName;
     private int signDays;
     private String address;
-    private long createTime;
-    private long updateTime;
     private String phoneNum1;
     private String phoneNum2;
 
@@ -144,22 +142,6 @@ public class TeacherBean extends BaseEntity{
         this.address = address;
     }
 
-    public long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
-    public long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(long updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getPhoneNum1() {
         return phoneNum1;
     }
@@ -176,25 +158,4 @@ public class TeacherBean extends BaseEntity{
         this.phoneNum2 = phoneNum2;
     }
 
-    @Override
-    public String toString() {
-        return "TeacherBean{" +
-                "id='" + id + '\'' +
-                ", phone='" + phone + '\'' +
-                ", name='" + name + '\'' +
-                ", icon='" + icon + '\'' +
-                ", gender=" + gender +
-                ", birthday=" + birthday +
-                ", courseName='" + courseName + '\'' +
-                ", gradeName='" + gradeName + '\'' +
-                ", schoolName='" + schoolName + '\'' +
-                ", childcareName='" + childcareName + '\'' +
-                ", signDays=" + signDays +
-                ", address='" + address + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", phoneNum1='" + phoneNum1 + '\'' +
-                ", phoneNum2='" + phoneNum2 + '\'' +
-                '}';
-    }
 }

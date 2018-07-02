@@ -42,9 +42,6 @@ public class ManageFragment extends ProgressFragment<StudentPresenter> implement
         ACache aCache = ACache.get(getActivity());
         TermBean termBean = (TermBean) aCache.getAsObject(Constant.TERM);
 
-        if(termBean != null && termBean.getId() != null){
-            mPresenter.queryAllStudents(termBean.getId());
-        }
 
     }
 

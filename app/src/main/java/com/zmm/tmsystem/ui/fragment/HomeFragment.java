@@ -84,6 +84,9 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         super.onResume();
         ACache aCache = ACache.get(mContext);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
+        if(teacherBean == null){
+            return;
+        }
         showTeacherInfo(teacherBean);
     }
 

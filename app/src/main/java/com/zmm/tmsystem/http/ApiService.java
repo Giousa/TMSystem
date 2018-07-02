@@ -2,6 +2,7 @@ package com.zmm.tmsystem.http;
 
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
@@ -13,7 +14,10 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Description:
@@ -238,6 +242,19 @@ public interface ApiService {
     @POST("queryAllStudentsByTeacherId/")
     Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(@Field("id")String id);
 
+
+    /**
+     * -----------------------------托管学生相关接口-----------------------------
+     */
+
+    /**
+     * 添加学生
+     * @param idList
+     * @return
+     */
+//    @FormUrlEncoded
+    @GET("addChildcareStudents")
+    Observable<BaseBean<String>> addChildcareStudents(@Query("termId") String termId, @Query("ids")  List<String> idList);
 
 
 

@@ -33,10 +33,6 @@ public class StudentBean extends BaseEntity {
 
     private String guardian2Phone;
 
-    private long createTime;
-
-    private long updateTime;
-
     private boolean isChecked = false;
 
     public boolean isChecked() {
@@ -147,39 +143,4 @@ public class StudentBean extends BaseEntity {
         this.guardian2Phone = guardian2Phone;
     }
 
-    public long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
-    public long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(long updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "StudentBean{" +
-                "id='" + id + '\'' +
-                ", teacherId='" + teacherId + '\'' +
-                ", name='" + name + '\'' +
-                ", gender=" + gender +
-                ", icon='" + icon + '\'' +
-                ", birthday=" + birthday +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", guardian1='" + guardian1 + '\'' +
-                ", guardian1Phone='" + guardian1Phone + '\'' +
-                ", guardian2='" + guardian2 + '\'' +
-                ", guardian2Phone='" + guardian2Phone + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }
