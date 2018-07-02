@@ -51,19 +51,10 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
         mModel.queryAllTerm(tId)
                 .compose(RxHttpResponseCompat.<List<TermBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<TermBean>>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(List<TermBean> list) {
                         mView.getAllTerms(list);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -164,20 +155,12 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
         mModel.createNewTerm(termBean)
                 .compose(RxHttpResponseCompat.<TermBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TermBean>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(TermBean termBean) {
                         mView.createSuccess(termBean);
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
     }
 
@@ -190,19 +173,12 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
         mModel.updateTerm(termBean)
                 .compose(RxHttpResponseCompat.<TermBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TermBean>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
 
                     @Override
                     public void onNext(TermBean termBean) {
                         mView.dismissLoading();
                         mView.updateSuccess(termBean);
 
-                    }
-
-                    @Override
-                    public void onComplete() {
                     }
 
                 });
@@ -218,20 +194,12 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
         mModel.deleteTerm(id)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(String s) {
                         mView.deleteSuccess(id);
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
     }
 }

@@ -20,7 +20,7 @@ public interface ChildcareStudentContract {
 
     interface IChildcareStudentModel{
 
-        Observable<BaseBean<ChildcareStudentBean>> addChildcareStudent(ChildcareStudentBean childcareStudentBean);
+        Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(String id);
 
         Observable<BaseBean<String>> updateChildcareStudent(ChildcareStudentBean childcareStudentBean);
 
@@ -28,12 +28,12 @@ public interface ChildcareStudentContract {
 
         Observable<BaseBean<ChildcareStudentBean>> getChildcareStudentById(String id);
 
-        Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(String id);
 
     }
 
     interface ChildcareStudentView extends BaseView{
 
+        void querySuccess(List<ChildcareStudentBean> childcareStudentBeans);
         void addSuccess(ChildcareStudentBean childcareStudentBean);
         void updateSuccess();
         void deleteSuccess();

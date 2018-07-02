@@ -141,10 +141,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         mModel.querySchools()
                 .compose(RxHttpResponseCompat.<List<SchoolBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<SchoolBean>>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(List<SchoolBean> schoolBeans) {
@@ -158,10 +154,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                         }
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
     }
 
@@ -239,10 +231,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         mModel.updateTeacherByType(id,type,content)
                 .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(TeacherBean teacherBean) {
@@ -250,10 +238,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                         TeacherCacheUtil.save(mContext,teacherBean);
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
     }
 

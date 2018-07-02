@@ -29,6 +29,7 @@ import com.zmm.tmsystem.ui.adapter.StudentAdapter;
 import com.zmm.tmsystem.ui.adapter.TermAdapter;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -172,6 +173,11 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     }
 
     @Override
+    public void addChildcareStudentSuccess(String msg) {
+        ToastUtils.SimpleToast(this,msg);
+    }
+
+    @Override
     public void updateSuccess() {
 
     }
@@ -236,13 +242,16 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     public void onViewClicked() {
 
         List<StudentBean> data = mStudentAdapter.getData();
+        List<StudentBean> dataChecked = new ArrayList<>();
+
         for (StudentBean studentBean:data) {
             if(studentBean.isChecked()){
                 System.out.println("被选中的："+studentBean.getName());
+                dataChecked.add(studentBean);
             }
         }
 
-        mPresenter.addSubStudents(mIntExtra,data);
+        mPresenter.addSubStudents(mIntExtra,dataChecked);
     }
 
 

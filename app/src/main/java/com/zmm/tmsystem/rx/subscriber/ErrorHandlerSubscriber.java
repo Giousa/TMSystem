@@ -6,6 +6,8 @@ import android.util.Log;
 import com.zmm.tmsystem.common.exception.BaseException;
 import com.zmm.tmsystem.rx.RxErrorHandler;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Description:
  * Author:zhangmengmeng
@@ -42,6 +44,17 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
         } else {
             mRxErrorHandler.showErrorMessage(baseException);
         }
+
+    }
+
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    @Override
+    public void onComplete() {
 
     }
 }

@@ -20,5 +20,4 @@ public interface StudentComponent {
 
     void inject(StudentActivity activity);
     void inject(StudentInfoActivity activity);
-    void inject(ManageFragment fragment);
 }

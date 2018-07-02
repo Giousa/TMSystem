@@ -33,15 +33,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
         mModel.getVerifyCode(phone)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
 
                     @Override
                     public void onNext(String s) {

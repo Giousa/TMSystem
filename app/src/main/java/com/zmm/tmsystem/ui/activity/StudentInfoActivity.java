@@ -266,6 +266,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     }
 
     @Override
+    public void addChildcareStudentSuccess(String msg) {
+
+    }
+
+    @Override
     public void updateSuccess() {
         ToastUtils.SimpleToast(this, getResources().getString(R.string.student_update_success));
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);

@@ -50,19 +50,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         mModel.queryAllStudentsByTeacherId(id)
                 .compose(RxHttpResponseCompat.<List<StudentBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<StudentBean>>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(List<StudentBean> studentBeans) {
                         mView.querySuccess(studentBeans);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -72,20 +63,12 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         mModel.addStudent(studentBean)
                 .compose(RxHttpResponseCompat.<StudentBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(StudentBean studentBean) {
                         mView.addSuccess(studentBean);
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
 
     }
@@ -231,19 +214,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         mModel.deleteStudent(id)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(String s) {
                         mView.deleteStudent();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -257,19 +231,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         mModel.updateStudent(studentBean)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(String s) {
                         mView.updateSuccess();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -294,19 +259,12 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
             mModel.addChildcareStudents(id,list)
                     .compose(RxHttpResponseCompat.<String>compatResult())
                     .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
 
                         @Override
                         public void onNext(String s) {
+
+                            mView.addChildcareStudentSuccess(s);
                             System.out.println("s = "+s);
-                        }
-
-                        @Override
-                        public void onComplete() {
-
                         }
                     });
 

@@ -143,4 +143,22 @@ public class StudentBean extends BaseEntity {
         this.guardian2Phone = guardian2Phone;
     }
 
+    @Override
+    public String toString() {
+        return "StudentBean{" +
+                "id='" + id + '\'' +
+                ", teacherId='" + teacherId + '\'' +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", icon='" + icon + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", guardian1='" + guardian1 + '\'' +
+                ", guardian1Phone='" + guardian1Phone + '\'' +
+                ", guardian2='" + guardian2 + '\'' +
+                ", guardian2Phone='" + guardian2Phone + '\'' +
+                ", isChecked=" + isChecked +
+                '}';
+    }
 }

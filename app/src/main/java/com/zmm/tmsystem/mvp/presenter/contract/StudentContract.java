@@ -41,6 +41,8 @@ public interface StudentContract {
 
         void addSuccess(StudentBean studentBean);
 
+        void addChildcareStudentSuccess(String msg);
+
         void updateSuccess();
 
         void deleteStudent();

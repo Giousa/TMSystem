@@ -61,10 +61,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
         mModel.signInfo(tId)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(String s) {
@@ -74,11 +70,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
                             aCache.put(Constant.SIGN,"sign");
                         }
                         mView.signInfoSuccess(s);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
 
@@ -101,10 +92,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
         mModel.sign(tId)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
 
                     @Override
                     public void onNext(String s) {
@@ -112,10 +99,6 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
                         aCache.put(Constant.SIGN,"sign");
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
 
     }

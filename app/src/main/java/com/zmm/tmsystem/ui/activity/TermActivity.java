@@ -16,7 +16,6 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
-import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerTermComponent;
 import com.zmm.tmsystem.dagger.module.TermModule;

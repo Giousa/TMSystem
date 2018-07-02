@@ -38,9 +38,8 @@ public interface ApiService {
      * @param phone
      * @return
      */
-    @FormUrlEncoded
-    @POST("getVerifyCode/")
-    Observable<BaseBean<String>> getVerifyCode(@Field("phone") String phone);
+    @GET("getVerifyCode/{phone}")
+    Observable<BaseBean<String>> getVerifyCode(@Path("phone") String phone);
 
 
     /**
@@ -97,9 +96,8 @@ public interface ApiService {
      * @param id
      * @return
      */
-    @FormUrlEncoded
-    @POST("getTeacherById/")
-    Observable<BaseBean<TeacherBean>> getTeacherById(@Field("id") String id);
+    @GET("getTeacherById/{id}")
+    Observable<BaseBean<TeacherBean>> getTeacherById(@Path("id") String id);
 
 
     /**
@@ -107,18 +105,16 @@ public interface ApiService {
      * @param tId
      * @return
      */
-    @FormUrlEncoded
-    @POST("signInfo/")
-    Observable<BaseBean<String>> signInfo(@Field("tId") String tId);
+    @GET("signInfo/{tId}")
+    Observable<BaseBean<String>> signInfo(@Path("tId") String tId);
 
     /**
      * 点击签到
      * @param tId
      * @return
      */
-    @FormUrlEncoded
-    @POST("sign/")
-    Observable<BaseBean<String>> sign(@Field("tId") String tId);
+    @GET("sign/{tId}")
+    Observable<BaseBean<String>> sign(@Path("tId") String tId);
 
 
     /**
@@ -139,7 +135,7 @@ public interface ApiService {
      * 获取学校信息
      * @return
      */
-    @POST("querySchools/")
+    @GET("querySchools/")
     Observable<BaseBean<List<SchoolBean>>> querySchools();
 
     /**
@@ -172,18 +168,16 @@ public interface ApiService {
      * @param tId
      * @return
      */
-    @FormUrlEncoded
-    @POST("queryAllTerm/")
-    Observable<BaseBean<List<TermBean>>> queryAllTerm(@Field("tId")String tId);
+    @GET("queryAllTerm/{tId}")
+    Observable<BaseBean<List<TermBean>>> queryAllTerm(@Path("tId") String tId);
 
     /**
      * 根据id获取托管信息
      * @param id
      * @return
      */
-    @FormUrlEncoded
-    @POST("queryTermById/")
-    Observable<BaseBean<TermBean>> queryTermById(@Field("id")String id);
+    @GET("queryTermById//{id}")
+    Observable<BaseBean<TermBean>> queryTermById(@Path("id") String id);
 
     /**
      * 更新托管资料
@@ -198,9 +192,8 @@ public interface ApiService {
      * @param id
      * @return
      */
-    @FormUrlEncoded
-    @POST("deleteTerm/")
-    Observable<BaseBean<String>> deleteTerm(@Field("id")String id);
+    @GET("deleteTerm//{id}")
+    Observable<BaseBean<String>> deleteTerm(@Path("id") String id);
 
 
     /**
@@ -229,18 +222,16 @@ public interface ApiService {
      * @param id
      * @return
      */
-    @FormUrlEncoded
-    @POST("deleteStudent/")
-    Observable<BaseBean<String>> deleteStudent(@Field("id")String id);
+    @GET("deleteStudent/{id}")
+    Observable<BaseBean<String>> deleteStudent(@Path("id") String id);
 
     /**
      * 查询学生
      * @param id
      * @return
      */
-    @FormUrlEncoded
-    @POST("queryAllStudentsByTeacherId/")
-    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(@Field("id")String id);
+    @GET("queryAllStudentsByTeacherId/{id}")
+    Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(@Path("id") String id);
 
 
     /**
@@ -257,5 +248,35 @@ public interface ApiService {
     Observable<BaseBean<String>> addChildcareStudents(@Query("termId") String termId, @Query("ids")  List<String> idList);
 
 
+    /**
+     * 根据托管id，查询全部托管学生
+     * @param id
+     * @return
+     */
+    @GET("queryAllChildcareStudents/{id}")
+    Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(@Path("id") String id);
 
+    /**
+     * 更新托管的学生信息
+     * @param childcareStudentBean
+     * @return
+     */
+    @POST("updateChildcareStudent/")
+    Observable<BaseBean<String>> updateChildcareStudent(@Body ChildcareStudentBean childcareStudentBean);
+
+    /**
+     * 删除托管学生
+     * @param id
+     * @return
+     */
+    @GET("deleteChildcareStudent/{id}")
+    Observable<BaseBean<String>> deleteChildcareStudent(@Path("id") String id);
+
+    /**
+     * 根据托管学生id，获取托管学生信息
+     * @param id
+     * @return
+     */
+    @GET("getChildcareStudentById/{id}")
+    Observable<BaseBean<ChildcareStudentBean>> getChildcareStudentById(@Path("id") String id);
 }
