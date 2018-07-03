@@ -55,6 +55,7 @@ public class Constant {
     public static final String UPDATE_TITLE = "UPDATE_TITLE";
     public static final String UPDATE_TERM = "UPDATE_TERM";
     public static final String UPDATE_STUDENT = "UPDATE_STUDENT";
+    public static final String UPDATE_STUDENT_CHILDCARE = "UPDATE_STUDENT_CHILDCARE";
     public static final String ADD_TERM_STUDENT = "ADD_TERM_STUDENT";
 
 

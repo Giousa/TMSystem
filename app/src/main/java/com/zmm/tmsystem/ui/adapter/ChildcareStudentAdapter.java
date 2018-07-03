@@ -49,26 +49,28 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
 
         String icon = childcareStudentBean.getStudent().getIcon();
         if(TextUtils.isEmpty(icon)){
+
+            if(gender == 0){
+                imageView.setImageDrawable(new IconicsDrawable(mContext)
+                        .icon(Ionicons.Icon.ion_android_contact)
+                        .color(mContext.getResources().getColor(R.color.colorAccent)));
+
+            }else {
+                imageView.setImageDrawable(new IconicsDrawable(mContext)
+                        .icon(Ionicons.Icon.ion_android_contact)
+                        .color(mContext.getResources().getColor(R.color.colorPrimary)));
+            }
+
+        }else {
             Glide.with(mContext)
                     .load(icon)
                     .transform(new GlideCircleTransform(mContext))
                     .error(new IconicsDrawable(mContext)
                             .icon(Ionicons.Icon.ion_android_contact)
-                            .color(mContext.getResources().getColor(R.color.md_blue_500)
+                            .color(mContext.getResources().getColor(R.color.colorAccent)
                             ))
                     .into(imageView);
-        }else {
 
-                if(gender == 0){
-                    imageView.setImageDrawable(new IconicsDrawable(mContext)
-                            .icon(Ionicons.Icon.ion_female)
-                            .color(mContext.getResources().getColor(R.color.colorAccent)));
-
-                }else {
-                    imageView.setImageDrawable(new IconicsDrawable(mContext)
-                            .icon(Ionicons.Icon.ion_female)
-                            .color(mContext.getResources().getColor(R.color.colorPrimary)));
-                }
             }
 
         }

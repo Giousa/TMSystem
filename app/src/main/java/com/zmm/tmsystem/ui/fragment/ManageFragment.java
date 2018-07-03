@@ -152,17 +152,21 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_TITLE)){
-                            TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+                        if(!TextUtils.isEmpty(s)){
 
-                            if(termBean == null || termBean.getTitle()== null){
-                                System.out.println("没有选中任何托管周期");
-                                mStudentAdapter.setNewData(null);
+                            if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE)){
+                                TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
-                            }else {
-                                System.out.println("加载新托管学生...");
-                                mPresenter.queryAllChildcareStudents(termBean.getId());
+                                if(termBean == null || termBean.getTitle()== null){
+                                    System.out.println("没有选中任何托管周期");
+                                    mStudentAdapter.setNewData(null);
+
+                                }else {
+                                    System.out.println("加载新托管学生...");
+                                    mPresenter.queryAllChildcareStudents(termBean.getId());
+                                }
                             }
+
                         }
                     }
                 });

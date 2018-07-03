@@ -175,6 +175,9 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     @Override
     public void addChildcareStudentSuccess(String msg) {
         ToastUtils.SimpleToast(this,msg);
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
+
+
     }
 
     @Override
