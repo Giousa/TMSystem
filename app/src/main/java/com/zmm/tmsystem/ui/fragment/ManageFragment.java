@@ -157,6 +157,8 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
                             if(termBean == null || termBean.getTitle()== null){
                                 System.out.println("没有选中任何托管周期");
+                                mStudentAdapter.setNewData(null);
+
                             }else {
                                 System.out.println("加载新托管学生...");
                                 mPresenter.queryAllChildcareStudents(termBean.getId());

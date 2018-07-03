@@ -1,8 +1,10 @@
 package com.zmm.tmsystem.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -10,6 +12,8 @@ import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.common.utils.AgeUtils;
+import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
 /**
  * Description:
@@ -20,7 +24,6 @@ import com.zmm.tmsystem.bean.StudentBean;
 
 public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseViewHolder>{
 
-
     private Context mContext;
 
     public ChildcareStudentAdapter(Context context) {
@@ -29,19 +32,46 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ChildcareStudentBean studentBean) {
+    protected void convert(BaseViewHolder helper, ChildcareStudentBean childcareStudentBean) {
 
 
-        helper.setText(R.id.tv_student_title, studentBean.getStudent().getName());
-        helper.setText(R.id.tv_student_gender, "性别："+((studentBean.getStudent().getGender() == 0)?"女":"男"));
-        helper.setText(R.id.tv_student_guardian, "监护人："+studentBean.getStudent().getGuardian1());
-        helper.setText(R.id.tv_student_guardian_num, "监护人电话："+studentBean.getStudent().getGuardian1Phone());
 
-        helper.addOnClickListener(R.id.iv_term_checked);
+        helper.setText(R.id.tv_student_name, childcareStudentBean.getStudent().getName());
+        String schoolName = childcareStudentBean.getStudent().getName();
+        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "学校":schoolName);
+        int gender = childcareStudentBean.getStudent().getGender();
+        helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));
+//        long birthday = childcareStudentBean.getStudent().getBirthday();
+//        helper.setText(R.id.tv_student_age, (birthday == 0)?"0": AgeUtils.getAgeFromBirthTime(birthday)+"");
+        helper.setText(R.id.tv_student_grade, (TextUtils.isEmpty(childcareStudentBean.getGrade())) ? "":childcareStudentBean.getGrade());
 
-    }
+        ImageView imageView = helper.getView(R.id.iv_student_icon);
 
-    public void setChecked() {
-        notifyDataSetChanged();
-    }
+        String icon = childcareStudentBean.getStudent().getIcon();
+        if(TextUtils.isEmpty(icon)){
+            Glide.with(mContext)
+                    .load(icon)
+                    .transform(new GlideCircleTransform(mContext))
+                    .error(new IconicsDrawable(mContext)
+                            .icon(Ionicons.Icon.ion_android_contact)
+                            .color(mContext.getResources().getColor(R.color.md_blue_500)
+                            ))
+                    .into(imageView);
+        }else {
+
+                if(gender == 0){
+                    imageView.setImageDrawable(new IconicsDrawable(mContext)
+                            .icon(Ionicons.Icon.ion_female)
+                            .color(mContext.getResources().getColor(R.color.colorAccent)));
+
+                }else {
+                    imageView.setImageDrawable(new IconicsDrawable(mContext)
+                            .icon(Ionicons.Icon.ion_female)
+                            .color(mContext.getResources().getColor(R.color.colorPrimary)));
+                }
+            }
+
+        }
+
+
 }
