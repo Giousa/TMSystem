@@ -69,6 +69,13 @@ public class Constant {
     public static final int TYPE_STUDENT_GUARDIANPHONE1 = 6;
     public static final int TYPE_STUDENT_GUARDIAN2 = 7;
     public static final int TYPE_STUDENT_GUARDIANPHONE2 = 8;
+    public static final int TYPE_STUDENT_SCHOOL = 9;
+    public static final int TYPE_STUDENT_GRADE = 10;
+    public static final int TYPE_STUDENT_TEACHER = 11;
+    public static final int TYPE_STUDENT_TEACHER_PHONE = 12;
+    public static final int TYPE_STUDENT_INFO = 13;
+    public static final int TYPE_STUDENT_CERTIFICATES = 14;
+    public static final int TYPE_STUDENT_PAY = 15;
 
     //-----------------学生信息点击------------------
     public static final String CHILDCARE_STUDENT_COUNT = "CHILDCARE_STUDENT_COUNT";

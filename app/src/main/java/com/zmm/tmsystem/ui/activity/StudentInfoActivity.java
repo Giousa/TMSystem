@@ -88,6 +88,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
+        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
 
         initToolBar();
