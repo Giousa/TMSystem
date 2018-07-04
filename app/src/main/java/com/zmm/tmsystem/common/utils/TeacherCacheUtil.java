@@ -27,5 +27,12 @@ public class TeacherCacheUtil {
 
         aCache.put(Constant.TEACHER_ID,"");
         aCache.put(Constant.TEACHER,"");
+        aCache.put(Constant.CHILDCARE_STUDENT_COUNT,"总人数：0");
+        aCache.put(Constant.CRAM_STUDENT_COUNT,"总人数：0");
+        aCache.put(Constant.EVALUATE_STUDENT_COUNT,"总人数：0");
+        aCache.put(Constant.SIGN,"");
+        aCache.put(Constant.STUDENT,"");
+        aCache.put(Constant.TERM,"");
+
     }
 }

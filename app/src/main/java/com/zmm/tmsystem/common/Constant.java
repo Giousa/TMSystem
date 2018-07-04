@@ -56,7 +56,7 @@ public class Constant {
     public static final String UPDATE_TERM = "UPDATE_TERM";
     public static final String UPDATE_STUDENT = "UPDATE_STUDENT";
     public static final String UPDATE_STUDENT_CHILDCARE = "UPDATE_STUDENT_CHILDCARE";
-    public static final String ADD_TERM_STUDENT = "ADD_TERM_STUDENT";
+    public static final String ADD_CHILDCARE_STUDENT = "ADD_CHILDCARE_STUDENT";
 
 
     //-----------------学生信息点击------------------
@@ -69,6 +69,11 @@ public class Constant {
     public static final int TYPE_STUDENT_GUARDIANPHONE1 = 6;
     public static final int TYPE_STUDENT_GUARDIAN2 = 7;
     public static final int TYPE_STUDENT_GUARDIANPHONE2 = 8;
+
+    //-----------------学生信息点击------------------
+    public static final String CHILDCARE_STUDENT_COUNT = "CHILDCARE_STUDENT_COUNT";
+    public static final String CRAM_STUDENT_COUNT = "CRAM_STUDENT_COUNT";
+    public static final String EVALUATE_STUDENT_COUNT = "EVALUATE_STUDENT_COUNT";
 
 
 

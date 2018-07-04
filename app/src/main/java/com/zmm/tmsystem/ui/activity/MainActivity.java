@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
         mTitleBar.setOnMenuItemClickListener(this);
 
+
         initTablayout();
 
         operateBus();
@@ -112,6 +113,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_home));
                 mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(false);
+
+                mTitleBar.setSubtitle("");
+
                 break;
 
             case 1:
@@ -124,18 +128,45 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 }
                 mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(true);
+
+                String count = mACache.getAsString(Constant.CHILDCARE_STUDENT_COUNT);
+                if(TextUtils.isEmpty(count)){
+                    mTitleBar.setSubtitle("");
+                }else {
+                    mTitleBar.setSubtitle(count);
+                }
+                mTitleBar.setSubtitleTextColor(getResources().getColor(R.color.white));
+
+
                 break;
 
             case 2:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_cram));
                 mMenuItemSetting.setVisible(true);
                 mMenuItemAdd.setVisible(true);
+
+                String count2 = mACache.getAsString(Constant.CRAM_STUDENT_COUNT);
+                if(TextUtils.isEmpty(count2)){
+                    mTitleBar.setSubtitle("");
+                }else {
+                    mTitleBar.setSubtitle(count2);
+                }
+                mTitleBar.setSubtitleTextColor(getResources().getColor(R.color.white));
+
                 break;
 
             case 3:
                 mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_comment));
                 mMenuItemSetting.setVisible(false);
                 mMenuItemAdd.setVisible(false);
+
+                String count3 = mACache.getAsString(Constant.EVALUATE_STUDENT_COUNT);
+                if(TextUtils.isEmpty(count3)){
+                    mTitleBar.setSubtitle("");
+                }else {
+                    mTitleBar.setSubtitle(count3);
+                }
+                mTitleBar.setSubtitleTextColor(getResources().getColor(R.color.white));
                 break;
 
         }
@@ -240,14 +271,30 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_TITLE)){
-                            TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+                        if(!TextUtils.isEmpty(s)){
 
-                            if(termBean == null || termBean.getTitle()== null){
-                                mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
-                            }else {
-                                mTitleBar.setCenterTitle(termBean.getTitle());
+                            if(s.equals(Constant.UPDATE_TITLE)){
+                                TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+
+                                if(termBean == null || termBean.getTitle()== null){
+                                    mTitleBar.setCenterTitle(getResources().getString(R.string.main_title_childcare));
+                                }else {
+                                    mTitleBar.setCenterTitle(termBean.getTitle());
+
+                                }
+
+                            }else if(s.equals(Constant.ADD_CHILDCARE_STUDENT)){
+                                String count = mACache.getAsString(Constant.CHILDCARE_STUDENT_COUNT);
+                                if(TextUtils.isEmpty(count)){
+                                    mTitleBar.setSubtitle("");
+                                }else {
+                                    mTitleBar.setSubtitle(count);
+                                }
+                                mTitleBar.setSubtitleTextColor(getResources().getColor(R.color.white));
+
                             }
+
+
                         }
                     }
                 });

@@ -1,18 +1,14 @@
 package com.zmm.tmsystem.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
-import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
@@ -24,16 +20,11 @@ import com.zmm.tmsystem.mvp.presenter.ChildcareStudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.activity.ChildcareStudentInfoActivity;
-import com.zmm.tmsystem.ui.activity.StudentActivity;
-import com.zmm.tmsystem.ui.activity.StudentInfoActivity;
 import com.zmm.tmsystem.ui.adapter.ChildcareStudentAdapter;
-import com.zmm.tmsystem.ui.adapter.StudentAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -120,7 +111,14 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
         System.out.println("托管学生个数 = " + childcareStudentBeans.size());
         System.out.println("childcareStudentBeans = " + childcareStudentBeans);
 
+        if(childcareStudentBeans.size() == 0){
+            mACache.put(Constant.CHILDCARE_STUDENT_COUNT,"");
+        }else {
+            mACache.put(Constant.CHILDCARE_STUDENT_COUNT,"总人数："+childcareStudentBeans.size());
+        }
         mStudentAdapter.setNewData(childcareStudentBeans);
+
+        RxBus.getDefault().post(Constant.ADD_CHILDCARE_STUDENT);
     }
 
     @Override
