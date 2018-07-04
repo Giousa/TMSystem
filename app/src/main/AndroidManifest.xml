@@ -84,6 +84,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <activity
+            android:name=".ui.activity.ChildcareStudentInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

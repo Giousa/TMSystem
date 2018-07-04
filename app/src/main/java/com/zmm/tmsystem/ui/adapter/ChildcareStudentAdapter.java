@@ -37,7 +37,7 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
 
 
         helper.setText(R.id.tv_student_name, childcareStudentBean.getStudent().getName());
-        String schoolName = childcareStudentBean.getStudent().getName();
+        String schoolName = childcareStudentBean.getSchool();
         helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "学校":schoolName);
         int gender = childcareStudentBean.getStudent().getGender();
         helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));

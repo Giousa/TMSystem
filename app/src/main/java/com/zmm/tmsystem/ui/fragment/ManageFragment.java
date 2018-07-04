@@ -23,6 +23,7 @@ import com.zmm.tmsystem.dagger.module.ChildcareStudentModule;
 import com.zmm.tmsystem.mvp.presenter.ChildcareStudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
 import com.zmm.tmsystem.rx.RxBus;
+import com.zmm.tmsystem.ui.activity.ChildcareStudentInfoActivity;
 import com.zmm.tmsystem.ui.activity.StudentActivity;
 import com.zmm.tmsystem.ui.activity.StudentInfoActivity;
 import com.zmm.tmsystem.ui.adapter.ChildcareStudentAdapter;
@@ -89,11 +90,11 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //条目点击，进入详情
                 ToastUtils.SimpleToast(getActivity(),"position = "+position);
-//                StudentBean studentBean = (StudentBean) adapter.getItem(position);
-//                Intent intent = new Intent(StudentActivity.this,StudentInfoActivity.class);
-//                intent.putExtra(Constant.INTENT_PARAM,1);
-//                intent.putExtra(Constant.STUDENT,studentBean);
-//                startActivity(intent);
+                ChildcareStudentBean childcareStudentBean = mStudentAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(),ChildcareStudentInfoActivity.class);
+                intent.putExtra(Constant.INTENT_PARAM,1);
+                intent.putExtra(Constant.STUDENT,childcareStudentBean);
+                startActivity(intent);
             }
         });
 

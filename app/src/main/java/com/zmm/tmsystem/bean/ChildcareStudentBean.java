@@ -88,4 +88,18 @@ public class ChildcareStudentBean extends BaseEntity {
     public void setTeacherPhone(String teacherPhone) {
         this.teacherPhone = teacherPhone;
     }
+
+    @Override
+    public String toString() {
+        return "ChildcareStudentBean{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", childcareId='" + childcareId + '\'' +
+                ", school='" + school + '\'' +
+                ", grade='" + grade + '\'' +
+                ", gradeLevel=" + gradeLevel +
+                ", teacher='" + teacher + '\'' +
+                ", teacherPhone='" + teacherPhone + '\'' +
+                '}';
+    }
 }

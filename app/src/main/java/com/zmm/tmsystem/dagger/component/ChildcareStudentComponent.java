@@ -2,6 +2,7 @@ package com.zmm.tmsystem.dagger.component;
 
 import com.zmm.tmsystem.dagger.module.ChildcareStudentModule;
 import com.zmm.tmsystem.dagger.scope.FragmentScope;
+import com.zmm.tmsystem.ui.activity.ChildcareStudentInfoActivity;
 import com.zmm.tmsystem.ui.fragment.ManageFragment;
 
 import dagger.Component;
@@ -18,4 +19,6 @@ import dagger.Component;
 public interface ChildcareStudentComponent {
 
     void inject(ManageFragment fragment);
+
+    void inject(ChildcareStudentInfoActivity activity);
 }
