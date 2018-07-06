@@ -20,16 +20,12 @@ import com.zmm.tmsystem.R;
  * Time:下午11:41
  */
 
-public class SimpleInputDialog extends Dialog {
+public class SimpleConfirmDialog extends Dialog {
 
     private TextView mTitle;
-    private EditText mEditText;
     private Button mCancel;
     private Button mConfirm;
     private String title;
-    private String hint;
-    private String name;
-    private boolean isNumberType = false;
 
 
 
@@ -40,26 +36,23 @@ public class SimpleInputDialog extends Dialog {
         mOnClickListener = onClickListener;
     }
 
-    public SimpleInputDialog(Context context, String title, String hint,String name,boolean isNumberType) {
+    public SimpleConfirmDialog(Context context, String title) {
         super(context, R.style.SimpleDialog);
         this.title = title;
-        this.hint = hint;
-        this.name = name;
-        this.isNumberType = isNumberType;
     }
 
     public interface OnClickListener{
 
         void onCancel();
 
-        void onConfirm(String content);
+        void onConfirm();
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_simple_input_dialog);
+        setContentView(R.layout.item_simple_confirm_dialog);
         //按空白处不能取消dialog
         setCanceledOnTouchOutside(false);
 
@@ -72,21 +65,10 @@ public class SimpleInputDialog extends Dialog {
 
     private void initView() {
         mTitle = findViewById(R.id.tv_dialog_title);
-        mEditText = findViewById(R.id.et_dialog_input);
         mCancel = findViewById(R.id.btn_dialog_cancel);
         mConfirm = findViewById(R.id.btn_dialog_confirm);
 
         mTitle.setText(title);
-        mEditText.setHint(hint);
-        if(isNumberType){
-            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }
-
-        if(!TextUtils.isEmpty(name)){
-            mEditText.setText(name);
-            mEditText.setSelection(name.length());
-        }
-
     }
 
 
@@ -104,26 +86,11 @@ public class SimpleInputDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if(mOnClickListener != null){
-                    mOnClickListener.onConfirm(mEditText.getText().toString().trim());
+                    mOnClickListener.onConfirm();
                 }
             }
         });
 
-        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(mOnClickListener != null){
-                    mOnClickListener.onConfirm(mEditText.getText().toString().trim());
-                }
-                return true;
-            }
-        });
     }
-
-
-    public String getInput(){
-        return mEditText.getText().toString().trim();
-    }
-
 
 }

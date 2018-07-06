@@ -15,6 +15,7 @@
     <string name="error_sign_none">未签到</string>
     <string name="error_student_exist">学生已存在</string>
     <string name="error_student_add">学生已添加</string>
+    <string name="error_student_other_exist">无法删除，存在托管或补习学生</string>
     <string name="error_verify_timeout">验证码已过期</string>
     <string name="error_verify_send">验证码已发送</string>
     <string name="error_verify_error">验证码错误</string>

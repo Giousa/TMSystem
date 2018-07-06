@@ -21,6 +21,7 @@ import com.zmm.tmsystem.dagger.module.ChildcareStudentModule;
 import com.zmm.tmsystem.mvp.presenter.ChildcareStudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
+import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.List;
@@ -206,7 +207,22 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-//        mPresenter.deleteStudent(mStudentBean.getId());
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+//                mPresenter.deleteStudent(mStudentBean.getId());
+
+            }
+        });
+
+        simpleConfirmDialog.show();
         return false;
     }
 
@@ -222,7 +238,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             case Constant.TYPE_STUDENT_INFO:
 
                 Intent intentInfo = new Intent(this,StudentInfoActivity.class);
-                intentInfo.putExtra(Constant.INTENT_PARAM,1);
+                intentInfo.putExtra(Constant.INTENT_PARAM,2);
                 intentInfo.putExtra(Constant.STUDENT,mChildcareStudentBean.getStudent());
                 startActivity(intentInfo);
 

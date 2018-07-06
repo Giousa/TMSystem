@@ -23,6 +23,7 @@ import com.zmm.tmsystem.mvp.presenter.StudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
+import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.io.Serializable;
@@ -88,14 +89,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
-        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据
+        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据，2：从托管学生和补习学生跳转，不能删除
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
 
         initToolBar();
 
         initView();
 
-        if(mIntentParam == 1){
+        if(mIntentParam != 0){
             mBtnSelectConfirm.setText("修改学生信息");
             mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
 
@@ -324,11 +325,13 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String tId = ACache.get(this).getAsString(Constant.TEACHER_ID);
         studentBean.setTeacherId(tId);
 
-        if(mIntentParam == 1){
+        if(mIntentParam == 0){
+            //0:添加新学生
+            mPresenter.addStudent(studentBean);
+        }else {
+            //修改学生信息
             studentBean.setId(mStudentBean.getId());
             mPresenter.updateStudent(studentBean);
-        }else {
-            mPresenter.addStudent(studentBean);
         }
 
     }
@@ -357,7 +360,24 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        mPresenter.deleteStudent(mStudentBean.getId());
+
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deleteStudent(mStudentBean.getId());
+
+            }
+        });
+
+        simpleConfirmDialog.show();
+
         return false;
     }
 }

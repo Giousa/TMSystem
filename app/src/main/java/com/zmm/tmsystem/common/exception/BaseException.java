@@ -40,6 +40,8 @@ public class BaseException extends Exception {
     public static final int ERROR_API_STUDENT_EXIST = 506;
     //学生已添加
     public static final int ERROR_API_STUDENT_ADD = 507;
+    //无法删除，存在托管或补习学生
+    public static final int ERROR_API_STUDENT_OTHER_EXIST = 508;
 
 
 

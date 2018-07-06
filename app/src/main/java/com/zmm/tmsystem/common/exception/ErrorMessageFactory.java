@@ -74,6 +74,10 @@ public class ErrorMessageFactory {
                 errorMsg = context.getResources().getString(R.string.error_student_add);
                 break;
 
+            case ApiException.ERROR_API_STUDENT_OTHER_EXIST:
+                errorMsg = context.getResources().getString(R.string.error_student_other_exist);
+                break;
+
             case ApiException.ERROR_API_VERIFY_TIMEOUT:
                 errorMsg = context.getResources().getString(R.string.error_verify_timeout);
                 break;
