@@ -20,6 +20,7 @@ import com.zmm.tmsystem.dagger.component.DaggerChildcareStudentComponent;
 import com.zmm.tmsystem.dagger.module.ChildcareStudentModule;
 import com.zmm.tmsystem.mvp.presenter.ChildcareStudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
@@ -184,7 +185,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void deleteSuccess() {
-
+        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_delete_success));
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
+        finish();
     }
 
 
@@ -216,8 +219,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
             @Override
             public void onConfirm() {
+                System.out.println("mChildcareStudentBean.getId = "+mChildcareStudentBean.getId());
+                mPresenter.deleteChildcareStudent(mChildcareStudentBean.getId());
                 simpleConfirmDialog.dismiss();
-//                mPresenter.deleteStudent(mStudentBean.getId());
 
             }
         });

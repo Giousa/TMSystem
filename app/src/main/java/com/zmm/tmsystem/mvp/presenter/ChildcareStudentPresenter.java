@@ -27,6 +27,10 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
         super(model, view);
     }
 
+    /**
+     * 查询所有托管学生
+     * @param id
+     */
     public void queryAllChildcareStudents(String id) {
 
         mModel.queryAllChildcareStudents(id)
@@ -40,5 +44,20 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                     }
                 });
 
+    }
+
+    /**
+     * 删除托管学生
+     * @param id
+     */
+    public void deleteChildcareStudent(String id) {
+        mModel.deleteChildcareStudent(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteSuccess();
+                    }
+                });
     }
 }
