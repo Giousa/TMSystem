@@ -13,6 +13,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
@@ -29,6 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -82,13 +85,16 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     protected void init() {
 
+
+        mChildcareStudentBean = (ChildcareStudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
+
         initToolBar();
 
         initView();
 
-        initData();
+        initData(mChildcareStudentBean);
 
-
+        operateBus();
     }
 
 
@@ -129,17 +135,15 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     }
 
-    private void initData() {
-        mChildcareStudentBean = (ChildcareStudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
+    private void initData(ChildcareStudentBean childcareStudentBean) {
 
-        System.out.println("childcareStudentBean = " + mChildcareStudentBean);
-        String icon = mChildcareStudentBean.getStudent().getIcon();
-        String name = mChildcareStudentBean.getStudent().getName();
-        String school = mChildcareStudentBean.getSchool();
-        String grade = mChildcareStudentBean.getGrade();
-        String teacher = mChildcareStudentBean.getTeacher();
-        String teacherPhone = mChildcareStudentBean.getTeacherPhone();
-        String guardian1Phone = mChildcareStudentBean.getStudent().getGuardian1Phone();
+        String icon = childcareStudentBean.getStudent().getIcon();
+        String name = childcareStudentBean.getStudent().getName();
+        String school = childcareStudentBean.getSchool();
+        String grade = childcareStudentBean.getGrade();
+        String teacher = childcareStudentBean.getTeacher();
+        String teacherPhone = childcareStudentBean.getTeacherPhone();
+        String guardian1Phone = childcareStudentBean.getStudent().getGuardian1Phone();
 
         mCustomItemIcon.setIcon(icon);
         mCustomItemName.setContent(name);
@@ -179,8 +183,8 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     @Override
-    public void updateSuccess() {
-
+    public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
+        initData(childcareStudentBean);
     }
 
     @Override
@@ -219,7 +223,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
             @Override
             public void onConfirm() {
-                System.out.println("mChildcareStudentBean.getId = "+mChildcareStudentBean.getId());
                 mPresenter.deleteChildcareStudent(mChildcareStudentBean.getId());
                 simpleConfirmDialog.dismiss();
 
@@ -256,8 +259,38 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                 ToastUtils.SimpleToast(this,"进入消费详细界面");
                 break;
 
+            default:
+                mPresenter.updateChildcareStudent(type, name, mRootView, mScreenWidth);
+
+                break;
+
 
         }
-//        mPresenter.addNewStudent(type, name, mRootView, mScreenWidth);
+    }
+
+    /**
+     * RxBus  这里是更新选中的托管项目
+     */
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s)){
+
+                            if(s.equals(Constant.UPDATE_STUDENT)){
+                                //学生个人信息变动，更新数据
+                                mPresenter.findChildcareStudentById(mChildcareStudentBean.getId());
+                            }
+
+                        }
+                    }
+                });
     }
 }

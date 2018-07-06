@@ -41,8 +41,8 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
     }
 
     @Override
-    public Observable<BaseBean<ChildcareStudentBean>> getChildcareStudentById(String id) {
-        return mApiService.getChildcareStudentById(id);
+    public Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(String id) {
+        return mApiService.findChildcareStudentById(id);
     }
 
 }

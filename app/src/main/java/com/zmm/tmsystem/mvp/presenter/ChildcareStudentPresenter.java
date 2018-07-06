@@ -1,5 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter;
 
+import android.widget.LinearLayout;
+
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
@@ -57,6 +59,32 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                     @Override
                     public void onNext(String s) {
                         mView.deleteSuccess();
+                    }
+                });
+    }
+
+    /**
+     * 更新数据
+     * @param type
+     * @param name
+     * @param rootView
+     * @param screenWidth
+     */
+    public void updateChildcareStudent(int type, String name, LinearLayout rootView, int screenWidth) {
+
+    }
+
+    /**
+     * 根据id，获取托管学生信息
+     * @param id
+     */
+    public void findChildcareStudentById(String id) {
+        mModel.findChildcareStudentById(id)
+                .compose(RxHttpResponseCompat.<ChildcareStudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<ChildcareStudentBean>(mContext) {
+                    @Override
+                    public void onNext(ChildcareStudentBean childcareStudentBean) {
+                        mView.updateSuccess(childcareStudentBean);
                     }
                 });
     }

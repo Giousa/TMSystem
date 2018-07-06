@@ -70,6 +70,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     private int mIntentParam;
     private StudentBean mStudentBean;
+    private MenuItem mItemEdit;
+    private boolean isEdit = false;
 
 
     @Override
@@ -89,7 +91,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
-        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据，2：从托管学生和补习学生跳转，不能删除
+        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据，2：从托管学生和补习学生跳转
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
 
         initToolBar();
@@ -99,7 +101,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         if(mIntentParam != 0){
             mBtnSelectConfirm.setText("修改学生信息");
             mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
-
+            mBtnSelectConfirm.setVisibility(View.GONE);
             initData();
         }
 
@@ -205,7 +207,26 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
      */
     @Override
     public void itemClick(int type, String name) {
-        mPresenter.addNewStudent(type, name, mRootView, mScreenWidth);
+
+        if(isEdit){
+            mPresenter.addNewStudent(type, name, mRootView, mScreenWidth);
+        }else {
+            switch (type){
+                case Constant.TYPE_STUDENT_PHONE:
+                    ToastUtils.SimpleToast(this,"电话");
+                    break;
+
+                case Constant.TYPE_STUDENT_GUARDIANPHONE1:
+                    ToastUtils.SimpleToast(this,"电话1");
+
+                    break;
+
+                case Constant.TYPE_STUDENT_GUARDIANPHONE2:
+                    ToastUtils.SimpleToast(this,"电话2");
+
+                    break;
+            }
+        }
     }
 
 
@@ -332,6 +353,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             //修改学生信息
             studentBean.setId(mStudentBean.getId());
             mPresenter.updateStudent(studentBean);
+            edit();
         }
 
     }
@@ -340,10 +362,10 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        if(mIntentParam == 1){
+        if(mIntentParam != 0){
 
             getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-            menu.findItem(R.id.menu_setting).setVisible(false);
+//            menu.findItem(R.id.menu_setting).setVisible(false);
             MenuItem item = menu.findItem(R.id.menu_add);
 
             item.setIcon(new IconicsDrawable(this)
@@ -354,6 +376,16 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
             item.setVisible(true);
 
+            mItemEdit = menu.findItem(R.id.menu_setting);
+
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("编辑")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            mItemEdit.setVisible(true);
+
         }
         return true;
     }
@@ -361,6 +393,46 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
+        switch (item.getItemId()){
+
+            case R.id.menu_add:
+
+                delete();
+                break;
+            case R.id.menu_setting:
+
+                edit();
+                break;
+
+        }
+
+        return false;
+
+    }
+
+    private void edit() {
+
+        if(isEdit){
+            isEdit = false;
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("编辑")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            mBtnSelectConfirm.setVisibility(View.GONE);
+        }else {
+            isEdit = true;
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("完成")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+            mBtnSelectConfirm.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void delete() {
         final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
@@ -377,7 +449,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         });
 
         simpleConfirmDialog.show();
-
-        return false;
     }
+
+
 }

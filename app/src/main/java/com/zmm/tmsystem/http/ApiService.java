@@ -277,6 +277,6 @@ public interface ApiService {
      * @param id
      * @return
      */
-    @GET("getChildcareStudentById/{id}")
-    Observable<BaseBean<ChildcareStudentBean>> getChildcareStudentById(@Path("id") String id);
+    @GET("findChildcareStudentById/{id}")
+    Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(@Path("id") String id);
 }

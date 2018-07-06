@@ -127,7 +127,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
     }
 
     @Override
-    public void updateSuccess() {
+    public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
 
     }
 
@@ -153,7 +153,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                     public void accept(String s) throws Exception {
                         if(!TextUtils.isEmpty(s)){
 
-                            if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE)){
+                            if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)){
                                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
                                 if(termBean == null || termBean.getTitle()== null){
