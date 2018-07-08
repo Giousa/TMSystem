@@ -261,8 +261,8 @@ public interface ApiService {
      * @param childcareStudentBean
      * @return
      */
-    @POST("updateChildcareStudent/")
-    Observable<BaseBean<String>> updateChildcareStudent(@Body ChildcareStudentBean childcareStudentBean);
+    @POST("updateChildcareStudent/{flag}")
+    Observable<BaseBean<String>> updateChildcareStudent(@Path("flag") int flag,@Body ChildcareStudentBean childcareStudentBean);
 
     /**
      * 删除托管学生

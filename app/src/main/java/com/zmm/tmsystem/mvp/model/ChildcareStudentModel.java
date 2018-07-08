@@ -2,6 +2,7 @@ package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract.IChildcareStudentModel;
@@ -31,8 +32,8 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
     }
 
     @Override
-    public Observable<BaseBean<String>> updateChildcareStudent(ChildcareStudentBean childcareStudentBean) {
-        return mApiService.updateChildcareStudent(childcareStudentBean);
+    public Observable<BaseBean<String>> updateChildcareStudent(int flag,ChildcareStudentBean childcareStudentBean) {
+        return mApiService.updateChildcareStudent(flag,childcareStudentBean);
     }
 
     @Override
@@ -43,6 +44,11 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
     @Override
     public Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(String id) {
         return mApiService.findChildcareStudentById(id);
+    }
+
+    @Override
+    public Observable<BaseBean<List<SchoolBean>>> querySchools() {
+        return mApiService.querySchools();
     }
 
 }

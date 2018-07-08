@@ -2,6 +2,7 @@ package com.zmm.tmsystem.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -133,6 +134,10 @@ public class CustomInfoItemView extends LinearLayout{
 
 
     public void setIcon(String path){
+
+        if(TextUtils.isEmpty(path)){
+            return;
+        }
         if(isShowPic){
           Glide.with(mContext)
                 .load(path)

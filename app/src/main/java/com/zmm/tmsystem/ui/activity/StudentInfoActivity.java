@@ -71,7 +71,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     private int mIntentParam;
     private StudentBean mStudentBean;
     private MenuItem mItemEdit;
-    private boolean isEdit = false;
+    private boolean isEdit = true;
 
 
     @Override
@@ -99,6 +99,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         initView();
 
         if(mIntentParam != 0){
+            isEdit = false;
             mBtnSelectConfirm.setText("修改学生信息");
             mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
             mBtnSelectConfirm.setVisibility(View.GONE);
@@ -209,7 +210,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public void itemClick(int type, String name) {
 
         if(isEdit){
-            mPresenter.addNewStudent(type, name, mRootView, mScreenWidth);
+            mPresenter.updateStudentData(type, name, mRootView, mScreenWidth);
         }else {
             switch (type){
                 case Constant.TYPE_STUDENT_PHONE:

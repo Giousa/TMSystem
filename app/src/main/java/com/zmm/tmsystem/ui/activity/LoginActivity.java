@@ -1,15 +1,20 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.PicUtils;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerLoginComponent;
@@ -20,6 +25,7 @@ import com.zmm.tmsystem.ui.widget.LoadingButton;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
@@ -42,15 +48,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     TitleBar mTitleBar;
     @BindView(R.id.btn_login)
     LoadingButton mLoadingButton;
+    @BindView(R.id.ll_login_bg)
+    LinearLayout mLlLoginBg;
 
 
     @Override
     protected int setLayout() {
+
+        System.out.println("登录");
         return R.layout.activity_login;
     }
 
     @Override
     protected void init() {
+
+        mLlLoginBg.setBackground(new BitmapDrawable(PicUtils.readBitMap(this, R.drawable.login_bg)));
 
         mTitleBar.setCenterTitle(getResources().getString(R.string.login));
 
@@ -74,11 +86,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         });
 
 
-
         RxView.clicks(mLoadingButton).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                mPresenter.login(mEtLoginPhone.getText().toString().trim(),mEtLoginPassword.getText().toString().trim());
+                mPresenter.login(mEtLoginPhone.getText().toString().trim(), mEtLoginPassword.getText().toString().trim());
             }
         });
     }
@@ -102,7 +113,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 .inject(this);
     }
 
-    @OnClick({ R.id.tv_login_register, R.id.tv_login_forget})
+    @OnClick({R.id.tv_login_register, R.id.tv_login_forget})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -139,12 +150,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void checkPhoneError() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.check_phone_error));
+        ToastUtils.SimpleToast(this, getResources().getString(R.string.check_phone_error));
     }
 
     @Override
     public void checkPasswprdError() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.check_password_error));
+        ToastUtils.SimpleToast(this, getResources().getString(R.string.check_password_error));
     }
 
     @Override
@@ -161,4 +172,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         return true;
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        gcImageView(mLlLoginBg);
+//    }
+
 }

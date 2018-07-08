@@ -1,6 +1,8 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -8,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.zmm.tmsystem.R;
@@ -148,4 +151,23 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         lp.alpha = 1f;
         window.setAttributes(lp);
     }
+
+//    protected void gcImageView(ImageView imageView){
+//
+//        if(imageView !=  null &&  imageView.getDrawable() != null){
+//
+//            Bitmap oldBitmap =  ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+//
+//            imageView.setImageDrawable(null);
+//
+//            if(oldBitmap !=  null){
+//
+//                oldBitmap.recycle();
+//
+//                oldBitmap =  null;
+//
+//            }
+//
+//        }
+//    }
 }

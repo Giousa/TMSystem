@@ -2,6 +2,7 @@ package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
@@ -22,13 +23,13 @@ public interface ChildcareStudentContract {
 
         Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(String id);
 
-        Observable<BaseBean<String>> updateChildcareStudent(ChildcareStudentBean childcareStudentBean);
+        Observable<BaseBean<String>> updateChildcareStudent(int flag,ChildcareStudentBean childcareStudentBean);
 
         Observable<BaseBean<String>> deleteChildcareStudent(String id);
 
         Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(String id);
 
-
+        Observable<BaseBean<List<SchoolBean>>> querySchools();
     }
 
     interface ChildcareStudentView extends BaseView{

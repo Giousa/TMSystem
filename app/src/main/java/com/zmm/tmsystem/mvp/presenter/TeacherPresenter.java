@@ -92,6 +92,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                 break;
             case Constant.TYPE_SCHOOL:
                 title = "在职学校";
+                mList = new ArrayList<>();
                 queryAllSchools();
                 break;
             case Constant.TYPE_GRADE:
@@ -145,7 +146,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                     @Override
                     public void onNext(List<SchoolBean> schoolBeans) {
                         if(schoolBeans != null && schoolBeans.size() > 0){
-                            mList = new ArrayList<>();
                             for (SchoolBean school:schoolBeans) {
                                 mList.add(school.getName());
                             }

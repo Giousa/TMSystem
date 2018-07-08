@@ -74,13 +74,13 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
     }
 
     /**
-     * 添加新学生 这里不做任何网络请求，仅仅只是为了填充学生信息，最后在点击事件中统一上传
+     * 更新学生数据 这里不做任何网络请求，仅仅只是为了填充学生信息，最后在点击事件中统一上传
      * @param type
      * @param name
      * @param rootView
      * @param screenWidth
      */
-    public void addNewStudent(int type, String name, LinearLayout rootView, int screenWidth) {
+    public void updateStudentData(int type, String name, LinearLayout rootView, int screenWidth) {
 
         this.type = type;
         this.name = name;

@@ -66,7 +66,10 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     CustomInfoItemView mCustomItemPay;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
+
     private ChildcareStudentBean mChildcareStudentBean;
+    private MenuItem mItemEdit;
+    private boolean isEdit = false;
 
     @Override
     protected int setLayout() {
@@ -198,7 +201,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-        menu.findItem(R.id.menu_setting).setVisible(false);
+//        menu.findItem(R.id.menu_setting).setVisible(false);
         MenuItem item = menu.findItem(R.id.menu_add);
 
         item.setIcon(new IconicsDrawable(this)
@@ -208,12 +211,58 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                 ));
 
         item.setVisible(true);
+
+        mItemEdit = menu.findItem(R.id.menu_setting);
+
+        mItemEdit.setIcon(new IconicsDrawable(this)
+                .iconText("编辑")
+                .sizeDp(30)
+                .color(getResources().getColor(R.color.white)
+                ));
+
+        mItemEdit.setVisible(true);
         return true;
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
+        switch (item.getItemId()){
+
+            case R.id.menu_add:
+
+                delete();
+                break;
+            case R.id.menu_setting:
+
+                edit();
+                break;
+
+        }
+        return false;
+    }
+
+    private void edit() {
+
+        if(isEdit){
+            isEdit = false;
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("编辑")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+        }else {
+            isEdit = true;
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("完成")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+        }
+    }
+
+    private void delete() {
         final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
@@ -223,49 +272,51 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
             @Override
             public void onConfirm() {
-                mPresenter.deleteChildcareStudent(mChildcareStudentBean.getId());
                 simpleConfirmDialog.dismiss();
+                mPresenter.deleteChildcareStudent(mChildcareStudentBean.getId());
 
             }
         });
 
         simpleConfirmDialog.show();
-        return false;
     }
 
     @Override
     public void itemClick(int type, String name) {
 
-        switch (type){
-
-            case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                ToastUtils.SimpleToast(this,"开始打电话");
-                break;
-
-            case Constant.TYPE_STUDENT_INFO:
-
-                Intent intentInfo = new Intent(this,StudentInfoActivity.class);
-                intentInfo.putExtra(Constant.INTENT_PARAM,2);
-                intentInfo.putExtra(Constant.STUDENT,mChildcareStudentBean.getStudent());
-                startActivity(intentInfo);
-
-                break;
-
-            case Constant.TYPE_STUDENT_CERTIFICATES:
-                ToastUtils.SimpleToast(this,"进入荣誉证书界面");
-                break;
-
-            case Constant.TYPE_STUDENT_PAY:
-                ToastUtils.SimpleToast(this,"进入消费详细界面");
-                break;
-
-            default:
-                mPresenter.updateChildcareStudent(type, name, mRootView, mScreenWidth);
-
-                break;
+        if(isEdit){
+            mPresenter.updateChildcareStudentData(type, name, mRootView, mScreenWidth,mChildcareStudentBean);
+        }else {
+            switch (type){
 
 
+                case Constant.TYPE_STUDENT_TEACHER_PHONE:
+                    ToastUtils.SimpleToast(this,"班主任电话");
+                    break;
+
+                case Constant.TYPE_STUDENT_GUARDIANPHONE1:
+                    ToastUtils.SimpleToast(this,"监护人电话");
+                    break;
+
+                case Constant.TYPE_STUDENT_INFO:
+
+                    Intent intentInfo = new Intent(this,StudentInfoActivity.class);
+                    intentInfo.putExtra(Constant.INTENT_PARAM,2);
+                    intentInfo.putExtra(Constant.STUDENT,mChildcareStudentBean.getStudent());
+                    startActivity(intentInfo);
+
+                    break;
+
+                case Constant.TYPE_STUDENT_CERTIFICATES:
+                    ToastUtils.SimpleToast(this,"进入荣誉证书界面");
+                    break;
+
+                case Constant.TYPE_STUDENT_PAY:
+                    ToastUtils.SimpleToast(this,"进入消费详细界面");
+                    break;
+            }
         }
+
     }
 
     /**

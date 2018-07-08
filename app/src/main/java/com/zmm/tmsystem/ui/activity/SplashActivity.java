@@ -1,13 +1,19 @@
 package com.zmm.tmsystem.ui.activity;
 
-import android.text.TextUtils;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.R;
-import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.PicUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+
 import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -20,6 +26,10 @@ import io.reactivex.functions.Consumer;
 
 public class SplashActivity extends BaseActivity {
 
+
+    @BindView(R.id.ll_splash_bg)
+    LinearLayout mLlSplashBg;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_splash;
@@ -28,6 +38,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void init() {
 
+        mLlSplashBg.setBackground(new BitmapDrawable(PicUtils.readBitMap(this, R.drawable.splash_bg)));
 
         Observable.timer(2, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
             @Override
@@ -55,5 +66,11 @@ public class SplashActivity extends BaseActivity {
     protected void setupActivityComponent(AppComponent appComponent) {
 
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        gcImageView(mLlSplashBg);
+//    }
 
 }
