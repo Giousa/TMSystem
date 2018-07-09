@@ -108,6 +108,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             mBtnSelectConfirm.setVisibility(View.GONE);
             initData();
         }else if(mIntentParam == 3){
+            isEdit = false;
             mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
             mBtnSelectConfirm.setVisibility(View.GONE);
             initData();
@@ -370,7 +371,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        if(mIntentParam == 1 || mIntentParam == 3){
+        if(mIntentParam == 1){
 
             getMenuInflater().inflate(R.menu.menu_actionbar, menu);
 //            menu.findItem(R.id.menu_setting).setVisible(false);
@@ -394,6 +395,18 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
             mItemEdit.setVisible(true);
 
+        }else if(mIntentParam == 3){
+            getMenuInflater().inflate(R.menu.menu_actionbar, menu);
+            menu.findItem(R.id.menu_setting).setVisible(false);
+            MenuItem item = menu.findItem(R.id.menu_add);
+
+            item.setIcon(new IconicsDrawable(this)
+                    .icon(Ionicons.Icon.ion_android_delete)
+                    .sizeDp(20)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            item.setVisible(true);
         }
         return true;
     }

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -55,6 +56,8 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     LinearLayout mRootView;
     @BindView(R.id.custom_button_title_view)
     CustomButtonTitleView mCustomButtonTitleView;
+    @BindView(R.id.btn_select_confirm)
+    Button mBtnSelectConfirm;
 
 
     private MenuItem mMenuItemAdd;
@@ -107,13 +110,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 isSelected = flag;
                 mStudentAdapter.setFlag(flag);
 
-                if(flag){
-                    //可选学生管理
-                    mPresenter.queryAllStudents(mTId);
-                }else {
-                    //移除学生管理
-                    mPresenter.queryRemoveStudents(mTId);
-                }
+                requestNewData();
             }
         });
     }
@@ -130,9 +127,9 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 //条目点击，进入详情
                 StudentBean studentBean = (StudentBean) adapter.getItem(position);
                 Intent intent = new Intent(StudentActivity.this, StudentInfoActivity.class);
-                if(isSelected){
+                if (isSelected) {
                     intent.putExtra(Constant.INTENT_PARAM, 1);
-                }else {
+                } else {
                     intent.putExtra(Constant.INTENT_PARAM, 3);
                 }
                 intent.putExtra(Constant.STUDENT, studentBean);
@@ -147,10 +144,10 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 //子条目点击，切换选中状态
                 StudentBean studentBean = (StudentBean) adapter.getItem(position);
 
-                if(isSelected){
+                if (isSelected) {
                     studentBean.setChecked();
                     mStudentAdapter.setChecked();
-                }else {
+                } else {
                     mPresenter.returnStudent(studentBean.getId());
                 }
 
@@ -228,15 +225,15 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     public void deleteStudent(String s) {
-        ToastUtils.SimpleToast(this,s);
-        if(isSelected){
-            //可选学生管理
-            mPresenter.queryAllStudents(mTId);
-        }else {
-            //移除学生管理
-            mPresenter.queryRemoveStudents(mTId);
-        }
+        ToastUtils.SimpleToast(this, s);
+
+        requestNewData();
+
+
     }
+
+
+
 
     @Override
     public void querySuccess(List<StudentBean> studentBeans) {
@@ -302,7 +299,26 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
             }
         }
 
+        if(dataChecked.size() == 0){
+            ToastUtils.SimpleToast(this,"请选择学生");
+            return;
+        }
+
         mPresenter.addSubStudents(mIntExtra, dataChecked);
     }
 
+    /**
+     * 请求新数据
+     */
+    private void requestNewData() {
+        if (isSelected) {
+            //可选学生管理
+            mPresenter.queryAllStudents(mTId);
+            mBtnSelectConfirm.setVisibility(View.VISIBLE);
+        } else {
+            //移除学生管理
+            mPresenter.queryRemoveStudents(mTId);
+            mBtnSelectConfirm.setVisibility(View.GONE);
+        }
+    }
 }
