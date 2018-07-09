@@ -206,7 +206,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
             }
 
             @Override
-            public void onConfirm(String content) {
+            public void onConfirm(int position,String content) {
                 mView.dismissLoading();
                 mView.inputSuccess(type,content);
             }

@@ -211,7 +211,7 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
             }
 
             @Override
-            public void onConfirm(String content) {
+            public void onConfirm(int position,String content) {
                 update2Server(type,content);
                 mView.dismissLoading();
             }

@@ -81,6 +81,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //条目点击，进入详情
                 ChildcareStudentBean childcareStudentBean = mStudentAdapter.getItem(position);
+                System.out.println("childcareStudentBean = "+childcareStudentBean);
                 Intent intent = new Intent(getActivity(),ChildcareStudentInfoActivity.class);
                 intent.putExtra(Constant.INTENT_PARAM,1);
                 intent.putExtra(Constant.STUDENT,childcareStudentBean);
@@ -120,10 +121,6 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
         RxBus.getDefault().post(Constant.ADD_CHILDCARE_STUDENT);
     }
 
-    @Override
-    public void addSuccess(ChildcareStudentBean childcareStudentBean) {
-
-    }
 
     @Override
     public void updateSuccess(ChildcareStudentBean childcareStudentBean) {

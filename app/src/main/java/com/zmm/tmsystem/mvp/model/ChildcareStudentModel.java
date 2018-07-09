@@ -32,8 +32,8 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
     }
 
     @Override
-    public Observable<BaseBean<String>> updateChildcareStudent(int flag,ChildcareStudentBean childcareStudentBean) {
-        return mApiService.updateChildcareStudent(flag,childcareStudentBean);
+    public Observable<BaseBean<ChildcareStudentBean>> updateChildcareStudent(int type,String id,int level,String content) {
+        return mApiService.updateChildcareStudent(type,id,level,content);
     }
 
     @Override

@@ -125,13 +125,13 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     private void initView() {
-        mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
-        mCustomItemName.setOnItemClickListener(this, Constant.TYPE_STUDENT_NAME);
+//        mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
+//        mCustomItemName.setOnItemClickListener(this, Constant.TYPE_STUDENT_NAME);
+//        mCustomItemGuardianPhone.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE1);
         mCustomItemSchool.setOnItemClickListener(this, Constant.TYPE_STUDENT_SCHOOL);
         mCustomItemGrade.setOnItemClickListener(this, Constant.TYPE_STUDENT_GRADE);
         mCustomItemTeacher.setOnItemClickListener(this, Constant.TYPE_STUDENT_TEACHER);
         mCustomItemTeacherPhone.setOnItemClickListener(this, Constant.TYPE_STUDENT_TEACHER_PHONE);
-        mCustomItemGuardianPhone.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE1);
         mCustomItemInfo.setOnItemClickListener(this, Constant.TYPE_STUDENT_INFO);
         mCustomItemCertificates.setOnItemClickListener(this, Constant.TYPE_STUDENT_CERTIFICATES);
         mCustomItemPay.setOnItemClickListener(this, Constant.TYPE_STUDENT_PAY);
@@ -167,7 +167,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void showError(String msg) {
-
+        ToastUtils.SimpleToast(this,msg);
     }
 
     @Override
@@ -181,13 +181,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     @Override
-    public void addSuccess(ChildcareStudentBean childcareStudentBean) {
-
-    }
-
-    @Override
     public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
         initData(childcareStudentBean);
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
     }
 
     @Override

@@ -282,11 +282,11 @@ public interface ApiService {
 
     /**
      * 更新托管的学生信息
-     * @param childcareStudentBean
      * @return
      */
-    @POST("updateChildcareStudent/{flag}")
-    Observable<BaseBean<String>> updateChildcareStudent(@Path("flag") int flag,@Body ChildcareStudentBean childcareStudentBean);
+    @FormUrlEncoded
+    @POST("updateChildcareStudent")
+    Observable<BaseBean<ChildcareStudentBean>> updateChildcareStudent(@Field("type") int type,@Field("id") String id,@Field("level") int level,@Field("content") String content );
 
     /**
      * 删除托管学生

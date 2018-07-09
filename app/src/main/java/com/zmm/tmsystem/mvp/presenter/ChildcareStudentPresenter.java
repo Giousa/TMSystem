@@ -9,6 +9,7 @@ import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
@@ -40,6 +41,7 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
     private int mScreenWidth;
     private List<String> mList;
     private ChildcareStudentBean mChildcareStudentBean;
+    private int index = 0;
 
 
     @Inject
@@ -102,14 +104,6 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
         }
         switch (type){
 
-            case Constant.TYPE_STUDENT_ICON:
-//                uloadIcon();
-                break;
-            case Constant.TYPE_STUDENT_NAME:
-                title = "姓名";
-                hint = "请输入您的姓名";
-                inputString(false);
-                break;
             case Constant.TYPE_STUDENT_SCHOOL:
                 title = "学校";
                 mList = new ArrayList<>();
@@ -118,22 +112,30 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                 break;
             case Constant.TYPE_STUDENT_GRADE:
                 title = "年级";
-                hint = "请输入您的年级";
-                inputString(true);
+                mList = new ArrayList<>();
+                mList.add("幼儿园");
+                mList.add("一年级");
+                mList.add("二年级");
+                mList.add("三年级");
+                mList.add("四年级");
+                mList.add("五年级");
+                mList.add("六年级");
+                mList.add("七年级");
+                mList.add("八年级");
+                mList.add("九年级");
+                mList.add("高一");
+                mList.add("高二");
+                mList.add("高三");
+                selectString();
                 break;
             case Constant.TYPE_STUDENT_TEACHER:
                 title = "班主任";
-                hint = "请输入班主任名称";
+                hint = "请输入班主任姓名";
                 inputString(false);
                 break;
             case Constant.TYPE_STUDENT_TEACHER_PHONE:
                 title = "班主任电话";
-                hint = "请输入班主任姓名";
-                inputString(false);
-                break;
-            case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                title = "监护人电话";
-                hint = "请输入监护人电话";
+                hint = "请输入班主任电话";
                 inputString(true);
                 break;
 
@@ -213,8 +215,9 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
             }
 
             @Override
-            public void onConfirm(String content) {
+            public void onConfirm(int position,String content) {
                 mView.dismissLoading();
+                index = position;
                 update2Server(type,content);
             }
         });
@@ -229,42 +232,19 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
      */
     private void update2Server(int type, String content) {
 
-        int flag = 0;
-
-        switch (type){
-
-            case Constant.TYPE_STUDENT_ICON:
-                mChildcareStudentBean.getStudent().setIcon(content);
-                flag = 0;
-                break;
-            case Constant.TYPE_STUDENT_NAME:
-                mChildcareStudentBean.getStudent().setName(content);
-                flag = 0;
-                break;
-            case Constant.TYPE_STUDENT_SCHOOL:
-                mChildcareStudentBean.setSchool(content);
-                flag = 1;
-                break;
-            case Constant.TYPE_STUDENT_GRADE:
-                mChildcareStudentBean.setGrade(content);
-                flag = 1;
-                break;
-            case Constant.TYPE_STUDENT_TEACHER:
-                mChildcareStudentBean.setTeacher(content);
-                flag = 1;
-                break;
-            case Constant.TYPE_STUDENT_TEACHER_PHONE:
-                mChildcareStudentBean.setTeacherPhone(content);
-                flag = 1;
-                break;
-            case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                mChildcareStudentBean.getStudent().setGuardian1Phone(content);
-                flag = 0;
-                break;
-
+        if(TextUtils.isEmpty(content)){
+            mView.showError("内容不能为空");
+            return;
         }
-
-        mModel.updateChildcareStudent(flag,mChildcareStudentBean);
+        mModel.updateChildcareStudent(type,mChildcareStudentBean.getId(),index,content)
+                .compose(RxHttpResponseCompat.<ChildcareStudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<ChildcareStudentBean>(mContext) {
+                    @Override
+                    public void onNext(ChildcareStudentBean childcareStudentBean) {
+                        ToastUtils.SimpleToast(mContext,"更新成功");
+                        mView.updateSuccess(childcareStudentBean);
+                    }
+                });
     }
 
     /**

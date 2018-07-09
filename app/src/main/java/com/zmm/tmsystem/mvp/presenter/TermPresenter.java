@@ -138,7 +138,7 @@ public class TermPresenter extends BasePresenter<TermContract.ITermModel,TermCon
             }
 
             @Override
-            public void onConfirm(String content) {
+            public void onConfirm(int position,String content) {
                 mView.dismissLoading();
                 mView.insertContentSuccess(type,content);
             }

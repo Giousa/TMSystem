@@ -50,7 +50,7 @@ public class SingleSelectView extends View {
 
         void onCancel();
 
-        void onConfirm(String content);
+        void onConfirm(int position,String content);
     }
 
 
@@ -104,7 +104,7 @@ public class SingleSelectView extends View {
             public void onClick(View v) {
                 mPopupWindow.dismiss();
                 if (mOnSelectClickListener != null) {
-                    mOnSelectClickListener.onConfirm(mList.get(mWheelView.getCurrentItem()));
+                    mOnSelectClickListener.onConfirm(mWheelView.getCurrentItem(),mList.get(mWheelView.getCurrentItem()));
                 }
             }
         });
