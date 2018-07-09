@@ -370,11 +370,10 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.menu_actionbar, menu);
 
         if(mIntentParam == 1){
 
-            getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-//            menu.findItem(R.id.menu_setting).setVisible(false);
             MenuItem item = menu.findItem(R.id.menu_add);
 
             item.setIcon(new IconicsDrawable(this)
@@ -395,8 +394,20 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
             mItemEdit.setVisible(true);
 
-        }else if(mIntentParam == 3){
-            getMenuInflater().inflate(R.menu.menu_actionbar, menu);
+        }else if(mIntentParam == 2){
+            menu.findItem(R.id.menu_add).setVisible(false);
+
+
+            mItemEdit = menu.findItem(R.id.menu_setting);
+
+            mItemEdit.setIcon(new IconicsDrawable(this)
+                    .iconText("编辑")
+                    .sizeDp(30)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            mItemEdit.setVisible(true);
+        } else if(mIntentParam == 3){
             menu.findItem(R.id.menu_setting).setVisible(false);
             MenuItem item = menu.findItem(R.id.menu_add);
 

@@ -140,6 +140,10 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     private void initData(ChildcareStudentBean childcareStudentBean) {
 
+        if(mCustomItemIcon == null){
+            return;
+        }
+
         String icon = childcareStudentBean.getStudent().getIcon();
         String name = childcareStudentBean.getStudent().getName();
         String school = childcareStudentBean.getSchool();
