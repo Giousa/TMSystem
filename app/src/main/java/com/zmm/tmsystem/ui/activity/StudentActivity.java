@@ -98,11 +98,15 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
      * 选择
      */
     private void selectStudentButton() {
+
         mCustomButtonTitleView.setOnButtonTitleClickListener(new CustomButtonTitleView.OnButtonTitleClickListener() {
             @Override
             public void onButtonTitleSelected(boolean flag) {
 
+
                 isSelected = flag;
+                mStudentAdapter.setFlag(flag);
+
                 if(flag){
                     //可选学生管理
                     mPresenter.queryAllStudents(mTId);
@@ -139,10 +143,17 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         mStudentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
                 //子条目点击，切换选中状态
                 StudentBean studentBean = (StudentBean) adapter.getItem(position);
-                studentBean.setChecked();
-                mStudentAdapter.setChecked();
+
+                if(isSelected){
+                    studentBean.setChecked();
+                    mStudentAdapter.setChecked();
+                }else {
+                    mPresenter.returnStudent(studentBean.getId());
+                }
+
 
             }
         });
@@ -216,8 +227,15 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     }
 
     @Override
-    public void deleteStudent() {
-
+    public void deleteStudent(String s) {
+        ToastUtils.SimpleToast(this,s);
+        if(isSelected){
+            //可选学生管理
+            mPresenter.queryAllStudents(mTId);
+        }else {
+            //移除学生管理
+            mPresenter.queryRemoveStudents(mTId);
+        }
     }
 
     @Override
@@ -287,11 +305,4 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         mPresenter.addSubStudents(mIntExtra, dataChecked);
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -28,6 +28,8 @@ public interface StudentContract {
 
         Observable<BaseBean<String>> removeStudent(String id);
 
+        Observable<BaseBean<String>> returnStudent(String id);
+
         Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id);
 
         Observable<BaseBean<List<StudentBean>>> queryRemoveStudentsByTeacherId(String id);
@@ -49,7 +51,7 @@ public interface StudentContract {
 
         void updateSuccess();
 
-        void deleteStudent();
+        void deleteStudent(String msg);
 
         void querySuccess(List<StudentBean> studentBeans);
     }

@@ -308,8 +308,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     }
 
     @Override
-    public void deleteStudent() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_delete_success));
+    public void deleteStudent(String s) {
+        ToastUtils.SimpleToast(this,s);
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);
         finish();
     }

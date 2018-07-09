@@ -46,6 +46,11 @@ public class StudentModel implements StudentContract.IStudentModel {
     }
 
     @Override
+    public Observable<BaseBean<String>> returnStudent(String id) {
+        return mApiService.returnStudent(id);
+    }
+
+    @Override
     public Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id) {
         return mApiService.queryAllStudentsByTeacherId(id);
     }

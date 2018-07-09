@@ -12,9 +12,9 @@
     app:contentPadding="@dimen/dp_size_2">
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -64,10 +64,20 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/iv_term_checked"
+                android:id="@+id/iv_student_checked"
                 android:layout_width="@dimen/dp_size_60"
                 android:layout_height="@dimen/dp_size_60"
                 android:src="@drawable/shape_corners_bt"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btn_student_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_corners_bt"
+                android:text="还原"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
 
         </LinearLayout>
 

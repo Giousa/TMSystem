@@ -234,6 +234,14 @@ public interface ApiService {
     Observable<BaseBean<String>> removeStudent(@Path("id") String id);
 
     /**
+     * 还原学生
+     * @param id
+     * @return
+     */
+    @GET("returnStudent/{id}")
+    Observable<BaseBean<String>> returnStudent(@Path("id") String id);
+
+    /**
      * 查询学生
      * @param id
      * @return

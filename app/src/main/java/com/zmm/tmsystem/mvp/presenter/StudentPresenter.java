@@ -230,7 +230,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
                     @Override
                     public void onNext(String s) {
-                        mView.deleteStudent();
+                        mView.deleteStudent(s);
                     }
                 });
     }
@@ -246,10 +246,26 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
                     @Override
                     public void onNext(String s) {
-                        mView.deleteStudent();
+                        mView.deleteStudent(s);
                     }
                 });
 
+    }
+
+    /**
+     * 还原学生
+     * @param id
+     */
+    public void returnStudent(String id) {
+        mModel.returnStudent(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteStudent(s);
+                    }
+                });
     }
 
     /**
@@ -305,6 +321,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         }
 
     }
+
 
 
 }

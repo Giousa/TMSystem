@@ -70,6 +70,10 @@ public class ErrorMessageFactory {
                 errorMsg = context.getResources().getString(R.string.error_student_exist);
                 break;
 
+            case ApiException.ERROR_API_STUDENT_EXIST_NONE:
+                errorMsg = context.getResources().getString(R.string.error_student_exist_none);
+                break;
+
             case ApiException.ERROR_API_STUDENT_ADD:
                 errorMsg = context.getResources().getString(R.string.error_student_add);
                 break;
