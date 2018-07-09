@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_size_130"
+    android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/dp_size_5"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/dp_size_10">
+    app:contentPadding="@dimen/dp_size_2">
 
     <LinearLayout
         android:gravity="center"

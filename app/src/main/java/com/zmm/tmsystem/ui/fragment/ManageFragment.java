@@ -80,7 +80,6 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //条目点击，进入详情
-                ToastUtils.SimpleToast(getActivity(),"position = "+position);
                 ChildcareStudentBean childcareStudentBean = mStudentAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(),ChildcareStudentInfoActivity.class);
                 intent.putExtra(Constant.INTENT_PARAM,1);

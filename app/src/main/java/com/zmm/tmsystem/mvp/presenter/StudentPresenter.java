@@ -58,6 +58,19 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 });
     }
 
+
+    public void queryRemoveStudents(String id) {
+        mModel.queryRemoveStudentsByTeacherId(id)
+                .compose(RxHttpResponseCompat.<List<StudentBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<StudentBean>>(mContext) {
+
+                    @Override
+                    public void onNext(List<StudentBean> studentBeans) {
+                        mView.querySuccess(studentBeans);
+                    }
+                });
+    }
+
     public void addStudent(StudentBean studentBean) {
 
         mModel.addStudent(studentBean)
@@ -223,6 +236,23 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
     }
 
     /**
+     * 移除学生
+     * @param id
+     */
+    public void removeStudent(String id) {
+        mModel.removeStudent(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteStudent();
+                    }
+                });
+
+    }
+
+    /**
      * 更新学生资料
      * @param studentBean
      */
@@ -275,4 +305,6 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         }
 
     }
+
+
 }

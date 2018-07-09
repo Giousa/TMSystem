@@ -226,12 +226,28 @@ public interface ApiService {
     Observable<BaseBean<String>> deleteStudent(@Path("id") String id);
 
     /**
+     * 移除学生
+     * @param id
+     * @return
+     */
+    @GET("removeStudent/{id}")
+    Observable<BaseBean<String>> removeStudent(@Path("id") String id);
+
+    /**
      * 查询学生
      * @param id
      * @return
      */
     @GET("queryAllStudentsByTeacherId/{id}")
     Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(@Path("id") String id);
+
+    /**
+     * 查询移除学生
+     * @param id
+     * @return
+     */
+    @GET("queryRemoveStudentsByTeacherId/{id}")
+    Observable<BaseBean<List<StudentBean>>> queryRemoveStudentsByTeacherId(@Path("id") String id);
 
 
     /**

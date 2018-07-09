@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +16,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
-import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.ToastUtils;
@@ -26,13 +26,14 @@ import com.zmm.tmsystem.mvp.presenter.StudentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.adapter.StudentAdapter;
-import com.zmm.tmsystem.ui.adapter.TermAdapter;
+import com.zmm.tmsystem.ui.widget.CustomButtonTitleView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -52,6 +53,8 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     RecyclerView mRecyclerView;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
+    @BindView(R.id.custom_button_title_view)
+    CustomButtonTitleView mCustomButtonTitleView;
 
 
     private MenuItem mMenuItemAdd;
@@ -59,6 +62,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     private ACache mACache;
     private String mTId;
     private int mIntExtra;
+    private boolean isSelected = true;
 
 
     @Override
@@ -86,6 +90,28 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         initData();
 
         operateBus();
+
+        selectStudentButton();
+    }
+
+    /**
+     * 选择
+     */
+    private void selectStudentButton() {
+        mCustomButtonTitleView.setOnButtonTitleClickListener(new CustomButtonTitleView.OnButtonTitleClickListener() {
+            @Override
+            public void onButtonTitleSelected(boolean flag) {
+
+                isSelected = flag;
+                if(flag){
+                    //可选学生管理
+                    mPresenter.queryAllStudents(mTId);
+                }else {
+                    //移除学生管理
+                    mPresenter.queryRemoveStudents(mTId);
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -97,13 +123,17 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         mStudentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            //条目点击，进入详情
+                //条目点击，进入详情
                 StudentBean studentBean = (StudentBean) adapter.getItem(position);
-                Intent intent = new Intent(StudentActivity.this,StudentInfoActivity.class);
-                intent.putExtra(Constant.INTENT_PARAM,1);
-                intent.putExtra(Constant.STUDENT,studentBean);
-                startActivity(intent);
+                Intent intent = new Intent(StudentActivity.this, StudentInfoActivity.class);
+                if(isSelected){
+                    intent.putExtra(Constant.INTENT_PARAM, 1);
+                }else {
+                    intent.putExtra(Constant.INTENT_PARAM, 3);
                 }
+                intent.putExtra(Constant.STUDENT, studentBean);
+                startActivity(intent);
+            }
         });
 
         mStudentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -174,7 +204,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     public void addChildcareStudentSuccess(String msg) {
-        ToastUtils.SimpleToast(this,msg);
+        ToastUtils.SimpleToast(this, msg);
         RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
 
 
@@ -207,7 +237,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_STUDENT)){
+                        if (!TextUtils.isEmpty(s) && s.equals(Constant.UPDATE_STUDENT)) {
                             mPresenter.queryAllStudents(mTId);
                         }
                     }
@@ -234,8 +264,8 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        Intent intent = new Intent(this,StudentInfoActivity.class);
-        intent.putExtra(Constant.INTENT_PARAM,0);
+        Intent intent = new Intent(this, StudentInfoActivity.class);
+        intent.putExtra(Constant.INTENT_PARAM, 0);
         startActivity(intent);
         return false;
     }
@@ -247,15 +277,21 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
         List<StudentBean> data = mStudentAdapter.getData();
         List<StudentBean> dataChecked = new ArrayList<>();
 
-        for (StudentBean studentBean:data) {
-            if(studentBean.isChecked()){
-                System.out.println("被选中的："+studentBean.getName());
+        for (StudentBean studentBean : data) {
+            if (studentBean.isChecked()) {
+                System.out.println("被选中的：" + studentBean.getName());
                 dataChecked.add(studentBean);
             }
         }
 
-        mPresenter.addSubStudents(mIntExtra,dataChecked);
+        mPresenter.addSubStudents(mIntExtra, dataChecked);
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

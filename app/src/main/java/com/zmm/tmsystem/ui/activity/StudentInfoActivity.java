@@ -91,16 +91,23 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
-        //0：代表添加新学生，1:代表修改学生，这个时候需要initData数据，2：从托管学生和补习学生跳转
+        //0：代表添加新学生，无删除按钮，无修改
+        //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
+        //2：从托管学生和补习学生跳转,无删除按钮,可修改
+        //3: 移除学生管理，有删除按钮,无修改
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
 
         initToolBar();
 
         initView();
 
-        if(mIntentParam != 0){
+        if(mIntentParam == 1 || mIntentParam == 2){
             isEdit = false;
             mBtnSelectConfirm.setText("修改学生信息");
+            mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
+            mBtnSelectConfirm.setVisibility(View.GONE);
+            initData();
+        }else if(mIntentParam == 3){
             mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
             mBtnSelectConfirm.setVisibility(View.GONE);
             initData();
@@ -363,7 +370,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        if(mIntentParam != 0){
+        if(mIntentParam == 1 || mIntentParam == 3){
 
             getMenuInflater().inflate(R.menu.menu_actionbar, menu);
 //            menu.findItem(R.id.menu_setting).setVisible(false);
@@ -434,7 +441,15 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     }
 
     private void delete() {
-        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
+
+        String title;
+
+        if(mIntentParam == 1 ){
+            title = "是否确定移除此学生？";
+        }else {
+            title = "是否确定删除此学生？";
+        }
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,title);
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
             public void onCancel() {
@@ -444,7 +459,12 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             @Override
             public void onConfirm() {
                 simpleConfirmDialog.dismiss();
-                mPresenter.deleteStudent(mStudentBean.getId());
+
+                if(mIntentParam == 1){
+                    mPresenter.removeStudent(mStudentBean.getId());
+                }else {
+                    mPresenter.deleteStudent(mStudentBean.getId());
+                }
 
             }
         });

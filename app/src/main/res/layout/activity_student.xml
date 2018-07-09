@@ -10,10 +10,14 @@
 
     <include layout="@layout/toolbar_content"/>
 
+    <com.zmm.tmsystem.ui.widget.CustomButtonTitleView
+        android:id="@+id/custom_button_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <Button
             android:id="@+id/btn_select_confirm"

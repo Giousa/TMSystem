@@ -26,7 +26,11 @@ public interface StudentContract {
 
         Observable<BaseBean<String>> deleteStudent(String id);
 
+        Observable<BaseBean<String>> removeStudent(String id);
+
         Observable<BaseBean<List<StudentBean>>> queryAllStudentsByTeacherId(String id);
+
+        Observable<BaseBean<List<StudentBean>>> queryRemoveStudentsByTeacherId(String id);
 
         //添加托管学生
         Observable<BaseBean<String>> addChildcareStudents(String termId,List<String> idList);
