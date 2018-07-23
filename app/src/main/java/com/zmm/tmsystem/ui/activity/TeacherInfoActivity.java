@@ -60,6 +60,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     CustomInfoItemView mCustomItemAddress;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
+    private TeacherBean mTeacherBean;
 
 
     @Override
@@ -108,9 +109,9 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         mCustomItemGender.setContent("女");
 
         ACache aCache = ACache.get(this);
-        TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
+        mTeacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
 
-        initData(teacherBean);
+        initData(mTeacherBean);
 
 
     }
@@ -223,9 +224,8 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if(images != null && images.size() > 0){
-                    for (int i = 0; i < images.size(); i++) {
-                        System.out.println("选择图片："+images.get(i).path);
-                    }
+                    System.out.println("选择图片："+images.get(0).path);
+                    mPresenter.uploadTeacherPic(mTeacherBean.getId(),images.get(0).path);
                 }
 
             } else {

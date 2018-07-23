@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -152,6 +153,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("updateTeacherByType/")
     Observable<BaseBean<TeacherBean>> updateTeacherByType(@Field("id")String id, @Field("type")int type, @Field("content")String content);
+
+
+    @Multipart
+    @POST("uploadTeacherPic/{id}")
+    Observable<BaseBean<TeacherBean>> uploadTeacherPic( @Path("id") String id,  @Part() MultipartBody.Part file);
 
 
     /**

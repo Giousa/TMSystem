@@ -133,7 +133,7 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         if(CheckUtils.checkString(icon)){
 
             Glide.with(mContext)
-                    .load(icon)
+                    .load(Constant.BASE_IMG_URL+icon)
                     .transform(new GlideCircleTransform(mContext))
                     .error(new IconicsDrawable(mContext)
                             .icon(Ionicons.Icon.ion_android_contact)

@@ -14,10 +14,15 @@ import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
 import com.zmm.tmsystem.ui.widget.SingleSelectView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -62,8 +67,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
 
         switch (type){
 
-            case Constant.TYPE_ICON:
-                break;
             case Constant.TYPE_NAME:
                 title = "姓名";
                 hint = "请输入您的姓名";
@@ -235,4 +238,28 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
     }
 
 
+    /**
+     * 上传头像
+     * @param id
+     * @param path
+     */
+    public void uploadTeacherPic(String id,String path) {
+
+        File file= new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+
+
+        mModel.uploadTeacherPic(id,part)
+                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<TeacherBean>(mContext) {
+                    @Override
+                    public void onNext(TeacherBean teacherBean) {
+                        System.out.println("teacherBean = "+teacherBean);
+                        mView.updateSuccess("头像",teacherBean);
+                        TeacherCacheUtil.save(mContext,teacherBean);
+                    }
+                });
+    }
 }

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.common.Constant;
 
 /**
  * Description:
@@ -140,7 +141,7 @@ public class CustomInfoItemView extends LinearLayout{
         }
         if(isShowPic){
           Glide.with(mContext)
-                .load(path)
+                .load(Constant.BASE_IMG_URL+path)
                 .transform(new GlideCircleTransform(mContext))
                 .error(new IconicsDrawable(mContext)
                         .icon(Ionicons.Icon.ion_android_contact)

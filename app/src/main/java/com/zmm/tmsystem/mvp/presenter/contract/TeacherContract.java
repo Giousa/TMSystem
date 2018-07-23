@@ -9,6 +9,8 @@ import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -23,7 +25,7 @@ public interface TeacherContract {
 
         Observable<BaseBean<TeacherBean>> updateTeacherInfo(TeacherBean teacherBean);
 
-        Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile);
+        Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, MultipartBody.Part file);
 
         Observable<BaseBean<TeacherBean>> updateTeacherByType(String id, int type, String content);
 

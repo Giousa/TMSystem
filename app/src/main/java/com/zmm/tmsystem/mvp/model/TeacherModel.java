@@ -10,6 +10,8 @@ import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -44,8 +46,8 @@ public class TeacherModel implements TeacherContract.ITeacherModel {
     }
 
     @Override
-    public Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, File uploadFile) {
-        return null;
+    public Observable<BaseBean<TeacherBean>> uploadTeacherPic(String id, MultipartBody.Part file) {
+        return mApiService.uploadTeacherPic(id,file);
     }
 
 }
