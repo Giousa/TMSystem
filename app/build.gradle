@@ -110,4 +110,7 @@ dependencies {
 
     //cardview
     implementation rootProject.ext.dependencies["cardview-view"]
+
+    //图片选择器
+    compile 'com.lzy.widget:imagepicker:0.6.1'
 }

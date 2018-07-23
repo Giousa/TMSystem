@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -26,6 +29,7 @@ import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -313,10 +317,37 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
                 case Constant.TYPE_STUDENT_PAY:
                     ToastUtils.SimpleToast(this,"进入消费详细界面");
+
+                    ImagePicker imagePicker = ImagePicker.getInstance();
+                    imagePicker.setMultiMode(true);//单选或多选模式
+
+                    Intent intent = new Intent(this, ImageGridActivity.class);
+                    startActivityForResult(intent, 100);
                     break;
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+
+                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if(images != null && images.size() > 0){
+                    for (int i = 0; i < images.size(); i++) {
+                        System.out.println("选择图片："+images.get(i).path);
+                    }
+                }
+
+                mPresenter.uploadImages(images);
+
+            } else {
+                System.out.println("没有数据");
+            }
+        }
     }
 
     /**

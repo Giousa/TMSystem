@@ -1,8 +1,12 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -19,10 +23,13 @@ import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 /**
- * Description:
+ * Description:教师信息
  * Author:zhangmengmeng
  * Date:2018/6/15
  * Time:下午4:09
@@ -105,9 +112,8 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
         initData(teacherBean);
 
+
     }
-
-
 
     /**
      * 初始化数据
@@ -168,7 +174,20 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @Override
     public void itemClick(int type,String name) {
 
-        mPresenter.updateTeacherByType(type,name,mRootView,mScreenWidth);
+        if(type == Constant.TYPE_ICON){
+            uloadIcon();
+        }else {
+            mPresenter.updateTeacherByType(type,name,mRootView,mScreenWidth);
+        }
+
+    }
+
+
+
+    private void uloadIcon() {
+
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, 100);
 
     }
 
@@ -193,6 +212,26 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         ToastUtils.SimpleToast(this, "更新" + title + "成功");
         initData(teacherBean);
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+
+                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if(images != null && images.size() > 0){
+                    for (int i = 0; i < images.size(); i++) {
+                        System.out.println("选择图片："+images.get(i).path);
+                    }
+                }
+
+            } else {
+                System.out.println("没有数据");
+            }
+        }
     }
 
 

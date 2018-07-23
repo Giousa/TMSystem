@@ -2,6 +2,7 @@ package com.zmm.tmsystem.http;
 
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
@@ -11,11 +12,14 @@ import com.zmm.tmsystem.bean.TermBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -303,4 +307,9 @@ public interface ApiService {
      */
     @GET("findChildcareStudentById/{id}")
     Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(@Path("id") String id);
+
+    @Multipart
+    @POST("uploadPics")
+    Observable<BaseBean<String>> uploadPics( @Query("t_id") String t_id,  @Query("listJson") String listJson, @Part() MultipartBody.Part [] file);
+
 }

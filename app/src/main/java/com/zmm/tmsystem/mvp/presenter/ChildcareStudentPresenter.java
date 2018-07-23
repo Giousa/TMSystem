@@ -3,10 +3,15 @@ package com.zmm.tmsystem.mvp.presenter;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
+import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
 import com.zmm.tmsystem.common.utils.ToastUtils;
@@ -16,12 +21,16 @@ import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
 import com.zmm.tmsystem.ui.widget.SingleSelectView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -258,6 +267,45 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                     @Override
                     public void onNext(ChildcareStudentBean childcareStudentBean) {
                         mView.updateSuccess(childcareStudentBean);
+                    }
+                });
+    }
+
+    /**
+     * 上传多图片测试
+     * @param images
+     */
+    public void uploadImages(List<ImageItem> images) {
+
+        MultipartBody.Part [] part = new MultipartBody.Part[images.size()];
+
+        for (int i = 0; i < images.size(); i++) {
+            File file= new File(images.get(i).path);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            System.out.println("图片名称file.getName() = "+file.getName());
+            part[i] = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        }
+
+        String t_id = "1010101010001";
+
+        List<TermBean> termBeans = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            TermBean termBean = new TermBean();
+            termBean.setTitle("标题_"+i);
+            termBean.setId("托管id_"+i);
+            termBeans.add(termBean);
+        }
+
+        Gson gson = new Gson();
+        String s = gson.toJson(termBeans);
+        System.out.println("s = "+s);
+
+        mModel.uploadPics(t_id,s,part)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        System.out.println("多图片上传s = "+s);
                     }
                 });
     }

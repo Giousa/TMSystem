@@ -1,14 +1,17 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * Description:
@@ -30,6 +33,8 @@ public interface ChildcareStudentContract {
         Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(String id);
 
         Observable<BaseBean<List<SchoolBean>>> querySchools();
+
+        Observable<BaseBean<String>> uploadPics(String t_id, String listJson, MultipartBody.Part [] part);
     }
 
     interface ChildcareStudentView extends BaseView{

@@ -19,8 +19,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.Disposable;
-
 /**
  * Description:
  * Author:zhangmengmeng
@@ -65,7 +63,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
         switch (type){
 
             case Constant.TYPE_ICON:
-                uloadIcon();
                 break;
             case Constant.TYPE_NAME:
                 title = "姓名";
@@ -157,10 +154,6 @@ public class TeacherPresenter extends BasePresenter<TeacherContract.ITeacherMode
                 });
     }
 
-
-    private void uloadIcon() {
-
-    }
 
     /**
      * 输入框修改
