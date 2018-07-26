@@ -271,7 +271,7 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s)){
+                        if(!TextUtils.isEmpty(s) && mTitleBar != null){
 
                             if(s.equals(Constant.UPDATE_TITLE)){
                                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
@@ -285,6 +285,8 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
 
                             }else if(s.equals(Constant.ADD_CHILDCARE_STUDENT)){
                                 String count = mACache.getAsString(Constant.CHILDCARE_STUDENT_COUNT);
+                                System.out.println("count = "+count);
+                                System.out.println("mTitleBar = "+mTitleBar);
                                 if(TextUtils.isEmpty(count)){
                                     mTitleBar.setSubtitle("");
                                 }else {
