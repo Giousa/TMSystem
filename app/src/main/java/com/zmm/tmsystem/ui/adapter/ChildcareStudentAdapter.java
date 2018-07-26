@@ -12,6 +12,7 @@ import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.AgeUtils;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
@@ -63,7 +64,7 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
 
         }else {
             Glide.with(mContext)
-                    .load(icon)
+                    .load(Constant.BASE_IMG_URL+icon)
                     .transform(new GlideCircleTransform(mContext))
                     .error(new IconicsDrawable(mContext)
                             .icon(Ionicons.Icon.ion_android_contact)

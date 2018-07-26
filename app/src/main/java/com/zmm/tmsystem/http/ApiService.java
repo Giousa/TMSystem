@@ -267,6 +267,12 @@ public interface ApiService {
     @GET("queryRemoveStudentsByTeacherId/{id}")
     Observable<BaseBean<List<StudentBean>>> queryRemoveStudentsByTeacherId(@Path("id") String id);
 
+    @Multipart
+    @POST("uploadStudentPic/{id}")
+    Observable<BaseBean<StudentBean>> uploadStudentPic( @Path("id") String id,  @Part() MultipartBody.Part file);
+
+
+
 
     /**
      * -----------------------------托管学生相关接口-----------------------------

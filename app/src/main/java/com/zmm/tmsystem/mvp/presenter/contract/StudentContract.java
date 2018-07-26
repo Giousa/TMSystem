@@ -8,6 +8,7 @@ import com.zmm.tmsystem.mvp.view.BaseView;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * Description:
@@ -36,6 +37,10 @@ public interface StudentContract {
 
         //添加托管学生
         Observable<BaseBean<String>> addChildcareStudents(String termId,List<String> idList);
+
+        //上传学生头像
+        Observable<BaseBean<StudentBean>> uploadStudentPic(String id, MultipartBody.Part file);
+
 
 
 

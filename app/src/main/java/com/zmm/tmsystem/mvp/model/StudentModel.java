@@ -9,6 +9,7 @@ import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * Description:
@@ -63,6 +64,11 @@ public class StudentModel implements StudentContract.IStudentModel {
     @Override
     public Observable<BaseBean<String>> addChildcareStudents(String termId, List<String> idList) {
         return mApiService.addChildcareStudents(termId,idList);
+    }
+
+    @Override
+    public Observable<BaseBean<StudentBean>> uploadStudentPic(String id, MultipartBody.Part file) {
+        return mApiService.uploadStudentPic(id,file);
     }
 
 

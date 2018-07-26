@@ -1,5 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -27,6 +31,7 @@ import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -218,7 +223,12 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public void itemClick(int type, String name) {
 
         if(isEdit){
-            mPresenter.updateStudentData(type, name, mRootView, mScreenWidth);
+
+            if(type == Constant.TYPE_STUDENT_ICON){
+                uloadIcon();
+            }else {
+                mPresenter.updateStudentData(type, name, mRootView, mScreenWidth);
+            }
         }else {
             switch (type){
                 case Constant.TYPE_STUDENT_PHONE:
@@ -232,6 +242,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
                 case Constant.TYPE_STUDENT_GUARDIANPHONE2:
                     ToastUtils.SimpleToast(this,"电话2");
+
+                    break;
+
+                case Constant.TYPE_STUDENT_ICON:
+                    uloadIcon();
 
                     break;
             }
@@ -258,9 +273,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public void inputSuccess(int type, String content) {
 
         switch (type) {
-            case Constant.TYPE_STUDENT_ICON:
 
-                break;
             case Constant.TYPE_STUDENT_NAME:
                 mCustomItemName.setContent(content);
                 break;
@@ -318,6 +331,31 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void querySuccess(List<StudentBean> studentBeans) {
 
+    }
+
+    private void uloadIcon() {
+
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, 100);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+
+                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if(images != null && images.size() > 0){
+                    System.out.println("选择图片："+images.get(0).path);
+                    mPresenter.uploadStudentPic(mStudentBean.getId(),images.get(0).path);
+                }
+
+            } else {
+                System.out.println("没有数据");
+            }
+        }
     }
 
     @OnClick(R.id.btn_select_confirm)

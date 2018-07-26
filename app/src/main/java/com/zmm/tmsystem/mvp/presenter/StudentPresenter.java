@@ -4,21 +4,27 @@ import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
 import com.zmm.tmsystem.ui.widget.SingleSelectView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -320,6 +326,31 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
         }
 
+    }
+
+
+    /**
+     * 上传头像
+     * @param id
+     * @param path
+     */
+    public void uploadStudentPic(String id,String path) {
+
+        File file= new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+
+
+        mModel.uploadStudentPic(id,part)
+                .compose(RxHttpResponseCompat.<StudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+                    @Override
+                    public void onNext(StudentBean studentBean) {
+                        System.out.println("studentBean = "+studentBean);
+                        mView.updateSuccess();
+                    }
+                });
     }
 
 
