@@ -157,7 +157,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                                     mStudentAdapter.setNewData(null);
 
                                 }else {
-                                    System.out.println("加载新托管学生...");
+                                    System.out.println("加载新托管学生...termBean.getId() = "+termBean.getId());
                                     mPresenter.queryAllChildcareStudents(termBean.getId());
                                 }
                             }

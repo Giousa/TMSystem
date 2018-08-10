@@ -308,6 +308,8 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 list.add(studentBean.getId());
             }
 
+            System.out.println("加载新托管学生 id = "+id);
+
             mModel.addChildcareStudents(id,list)
                     .compose(RxHttpResponseCompat.<String>compatResult())
                     .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
