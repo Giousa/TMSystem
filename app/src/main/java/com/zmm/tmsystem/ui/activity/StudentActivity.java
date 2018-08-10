@@ -115,7 +115,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 Intent intent = new Intent(StudentActivity.this, StudentInfoActivity.class);
                 //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
                 intent.putExtra(Constant.INTENT_PARAM, 1);
-                intent.putExtra(Constant.STUDENT, studentBean);
+                intent.putExtra(Constant.STUDENT_ID, studentBean.getId());
                 startActivity(intent);
             }
         });
@@ -211,11 +211,14 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
     }
 
 
-
-
     @Override
     public void querySuccess(List<StudentBean> studentBeans) {
         mStudentAdapter.setNewData(studentBeans);
+    }
+
+    @Override
+    public void queryStudent(StudentBean studentBean) {
+
     }
 
 

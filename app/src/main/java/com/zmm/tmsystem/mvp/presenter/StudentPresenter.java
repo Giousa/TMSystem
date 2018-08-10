@@ -86,6 +86,25 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
     }
 
     /**
+     * 根据id获取学生信息
+     * @param id
+     */
+    public void getStudentById(String id) {
+
+        mModel.getStudentById(id)
+                .compose(RxHttpResponseCompat.<StudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+
+                    @Override
+                    public void onNext(StudentBean studentBean) {
+                        mView.queryStudent(studentBean);
+                    }
+
+                });
+
+    }
+
+    /**
      * 添加学生
      * @param studentBean
      */
@@ -362,7 +381,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                     @Override
                     public void onNext(StudentBean studentBean) {
                         System.out.println("studentBean = "+studentBean);
-                        mView.updateSuccess();
+                        mView.queryStudent(studentBean);
                     }
                 });
     }

@@ -84,7 +84,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                 System.out.println("childcareStudentBean = "+childcareStudentBean);
                 Intent intent = new Intent(getActivity(),ChildcareStudentInfoActivity.class);
                 intent.putExtra(Constant.INTENT_PARAM,1);
-                intent.putExtra(Constant.STUDENT,childcareStudentBean);
+                intent.putExtra(Constant.CHILDCARE_STUDENT,childcareStudentBean);
                 startActivity(intent);
             }
         });

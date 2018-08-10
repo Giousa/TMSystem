@@ -71,5 +71,10 @@ public class StudentModel implements StudentContract.IStudentModel {
         return mApiService.uploadStudentPic(id,file);
     }
 
+    @Override
+    public Observable<BaseBean<StudentBean>> getStudentById(String id) {
+        return mApiService.getStudentById(id);
+    }
+
 
 }

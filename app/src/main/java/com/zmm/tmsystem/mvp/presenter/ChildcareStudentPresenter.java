@@ -309,4 +309,29 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                     }
                 });
     }
+
+    /**
+     * 上传学生头像
+     * @param childcareStudentBean
+     * @param path
+     */
+    public void uploadStudentPic(final ChildcareStudentBean childcareStudentBean, String path) {
+        File file= new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+
+
+        mModel.uploadChildcareStudentPic(childcareStudentBean.getStudent().getId(),part)
+                .compose(RxHttpResponseCompat.<StudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+                    @Override
+                    public void onNext(StudentBean studentBean) {
+                        System.out.println("studentBean = "+studentBean);
+                        childcareStudentBean.setStudent(studentBean);
+                        mView.updateSuccess(childcareStudentBean);
+                    }
+                });
+
+    }
 }

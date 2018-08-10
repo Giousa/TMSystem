@@ -35,6 +35,9 @@ public interface ChildcareStudentContract {
         Observable<BaseBean<List<SchoolBean>>> querySchools();
 
         Observable<BaseBean<String>> uploadPics(String t_id, String listJson, MultipartBody.Part [] part);
+
+        //上传学生头像
+        Observable<BaseBean<StudentBean>> uploadChildcareStudentPic(String id, MultipartBody.Part file);
     }
 
     interface ChildcareStudentView extends BaseView{

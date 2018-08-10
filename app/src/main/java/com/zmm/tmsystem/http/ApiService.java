@@ -219,6 +219,14 @@ public interface ApiService {
     Observable<BaseBean<StudentBean>> addStudent(@Body StudentBean studentBean);
 
     /**
+     * 根据id获取学生
+     * @param id
+     * @return
+     */
+    @POST("getStudentById/{id}")
+    Observable<BaseBean<StudentBean>> getStudentById(@Path("id") String id);
+
+    /**
      * 更新学生
      * @param studentBean
      * @return
@@ -267,11 +275,15 @@ public interface ApiService {
     @GET("queryRemoveStudentsByTeacherId/{id}")
     Observable<BaseBean<List<StudentBean>>> queryRemoveStudentsByTeacherId(@Path("id") String id);
 
+    /**
+     * 上传学生头像
+     * @param id
+     * @param file
+     * @return
+     */
     @Multipart
     @POST("uploadStudentPic/{id}")
     Observable<BaseBean<StudentBean>> uploadStudentPic( @Path("id") String id,  @Part() MultipartBody.Part file);
-
-
 
 
     /**
@@ -320,8 +332,31 @@ public interface ApiService {
     @GET("findChildcareStudentById/{id}")
     Observable<BaseBean<ChildcareStudentBean>> findChildcareStudentById(@Path("id") String id);
 
+
+    /**
+     * 上传多图片测试
+     * @param t_id
+     * @param listJson
+     * @param file
+     * @return
+     */
     @Multipart
     @POST("uploadPics")
     Observable<BaseBean<String>> uploadPics( @Query("t_id") String t_id,  @Query("listJson") String listJson, @Part() MultipartBody.Part [] file);
+
+
+
+    /**
+     * 上传托管学生头像
+     * @param id
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("uploadChildcareStudentPic/{id}")
+    Observable<BaseBean<StudentBean>> uploadChildcareStudentPic( @Path("id") String id,  @Part() MultipartBody.Part file);
+
+
+
 
 }

@@ -38,7 +38,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
- * Description:
+ * Description:托管学生资料
  * Author:zhangmengmeng
  * Date:2018/7/3
  * Time:上午11:34
@@ -93,7 +93,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     protected void init() {
 
 
-        mChildcareStudentBean = (ChildcareStudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
+        mChildcareStudentBean = (ChildcareStudentBean) getIntent().getSerializableExtra(Constant.CHILDCARE_STUDENT);
 
         initToolBar();
 
@@ -129,7 +129,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     private void initView() {
-//        mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
+        mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
 //        mCustomItemName.setOnItemClickListener(this, Constant.TYPE_STUDENT_NAME);
 //        mCustomItemGuardianPhone.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE1);
         mCustomItemSchool.setOnItemClickListener(this, Constant.TYPE_STUDENT_SCHOOL);
@@ -288,61 +288,87 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public void itemClick(int type, String name) {
 
-        if(isEdit){
-            mPresenter.updateChildcareStudentData(type, name, mRootView, mScreenWidth,mChildcareStudentBean);
+        if(type == Constant.TYPE_STUDENT_INFO){
+
+            Intent intentInfo = new Intent(this,StudentInfoActivity.class);
+            intentInfo.putExtra(Constant.INTENT_PARAM,2);
+            intentInfo.putExtra(Constant.STUDENT_ID,mChildcareStudentBean.getStudent().getId());
+            startActivity(intentInfo);
+
+        }else if(type == Constant.TYPE_STUDENT_ICON){
+
+            uloadIcon();
+
+        }else if(type == Constant.TYPE_STUDENT_CERTIFICATES){
+
+            ToastUtils.SimpleToast(this,"进入荣誉证书界面");
+
+        }else if(type == Constant.TYPE_STUDENT_PAY){
+            ToastUtils.SimpleToast(this,"进入消费详细界面");
+
+//            ImagePicker imagePicker = ImagePicker.getInstance();
+//            imagePicker.setMultiMode(true);//单选或多选模式
+//
+//            Intent intent = new Intent(this, ImageGridActivity.class);
+//            startActivityForResult(intent, 100);
         }else {
-            switch (type){
 
+            if(isEdit){
+                mPresenter.updateChildcareStudentData(type, name, mRootView, mScreenWidth,mChildcareStudentBean);
+            }else {
+                switch (type){
 
-                case Constant.TYPE_STUDENT_TEACHER_PHONE:
-                    ToastUtils.SimpleToast(this,"班主任电话");
-                    break;
+                    case Constant.TYPE_STUDENT_TEACHER_PHONE:
+                        ToastUtils.SimpleToast(this,"班主任电话");
+                        break;
 
-                case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                    ToastUtils.SimpleToast(this,"监护人电话");
-                    break;
-
-                case Constant.TYPE_STUDENT_INFO:
-
-                    Intent intentInfo = new Intent(this,StudentInfoActivity.class);
-                    intentInfo.putExtra(Constant.INTENT_PARAM,2);
-                    intentInfo.putExtra(Constant.STUDENT,mChildcareStudentBean.getStudent());
-                    startActivity(intentInfo);
-
-                    break;
-
-                case Constant.TYPE_STUDENT_CERTIFICATES:
-                    ToastUtils.SimpleToast(this,"进入荣誉证书界面");
-                    break;
-
-                case Constant.TYPE_STUDENT_PAY:
-                    ToastUtils.SimpleToast(this,"进入消费详细界面");
-
-                    ImagePicker imagePicker = ImagePicker.getInstance();
-                    imagePicker.setMultiMode(true);//单选或多选模式
-
-                    Intent intent = new Intent(this, ImageGridActivity.class);
-                    startActivityForResult(intent, 100);
-                    break;
+                    case Constant.TYPE_STUDENT_GUARDIANPHONE1:
+                        ToastUtils.SimpleToast(this,"监护人电话");
+                        break;
+                }
             }
         }
 
+
+
+    }
+
+    /**
+     * 上传头像
+     */
+    private void uloadIcon() {
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, 100);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+//            if (data != null && requestCode == 100) {
+//
+//                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+//                if(images != null && images.size() > 0){
+//                    for (int i = 0; i < images.size(); i++) {
+//                        System.out.println("选择图片："+images.get(i).path);
+//                    }
+//                }
+//
+//                mPresenter.uploadImages(images);
+//
+//            } else {
+//                System.out.println("没有数据");
+//            }
+//        }
+
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null && requestCode == 100) {
 
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if(images != null && images.size() > 0){
-                    for (int i = 0; i < images.size(); i++) {
-                        System.out.println("选择图片："+images.get(i).path);
-                    }
+                    System.out.println("选择图片："+images.get(0).path);
+                    mPresenter.uploadStudentPic(mChildcareStudentBean,images.get(0).path);
                 }
-
-                mPresenter.uploadImages(images);
 
             } else {
                 System.out.println("没有数据");

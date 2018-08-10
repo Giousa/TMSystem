@@ -59,4 +59,9 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
         return mApiService.uploadPics(t_id,listJson,part);
     }
 
+    @Override
+    public Observable<BaseBean<StudentBean>> uploadChildcareStudentPic(String id, MultipartBody.Part file) {
+        return mApiService.uploadChildcareStudentPic(id,file);
+    }
+
 }

@@ -42,6 +42,9 @@ public interface StudentContract {
         Observable<BaseBean<StudentBean>> uploadStudentPic(String id, MultipartBody.Part file);
 
 
+        //根据id获取学生
+        Observable<BaseBean<StudentBean>> getStudentById(String id);
+
 
 
     }
@@ -59,5 +62,7 @@ public interface StudentContract {
         void deleteStudent(String msg);
 
         void querySuccess(List<StudentBean> studentBeans);
+
+        void queryStudent(StudentBean studentBean);
     }
 }

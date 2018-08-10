@@ -23,7 +23,10 @@ public class Constant {
     public static final String TEACHER_ID = "TEACHER_ID";
     public static final String TMS_COOKIE = "tms_cookie";
     public static final String SIGN = "sign";
+
     public static final String STUDENT = "STUDENT";
+    public static final String STUDENT_ID = "STUDENT_ID";
+    public static final String CHILDCARE_STUDENT = "CHILDCARE_STUDENT";
 
     //-----------------托管周期点击------------------
     public static final int TYPE_TERM_YEAR = 0;

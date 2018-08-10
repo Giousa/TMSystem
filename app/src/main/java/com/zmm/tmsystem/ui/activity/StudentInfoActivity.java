@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Description:
+ * Description: 学生资料
  * Author:zhangmengmeng
  * Date:2018/6/20
  * Time:下午3:57
@@ -74,9 +74,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     Button mBtnSelectConfirm;
 
     private int mIntentParam;
-    private StudentBean mStudentBean;
     private MenuItem mItemEdit;
     private boolean isEdit = true;
+    private String mId;
 
 
     @Override
@@ -99,27 +99,29 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         //0：代表添加新学生，无删除按钮，无修改
         //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
         //2：从托管学生和补习学生跳转,无删除按钮,可修改
-        //3: 移除学生管理，有删除按钮,无修改
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
+
+        mId = getIntent().getStringExtra(Constant.STUDENT_ID);
+
+        System.out.println("mId = "+mId);
+
+
+        if(mIntentParam == 1 || mIntentParam == 2){
+            isEdit = false;
+            mBtnSelectConfirm.setText("修改学生信息");
+            mBtnSelectConfirm.setVisibility(View.GONE);
+        }
 
         initToolBar();
 
         initView();
 
-        if(mIntentParam == 1 || mIntentParam == 2){
-            isEdit = false;
-            mBtnSelectConfirm.setText("修改学生信息");
-            mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
-            mBtnSelectConfirm.setVisibility(View.GONE);
-            initData();
-        }else if(mIntentParam == 3){
-            isEdit = false;
-            mStudentBean = (StudentBean) getIntent().getSerializableExtra(Constant.STUDENT);
-            mBtnSelectConfirm.setVisibility(View.GONE);
-            initData();
+        if(!TextUtils.isEmpty(mId)){
+            mPresenter.getStudentById(mId);
         }
 
     }
+
 
     private void initToolBar() {
 
@@ -159,17 +161,21 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     }
 
 
-    private void initData() {
+    private void initData(StudentBean studentBean) {
 
-        String icon = mStudentBean.getIcon();
-        String name = mStudentBean.getName();
-        Integer gender = mStudentBean.getGender();
-        String phone = mStudentBean.getPhone();
-        String address = mStudentBean.getAddress();
-        String guardian1 = mStudentBean.getGuardian1();
-        String guardian1Phone = mStudentBean.getGuardian1Phone();
-        String guardian2 = mStudentBean.getGuardian2();
-        String guardian2Phone = mStudentBean.getGuardian2Phone();
+        if(mCustomItemIcon == null){
+            return;
+        }
+
+        String icon = studentBean.getIcon();
+        String name = studentBean.getName();
+        Integer gender = studentBean.getGender();
+        String phone = studentBean.getPhone();
+        String address = studentBean.getAddress();
+        String guardian1 = studentBean.getGuardian1();
+        String guardian1Phone = studentBean.getGuardian1Phone();
+        String guardian2 = studentBean.getGuardian2();
+        String guardian2Phone = studentBean.getGuardian2Phone();
 
         if(!TextUtils.isEmpty(icon)){
             mCustomItemIcon.setIcon(icon);
@@ -319,6 +325,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     public void updateSuccess() {
         ToastUtils.SimpleToast(this, getResources().getString(R.string.student_update_success));
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);
+
     }
 
     @Override
@@ -331,6 +338,12 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void querySuccess(List<StudentBean> studentBeans) {
 
+    }
+
+    @Override
+    public void queryStudent(StudentBean studentBean) {
+        initData(studentBean);
+        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
     }
 
     private void uloadIcon() {
@@ -349,7 +362,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if(images != null && images.size() > 0){
                     System.out.println("选择图片："+images.get(0).path);
-                    mPresenter.uploadStudentPic(mStudentBean.getId(),images.get(0).path);
+                    mPresenter.uploadStudentPic(mId,images.get(0).path);
                 }
 
             } else {
@@ -398,7 +411,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             mPresenter.addStudent(studentBean);
         }else {
             //修改学生信息
-            studentBean.setId(mStudentBean.getId());
+            studentBean.setId(mId);
             mPresenter.updateStudent(studentBean);
             edit();
         }
@@ -527,9 +540,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                 simpleConfirmDialog.dismiss();
 
                 if(mIntentParam == 1){
-                    mPresenter.removeStudent(mStudentBean.getId());
+                    mPresenter.removeStudent(mId);
                 }else {
-                    mPresenter.deleteStudent(mStudentBean.getId());
+                    mPresenter.deleteStudent(mId);
                 }
 
             }
