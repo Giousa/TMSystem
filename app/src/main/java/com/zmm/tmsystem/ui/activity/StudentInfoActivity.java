@@ -456,6 +456,10 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                     ));
 
             item.setVisible(true);
+        }else {
+            menu.findItem(R.id.menu_add).setVisible(false);
+            menu.findItem(R.id.menu_setting).setVisible(false);
+
         }
         return true;
     }

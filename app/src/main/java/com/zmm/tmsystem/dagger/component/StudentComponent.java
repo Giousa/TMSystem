@@ -4,6 +4,7 @@ import com.zmm.tmsystem.dagger.module.StudentModule;
 import com.zmm.tmsystem.dagger.scope.ActivityScope;
 import com.zmm.tmsystem.ui.activity.StudentActivity;
 import com.zmm.tmsystem.ui.activity.StudentInfoActivity;
+import com.zmm.tmsystem.ui.activity.StudentRemoveActivity;
 import com.zmm.tmsystem.ui.fragment.ManageFragment;
 
 import dagger.Component;
@@ -20,4 +21,5 @@ public interface StudentComponent {
 
     void inject(StudentActivity activity);
     void inject(StudentInfoActivity activity);
+    void inject(StudentRemoveActivity activity);
 }

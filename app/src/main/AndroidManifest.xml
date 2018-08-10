@@ -85,6 +85,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--移除学生管理-->
+        <activity
+            android:name=".ui.activity.StudentRemoveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
         <activity
             android:name=".ui.activity.ChildcareStudentInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

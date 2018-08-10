@@ -11,6 +11,7 @@
     <include layout="@layout/toolbar_content"/>
 
     <com.zmm.tmsystem.ui.widget.CustomButtonTitleView
+        android:visibility="gone"
         android:id="@+id/custom_button_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

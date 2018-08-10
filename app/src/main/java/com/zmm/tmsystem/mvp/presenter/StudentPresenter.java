@@ -51,6 +51,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         super(model, view);
     }
 
+    /**
+     * 获取所有学生
+     * @param id
+     */
     public void queryAllStudents(String id) {
 
         mModel.queryAllStudentsByTeacherId(id)
@@ -65,6 +69,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
     }
 
 
+    /**
+     * 获取移除学生
+     * @param id
+     */
     public void queryRemoveStudents(String id) {
         mModel.queryRemoveStudentsByTeacherId(id)
                 .compose(RxHttpResponseCompat.<List<StudentBean>>compatResult())
@@ -77,6 +85,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 });
     }
 
+    /**
+     * 添加学生
+     * @param studentBean
+     */
     public void addStudent(StudentBean studentBean) {
 
         mModel.addStudent(studentBean)
