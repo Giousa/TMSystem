@@ -77,6 +77,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     private MenuItem mItemEdit;
     private boolean isEdit = true;
     private String mId;
+    private String mIconPath;
 
 
     @Override
@@ -168,6 +169,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         }
 
         String icon = studentBean.getIcon();
+        mIconPath = icon;
         String name = studentBean.getName();
         Integer gender = studentBean.getGender();
         String phone = studentBean.getPhone();
@@ -374,6 +376,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
 
+        String icon = mIconPath;
         String name = mCustomItemName.getContent();
         String gender = mCustomItemGender.getContent();
         String phone = mCustomItemPhone.getContent();
@@ -394,6 +397,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         }
 
         StudentBean studentBean = new StudentBean();
+        studentBean.setIcon(icon);
         studentBean.setName(name);
         studentBean.setGender(gender.equals("女") ? 0 : 1);
         studentBean.setPhone(phone);
