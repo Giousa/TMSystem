@@ -46,8 +46,7 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
         TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
         if(termBean != null){
-//            mPresenter.queryTodayStudents(termBean.getId());
-            mPresenter.queryAllChildcareStudents(termBean.getId());
+            mPresenter.queryTodayStudents(termBean.getId());
         }
     }
 

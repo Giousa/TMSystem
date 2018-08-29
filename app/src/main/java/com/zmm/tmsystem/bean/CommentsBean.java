@@ -1,7 +1,5 @@
 package com.zmm.tmsystem.bean;
 
-import java.util.Date;
-
 /**
  * Description:
  * Author:zhangmengmeng
@@ -10,39 +8,17 @@ import java.util.Date;
  */
 public class CommentsBean extends BaseEntity{
 
-    private String id;
 
-    private String studentId;
-
-    private Integer level;
+    private int level;
 
     private String content;
 
-    private Date createTime;
 
-    private Date updateTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public Integer getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -54,19 +30,11 @@ public class CommentsBean extends BaseEntity{
         this.content = content;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    @Override
+    public String toString() {
+        return "CommentsBean{" +
+                "level=" + level +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

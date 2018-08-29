@@ -30,11 +30,6 @@ public class CommentModel implements CommentContract.ICommentModel {
     }
 
     @Override
-    public Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(String id) {
-        return mApiService.queryAllChildcareStudents(id);
-    }
-
-    @Override
     public Observable<BaseBean<String>> commentChildcareStudent(String id, int level, String content) {
         return null;
     }

@@ -28,15 +28,7 @@ public class CommentPresenter extends BasePresenter<CommentContract.ICommentMode
      * @param id
      */
     public void queryTodayStudents(String id) {
-
-    }
-
-    /**
-     * 获取当前管理周期学生
-     * @param id
-     */
-    public void queryAllChildcareStudents(String id) {
-        mModel.queryAllChildcareStudents(id)
+        mModel.queryToday(id)
                 .compose(RxHttpResponseCompat.<List<ChildcareStudentBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<ChildcareStudentBean>>(mContext) {
                     @Override
@@ -45,4 +37,5 @@ public class CommentPresenter extends BasePresenter<CommentContract.ICommentMode
                     }
                 });
     }
+
 }

@@ -26,12 +26,6 @@ public interface CommentContract {
          */
         Observable<BaseBean<List<ChildcareStudentBean>>> queryToday(String id);
 
-        /**
-         * 获取选择的管理周期
-         * @param id
-         * @return
-         */
-        Observable<BaseBean<List<ChildcareStudentBean>>> queryAllChildcareStudents(String id);
 
         /**
          * 评价学生

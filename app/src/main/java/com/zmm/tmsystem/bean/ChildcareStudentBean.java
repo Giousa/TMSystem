@@ -13,6 +13,8 @@ public class ChildcareStudentBean extends BaseEntity {
 
     private StudentBean student;
 
+    private CommentsBean comments;
+
     private String childcareId;
 
     private String school;
@@ -24,6 +26,14 @@ public class ChildcareStudentBean extends BaseEntity {
     private String teacher;
 
     private String teacherPhone;
+
+    public CommentsBean getComments() {
+        return comments;
+    }
+
+    public void setComments(CommentsBean comments) {
+        this.comments = comments;
+    }
 
     public String getId() {
         return id;
@@ -94,6 +104,7 @@ public class ChildcareStudentBean extends BaseEntity {
         return "ChildcareStudentBean{" +
                 "id='" + id + '\'' +
                 ", student=" + student +
+                ", mCommentsBean=" + comments +
                 ", childcareId='" + childcareId + '\'' +
                 ", school='" + school + '\'' +
                 ", grade='" + grade + '\'' +
