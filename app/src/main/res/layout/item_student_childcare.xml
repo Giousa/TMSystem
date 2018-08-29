@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_size_85"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/dp_size_2"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/dp_size_2">
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal">
+
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_student_icon"
+            android:layout_width="@dimen/dp_size_60"
+            android:layout_height="@dimen/dp_size_60"
+            android:src="@drawable/shape_corners_bt" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_size_10"
+        android:layout_weight="3">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_student_icon"
-                android:layout_width="@dimen/dp_size_60"
-                android:layout_height="@dimen/dp_size_60"
-                android:src="@drawable/shape_corners_bt"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_size_10"
-            android:layout_weight="3"
+            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
@@ -50,7 +46,7 @@
                     android:text="张三"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_25"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_student_school"
@@ -58,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="学校"
-                    android:textSize="@dimen/text_size_20"/>
+                    android:textSize="@dimen/text_size_20" />
 
             </LinearLayout>
 
@@ -73,57 +69,64 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="性别："
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_18" />
 
                 <TextView
                     android:id="@+id/tv_student_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="男"
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_18" />
 
                 <!--<TextView-->
-                    <!--android:layout_width="1dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_margin="@dimen/dp_size_5"-->
-                    <!--android:background="@color/md_black_1000"/>-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_margin="@dimen/dp_size_5"-->
+                <!--android:background="@color/md_black_1000"/>-->
 
                 <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="年龄："-->
-                    <!--android:textSize="@dimen/text_size_18"/>-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="年龄："-->
+                <!--android:textSize="@dimen/text_size_18"/>-->
 
                 <!--<TextView-->
-                    <!--android:id="@+id/tv_student_age"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text=""-->
-                    <!--android:textSize="@dimen/text_size_18"/>-->
+                <!--android:id="@+id/tv_student_age"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=""-->
+                <!--android:textSize="@dimen/text_size_18"/>-->
 
                 <TextView
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_size_5"
-                    android:background="@color/md_black_1000"/>
+                    android:background="@color/md_black_1000" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="班级："
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_18" />
 
                 <TextView
                     android:id="@+id/tv_student_grade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_18" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black" />
 
-</android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+
+</LinearLayout>
