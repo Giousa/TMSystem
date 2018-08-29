@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -41,7 +42,7 @@ public class StudentAdapter extends BaseQuickAdapter<StudentBean,BaseViewHolder>
 
 
         ImageView imageView = helper.getView(R.id.iv_student_checked);
-        Button btn = helper.getView(R.id.btn_student_return);
+        TextView btn = helper.getView(R.id.tv_student_return);
 
         if(flag){
             imageView.setVisibility(View.VISIBLE);
@@ -60,7 +61,7 @@ public class StudentAdapter extends BaseQuickAdapter<StudentBean,BaseViewHolder>
         }else {
             btn.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
-            helper.addOnClickListener(R.id.btn_student_return);
+            helper.addOnClickListener(R.id.tv_student_return);
         }
 
 
