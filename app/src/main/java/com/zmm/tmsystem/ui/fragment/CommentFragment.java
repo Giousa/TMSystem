@@ -11,6 +11,7 @@ import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerCommentComponent;
 import com.zmm.tmsystem.dagger.module.CommentModule;
@@ -80,6 +81,8 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
             public void OnRatingBarClick(String id,float rating) {
                 System.out.println("id = "+id);
                 System.out.println("rating = "+rating);
+
+                mPresenter.addComments(id,rating);
             }
         });
 
@@ -107,7 +110,7 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
 
     @Override
     public void commentFailure() {
-
+        ToastUtils.SimpleToast(getActivity(),"评论失败，请稍后再试！");
     }
 
 

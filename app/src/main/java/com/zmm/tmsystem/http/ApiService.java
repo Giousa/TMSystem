@@ -359,6 +359,8 @@ public interface ApiService {
     /**
      * -----------------------------评价学生相关接口-----------------------------
      */
+
+
     /**
      * 删除托管学生
      * @param id
@@ -366,5 +368,15 @@ public interface ApiService {
      */
     @GET("queryToday/{id}")
     Observable<BaseBean<List<ChildcareStudentBean>>> queryToday(@Path("id") String id);
+
+    /**
+     * 学生每日评论
+     * @param s_id
+     * @param level
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("addCommentStudent")
+    Observable<BaseBean<String>> addCommentStudent(@Field("s_id") String s_id, @Field("level") int level);
 
 }

@@ -30,7 +30,7 @@ public class CommentModel implements CommentContract.ICommentModel {
     }
 
     @Override
-    public Observable<BaseBean<String>> commentChildcareStudent(String id, int level, String content) {
-        return null;
+    public Observable<BaseBean<String>> addCommentStudent(String s_id, int level) {
+        return mApiService.addCommentStudent(s_id,level);
     }
 }

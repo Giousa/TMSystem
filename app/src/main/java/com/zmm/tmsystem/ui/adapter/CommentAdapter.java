@@ -86,7 +86,7 @@ public class CommentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseVi
         RatingBar ratingBar = helper.getView(R.id.rating_bar);
 
         CommentsBean comments = childcareStudentBean.getComments();
-        ratingBar.setRating(comments.getLevel());
+        ratingBar.setRating(comments.getLevel()*1.0f/2);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

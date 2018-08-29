@@ -29,12 +29,11 @@ public interface CommentContract {
 
         /**
          * 评价学生
-         * @param id
+         * @param s_id
          * @param level
-         * @param content
          * @return
          */
-        Observable<BaseBean<String>> commentChildcareStudent(String id,int level,String content);
+        Observable<BaseBean<String>> addCommentStudent(String s_id,int level);
 
 
     }

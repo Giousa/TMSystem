@@ -38,4 +38,25 @@ public class CommentPresenter extends BasePresenter<CommentContract.ICommentMode
                 });
     }
 
+    /**
+     * 添加或修改评论
+     * @param id
+     * @param rating
+     */
+    public void addComments(String id, float rating) {
+        mModel.addCommentStudent(id,(int)(rating*2))
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        mView.commentSuccess(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.commentFailure();
+                    }
+                });
+    }
 }
