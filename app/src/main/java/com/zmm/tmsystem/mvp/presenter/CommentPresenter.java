@@ -33,7 +33,7 @@ public class CommentPresenter extends BasePresenter<CommentContract.ICommentMode
                 .subscribe(new ErrorHandlerSubscriber<List<ChildcareStudentBean>>(mContext) {
                     @Override
                     public void onNext(List<ChildcareStudentBean> childcareStudentBeans) {
-                        mView.queryStudents(childcareStudentBeans);
+                        mView.queryTodaySuccess(childcareStudentBeans);
                     }
                 });
     }

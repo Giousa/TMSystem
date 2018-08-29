@@ -1,5 +1,8 @@
 package com.zmm.tmsystem.ui.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.TermBean;
@@ -10,8 +13,11 @@ import com.zmm.tmsystem.dagger.component.DaggerCommentComponent;
 import com.zmm.tmsystem.dagger.module.CommentModule;
 import com.zmm.tmsystem.mvp.presenter.CommentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.CommentContract;
+import com.zmm.tmsystem.ui.adapter.CommentAdapter;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * Description:
@@ -20,9 +26,14 @@ import java.util.List;
  * Time:上午10:02
  */
 
-public class CommentFragment extends ProgressFragment<CommentPresenter> implements CommentContract.CommentView{
+public class CommentFragment extends ProgressFragment<CommentPresenter> implements CommentContract.CommentView {
+
+    @BindView(R.id.rv_list)
+    RecyclerView mRecyclerView;
 
     private ACache mACache;
+    private CommentAdapter mCommentAdapter;
+    private TermBean mTermBean;
 
 
     @Override
@@ -43,22 +54,43 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
     protected void init() {
 
         mACache = ACache.get(getActivity());
-        TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+        mTermBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
-        if(termBean != null){
-            mPresenter.queryTodayStudents(termBean.getId());
+
+        initData();
+    }
+
+
+    private void initData() {
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mCommentAdapter = new CommentAdapter(getActivity());
+        mCommentAdapter.setOnRatingBarClickListener(new CommentAdapter.OnRatingBarClickListener() {
+            @Override
+            public void OnRatingBarClick(String id,float rating) {
+                System.out.println("id = "+id);
+                System.out.println("rating = "+rating);
+            }
+        });
+
+        mRecyclerView.setAdapter(mCommentAdapter);
+
+        if (mTermBean != null) {
+            mPresenter.queryTodayStudents(mTermBean.getId());
         }
+
+
     }
 
     @Override
     public void queryTodaySuccess(List<ChildcareStudentBean> childcareStudentBeans) {
+        System.out.println("childcareStudentBeans = " + childcareStudentBeans);
 
+        mCommentAdapter.setNewData(childcareStudentBeans);
     }
 
-    @Override
-    public void queryStudents(List<ChildcareStudentBean> childcareStudentBeans) {
-        System.out.println("childcareStudentBeans = "+childcareStudentBeans);
-    }
 
     @Override
     public void commentSuccess(String msg) {
@@ -69,4 +101,5 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
     public void commentFailure() {
 
     }
+
 }

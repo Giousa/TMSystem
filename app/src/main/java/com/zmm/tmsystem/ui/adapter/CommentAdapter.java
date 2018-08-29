@@ -2,7 +2,9 @@ package com.zmm.tmsystem.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,9 +13,8 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
-import com.zmm.tmsystem.bean.StudentBean;
+import com.zmm.tmsystem.bean.CommentsBean;
 import com.zmm.tmsystem.common.Constant;
-import com.zmm.tmsystem.common.utils.AgeUtils;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
 /**
@@ -23,27 +24,35 @@ import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
  * Time:下午4:41
  */
 
-public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseViewHolder>{
+public class CommentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseViewHolder>{
 
     private Context mContext;
 
-    public ChildcareStudentAdapter(Context context) {
-        super(R.layout.item_student_childcare);
+    private OnRatingBarClickListener mOnRatingBarClickListener;
+
+    public CommentAdapter(Context context) {
+        super(R.layout.item_comment);
         mContext = context;
     }
 
-    @Override
-    protected void convert(BaseViewHolder helper, ChildcareStudentBean childcareStudentBean) {
+    public void setOnRatingBarClickListener(OnRatingBarClickListener onRatingBarClickListener) {
+        mOnRatingBarClickListener = onRatingBarClickListener;
+    }
 
+    public interface OnRatingBarClickListener{
+
+        void OnRatingBarClick(String id,float rating);
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, final ChildcareStudentBean childcareStudentBean) {
 
 
         helper.setText(R.id.tv_student_name, childcareStudentBean.getStudent().getName());
         String schoolName = childcareStudentBean.getSchool();
-        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "":schoolName);
+        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "学校":schoolName);
         int gender = childcareStudentBean.getStudent().getGender();
-        helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));
-//        long birthday = childcareStudentBean.getStudent().getBirthday();
-//        helper.setText(R.id.tv_student_age, (birthday == 0)?"0": AgeUtils.getAgeFromBirthTime(birthday)+"");
+//        helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));
         helper.setText(R.id.tv_student_grade, (TextUtils.isEmpty(childcareStudentBean.getGrade())) ? "":childcareStudentBean.getGrade());
 
         ImageView imageView = helper.getView(R.id.iv_student_icon);
@@ -71,10 +80,23 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
                             .color(mContext.getResources().getColor(R.color.colorAccent)
                             ))
                     .into(imageView);
-
             }
 
-        }
+
+        RatingBar ratingBar = helper.getView(R.id.rating_bar);
+
+        CommentsBean comments = childcareStudentBean.getComments();
+        ratingBar.setRating(comments.getLevel());
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(mOnRatingBarClickListener != null){
+                    mOnRatingBarClickListener.OnRatingBarClick(childcareStudentBean.getId(),rating);
+                }
+            }
+        });
+
+    }
 
 
 }

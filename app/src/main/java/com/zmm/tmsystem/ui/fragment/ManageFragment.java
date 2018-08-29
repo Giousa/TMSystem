@@ -12,7 +12,6 @@ import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
-import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerChildcareStudentComponent;
 import com.zmm.tmsystem.dagger.module.ChildcareStudentModule;
@@ -47,7 +46,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
     @Override
     protected int setLayout() {
-        return R.layout.manager;
+        return R.layout.fragment_manager;
     }
 
     @Override

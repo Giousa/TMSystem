@@ -41,7 +41,6 @@ public interface CommentContract {
 
     interface CommentView extends BaseView{
 
-        void queryStudents(List<ChildcareStudentBean> childcareStudentBeans);
 
         void queryTodaySuccess(List<ChildcareStudentBean> childcareStudentBeans);
 

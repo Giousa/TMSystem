@@ -20,34 +20,38 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
+            <!--姓名-->
             <TextView
                 android:id="@+id/tv_student_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="张三"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_25"
                 android:textStyle="bold" />
 
+            <!--性别-->
             <TextView
                 android:id="@+id/tv_student_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性别：男"
+                android:text=""
                 android:textSize="@dimen/text_size_15" />
 
+            <!--监护人-->
             <TextView
                 android:id="@+id/tv_student_guardian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="监护人：李四"
+                android:text=""
                 android:textSize="@dimen/text_size_15" />
 
+            <!--监护人电话-->
             <TextView
                 android:id="@+id/tv_student_guardian_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="监护人电话：13764503367"
+                android:text=""
                 android:textSize="@dimen/text_size_15" />
 
 
