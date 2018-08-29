@@ -326,6 +326,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void updateSuccess() {
         ToastUtils.SimpleToast(this, getResources().getString(R.string.student_update_success));
+        isEdit = false;
+        mItemEdit.setIcon(new IconicsDrawable(this)
+                .iconText("编辑")
+                .sizeDp(30)
+                .color(getResources().getColor(R.color.white)
+                ));
+
+        mBtnSelectConfirm.setVisibility(View.GONE);
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);
 
     }
@@ -375,7 +383,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @OnClick(R.id.btn_select_confirm)
     public void onViewClicked() {
+        modifyStudent();
 
+    }
+
+    /**
+     * 修改或添加学生信息
+     */
+    private void modifyStudent() {
         String icon = mIconPath;
         String name = mCustomItemName.getContent();
         String gender = mCustomItemGender.getContent();
@@ -417,9 +432,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             //修改学生信息
             studentBean.setId(mId);
             mPresenter.updateStudent(studentBean);
-            edit();
+//            edit();
         }
-
     }
 
     @Override
@@ -504,14 +518,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     private void edit() {
 
         if(isEdit){
-            isEdit = false;
-            mItemEdit.setIcon(new IconicsDrawable(this)
-                    .iconText("编辑")
-                    .sizeDp(30)
-                    .color(getResources().getColor(R.color.white)
-                    ));
 
-            mBtnSelectConfirm.setVisibility(View.GONE);
+            modifyStudent();
+
         }else {
             isEdit = true;
             mItemEdit.setIcon(new IconicsDrawable(this)
