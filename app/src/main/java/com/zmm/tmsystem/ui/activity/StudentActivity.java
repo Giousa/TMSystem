@@ -78,6 +78,7 @@ public class StudentActivity extends BaseActivity<StudentPresenter> implements S
                 .studentModule(new StudentModule(this))
                 .build()
                 .inject(this);
+
     }
 
     @Override

@@ -356,7 +356,15 @@ public interface ApiService {
     @POST("uploadChildcareStudentPic/{id}")
     Observable<BaseBean<StudentBean>> uploadChildcareStudentPic( @Path("id") String id,  @Part() MultipartBody.Part file);
 
-
-
+    /**
+     * -----------------------------评价学生相关接口-----------------------------
+     */
+    /**
+     * 删除托管学生
+     * @param id
+     * @return
+     */
+    @GET("queryToday/{id}")
+    Observable<BaseBean<List<ChildcareStudentBean>>> queryToday(@Path("id") String id);
 
 }
