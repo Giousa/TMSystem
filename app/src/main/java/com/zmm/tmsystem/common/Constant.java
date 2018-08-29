@@ -62,6 +62,9 @@ public class Constant {
     public static final String ADD_CHILDCARE_STUDENT = "ADD_CHILDCARE_STUDENT";
 
 
+    public static final String ITEM_COMMENTS = "ITEM_COMMENTS";
+
+
     //-----------------学生信息点击------------------
     public static final int TYPE_STUDENT_ICON = 0;
     public static final int TYPE_STUDENT_NAME = 1;

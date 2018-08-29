@@ -167,6 +167,9 @@ public class MainActivity extends BaseActivity implements BottomBar.OnSwitchFrag
                     mTitleBar.setSubtitle(count3);
                 }
                 mTitleBar.setSubtitleTextColor(getResources().getColor(R.color.white));
+
+                RxBus.getDefault().post(Constant.ITEM_COMMENTS);
+
                 break;
 
         }

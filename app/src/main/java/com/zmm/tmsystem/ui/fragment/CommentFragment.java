@@ -1,7 +1,10 @@
 package com.zmm.tmsystem.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
@@ -13,11 +16,14 @@ import com.zmm.tmsystem.dagger.component.DaggerCommentComponent;
 import com.zmm.tmsystem.dagger.module.CommentModule;
 import com.zmm.tmsystem.mvp.presenter.CommentPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.CommentContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.adapter.CommentAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -58,6 +64,8 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
 
 
         initData();
+
+        operateBus();
     }
 
 
@@ -100,6 +108,30 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
     @Override
     public void commentFailure() {
 
+    }
+
+
+    /**
+     * RxBus  这里是更新选中的托管项目
+     */
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s) && s.equals(Constant.ITEM_COMMENTS)){
+                            if (mTermBean != null) {
+                                mPresenter.queryTodayStudents(mTermBean.getId());
+                            }
+                        }
+                    }
+                });
     }
 
 }
