@@ -71,10 +71,10 @@ public class SimpleInputDialog extends Dialog {
 
 
     private void initView() {
-        mTitle = findViewById(R.id.tv_dialog_title);
-        mEditText = findViewById(R.id.et_dialog_input);
-        mCancel = findViewById(R.id.btn_dialog_cancel);
-        mConfirm = findViewById(R.id.btn_dialog_confirm);
+        mTitle = (TextView) findViewById(R.id.tv_dialog_title);
+        mEditText = (EditText) findViewById(R.id.et_dialog_input);
+        mCancel = (Button) findViewById(R.id.btn_dialog_cancel);
+        mConfirm = (Button) findViewById(R.id.btn_dialog_confirm);
 
         mTitle.setText(title);
         mEditText.setHint(hint);

@@ -49,7 +49,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 //        overridePendingTransition(R.anim.in_from_right, 0);//进入的动画
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
-        LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
+//        LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
 
         super.onCreate(savedInstanceState);
 

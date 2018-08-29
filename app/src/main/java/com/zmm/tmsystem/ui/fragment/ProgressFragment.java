@@ -49,10 +49,10 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
 
         mRootView = (FrameLayout) inflater.inflate(R.layout.fragment_progress,container,false);
         mViewProgress = mRootView.findViewById(R.id.view_progress);
-        mViewContent = mRootView.findViewById(R.id.view_content);
+        mViewContent = (FrameLayout) mRootView.findViewById(R.id.view_content);
         mViewEmpty = mRootView.findViewById(R.id.view_empty);
 
-        mTextError = mRootView.findViewById(R.id.text_tip);
+        mTextError = (TextView) mRootView.findViewById(R.id.text_tip);
 
         mViewEmpty.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.view.CropImageView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -21,6 +22,7 @@ import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
+import com.zmm.tmsystem.ui.widget.GlideImageLoader;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @BindView(R.id.root_view)
     LinearLayout mRootView;
     private TeacherBean mTeacherBean;
+    private ArrayList<ImageItem> mImages;
 
 
     @Override
@@ -187,6 +190,19 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     private void uloadIcon() {
 
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(false);//单选或多选模式
+        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setCrop(true);        //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
+        imagePicker.setSelectLimit(9);    //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.CIRCLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
+
         Intent intent = new Intent(this, ImageGridActivity.class);
         startActivityForResult(intent, 100);
 
@@ -222,10 +238,10 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null && requestCode == 100) {
 
-                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                if(images != null && images.size() > 0){
-                    System.out.println("选择图片："+images.get(0).path);
-                    mPresenter.uploadTeacherPic(mTeacherBean.getId(),images.get(0).path);
+                mImages = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if(mImages != null && mImages.size() > 0){
+                    System.out.println("选择图片："+ mImages.get(0).path);
+                    mPresenter.uploadTeacherPic(mTeacherBean.getId(), mImages.get(0).path);
                 }
 
             } else {

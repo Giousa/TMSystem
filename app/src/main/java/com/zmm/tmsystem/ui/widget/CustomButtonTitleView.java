@@ -48,8 +48,8 @@ public class CustomButtonTitleView extends LinearLayout {
     private void init() {
 
         final View view = View.inflate(mContext, R.layout.custom_buttom_title, this);
-        final Button btnYes = view.findViewById(R.id.btn_select_yes);
-        final Button btnNo = view.findViewById(R.id.btn_select_no);
+        final Button btnYes = (Button) view.findViewById(R.id.btn_select_yes);
+        final Button btnNo = (Button) view.findViewById(R.id.btn_select_no);
         btnYes.setSelected(true);
 
         btnYes.setOnClickListener(new OnClickListener() {

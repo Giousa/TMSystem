@@ -68,10 +68,10 @@ public class SingleSelectView extends View {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         final View view = inflater.inflate(R.layout.pop_single_select, null);
-        Button cancel = view.findViewById(R.id.btn_select_cancel);
-        Button confirm = view.findViewById(R.id.btn_select_confirm);
-        mTvTitle = view.findViewById(R.id.pop_title);
-        mWheelView = view.findViewById(R.id.pop_wl);
+        Button cancel = (Button) view.findViewById(R.id.btn_select_cancel);
+        Button confirm = (Button) view.findViewById(R.id.btn_select_confirm);
+        mTvTitle = (TextView) view.findViewById(R.id.pop_title);
+        mWheelView = (WheelView) view.findViewById(R.id.pop_wl);
 
         mPopupWindow = new PopupWindow(view, mScreenWidth, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 //        mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

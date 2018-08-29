@@ -64,9 +64,9 @@ public class SimpleConfirmDialog extends Dialog {
 
 
     private void initView() {
-        mTitle = findViewById(R.id.tv_dialog_title);
-        mCancel = findViewById(R.id.btn_dialog_cancel);
-        mConfirm = findViewById(R.id.btn_dialog_confirm);
+        mTitle = (TextView) findViewById(R.id.tv_dialog_title);
+        mCancel = (Button) findViewById(R.id.btn_dialog_cancel);
+        mConfirm = (Button) findViewById(R.id.btn_dialog_confirm);
 
         mTitle.setText(title);
     }

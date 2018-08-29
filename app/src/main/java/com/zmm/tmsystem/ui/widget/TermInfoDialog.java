@@ -85,15 +85,15 @@ public class TermInfoDialog extends Dialog {
 
     private void initView() {
 
-        mDialogTop = findViewById(R.id.tv_dialog_top);
+        mDialogTop = (TextView) findViewById(R.id.tv_dialog_top);
 
-        mCancel = findViewById(R.id.btn_dialog_cancel);
-        mConfirm = findViewById(R.id.btn_dialog_confirm);
+        mCancel = (Button) findViewById(R.id.btn_dialog_cancel);
+        mConfirm = (Button) findViewById(R.id.btn_dialog_confirm);
 
-        mEtTitle = findViewById(R.id.et_dialog_title);
-        mEtYear = findViewById(R.id.et_dialog_year);
-        mEtMonth = findViewById(R.id.et_dialog_month);
-        mEtTerm = findViewById(R.id.et_dialog_term);
+        mEtTitle = (EditText) findViewById(R.id.et_dialog_title);
+        mEtYear = (EditText) findViewById(R.id.et_dialog_year);
+        mEtMonth = (EditText) findViewById(R.id.et_dialog_month);
+        mEtTerm = (EditText) findViewById(R.id.et_dialog_term);
 
 
         if(!TextUtils.isEmpty(top)){

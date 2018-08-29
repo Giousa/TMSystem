@@ -111,15 +111,15 @@ public class CustomInfoItemView extends LinearLayout{
         View view;
         if(isShowPic){
             view = View.inflate(getContext(), R.layout.info_item_pic_view, this);
-            mIvIcon = view.findViewById(R.id.iv_item_pic);
+            mIvIcon = (ImageView) view.findViewById(R.id.iv_item_pic);
 
         }else {
             view = View.inflate(getContext(), R.layout.info_item_view, this);
-            mTvItemContent = view.findViewById(R.id.tv_item_content);
+            mTvItemContent = (TextView) view.findViewById(R.id.tv_item_content);
         }
 
-        mTvItemTitle = view.findViewById(R.id.tv_item_title);
-        mRl_item = view.findViewById(R.id.rl_item);
+        mTvItemTitle = (TextView) view.findViewById(R.id.tv_item_title);
+        mRl_item = (RelativeLayout) view.findViewById(R.id.rl_item);
 
     }
 

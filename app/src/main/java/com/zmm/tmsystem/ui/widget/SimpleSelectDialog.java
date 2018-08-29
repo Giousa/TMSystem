@@ -60,8 +60,8 @@ public class SimpleSelectDialog extends Dialog {
 
 
     private void initView() {
-        mCancel = findViewById(R.id.btn_dialog_cancel);
-        mConfirm = findViewById(R.id.btn_dialog_confirm);
+        mCancel = (Button) findViewById(R.id.btn_dialog_cancel);
+        mConfirm = (Button) findViewById(R.id.btn_dialog_confirm);
 
     }
 
