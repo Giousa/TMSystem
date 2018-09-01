@@ -206,12 +206,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/md_dark_cards"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_childcare_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -220,14 +222,15 @@
                 android:textSize="@dimen/text_size_15" />
 
             <LinearLayout
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_num_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -243,6 +246,7 @@
                     android:background="@color/md_black_1000" />
 
                 <TextView
+                    android:id="@+id/tv_num_male"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -258,6 +262,7 @@
                     android:background="@color/md_black_1000" />
 
                 <TextView
+                    android:id="@+id/tv_num_female"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -270,55 +275,64 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="托管学生男女比例和年级比例"
-            android:textSize="@dimen/text_size_18" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
-
-            <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
-                android:id="@+id/custom_pie_view1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
-                android:id="@+id/custom_pie_view2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="托管学生就读学校比例"
-            android:textSize="@dimen/text_size_18" />
-
-
-        <RelativeLayout
+            android:id="@+id/ll_chart_show"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp">
+            android:orientation="vertical">
 
-            <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
-                android:id="@+id/custom_pie_view3"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="托管学生男女比例和年级比例"
+                android:textSize="@dimen/text_size_18" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
+                    android:id="@+id/custom_pie_view1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
+                    android:id="@+id/custom_pie_view2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="托管学生就读学校比例"
+                android:textSize="@dimen/text_size_18" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp">
+
+                <com.zmm.tmsystem.ui.widget.CustomMPChartPieView
+                    android:id="@+id/custom_pie_view3"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
