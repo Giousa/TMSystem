@@ -2,7 +2,9 @@ package com.zmm.tmsystem.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,7 +25,7 @@ import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
  * Time:下午4:41
  */
 
-public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseViewHolder>{
+public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBean, BaseViewHolder> {
 
     private Context mContext;
 
@@ -36,45 +38,94 @@ public class ChildcareStudentAdapter extends BaseQuickAdapter<ChildcareStudentBe
     protected void convert(BaseViewHolder helper, ChildcareStudentBean childcareStudentBean) {
 
 
-
+        //姓名
         helper.setText(R.id.tv_student_name, childcareStudentBean.getStudent().getName());
-        String schoolName = childcareStudentBean.getSchool();
-        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "":schoolName);
-        int gender = childcareStudentBean.getStudent().getGender();
-        helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));
-//        long birthday = childcareStudentBean.getStudent().getBirthday();
-//        helper.setText(R.id.tv_student_age, (birthday == 0)?"0": AgeUtils.getAgeFromBirthTime(birthday)+"");
-        helper.setText(R.id.tv_student_grade, (TextUtils.isEmpty(childcareStudentBean.getGrade())) ? "":childcareStudentBean.getGrade());
 
+        //学校
+        String schoolName = childcareStudentBean.getSchool();
+        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "" : "学校：" + schoolName);
+
+
+//        helper.setText(R.id.tv_student_gender, ((gender == 0)?"性别：女":"性别：男"));
+//        long birthday = childcareStudentBean.getStudent().getBirthday();
+//        LinearLayout llAge = helper.getView(R.id.ll_age);
+//        if(birthday == 0){
+//            llAge.setVisibility(View.GONE);
+//        }else {
+//            llAge.setVisibility(View.VISIBLE);
+//            helper.setText(R.id.tv_student_age,"年龄："+AgeUtils.getAgeFromBirthTime(birthday));
+//        }
+
+
+        //班级
+        LinearLayout llGrade = helper.getView(R.id.ll_grade);
+        if (TextUtils.isEmpty(childcareStudentBean.getGrade())) {
+            llGrade.setVisibility(View.GONE);
+        } else {
+            llGrade.setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_student_grade, "班级：" + childcareStudentBean.getGrade());
+        }
+
+
+        //性别
+        int gender = childcareStudentBean.getStudent().getGender();
+        ImageView genderImage = helper.getView(R.id.iv_student_gender);
+
+        if(gender == 0){
+            genderImage.setImageDrawable(new IconicsDrawable(mContext)
+                    .icon(Ionicons.Icon.ion_female)
+                    .color(mContext.getResources().getColor(R.color.colorAccent)));
+        }else {
+            genderImage.setImageDrawable(new IconicsDrawable(mContext)
+                    .icon(Ionicons.Icon.ion_male)
+                    .color(mContext.getResources().getColor(R.color.colorPrimary)));
+        }
+
+        //头像
         ImageView imageView = helper.getView(R.id.iv_student_icon);
 
         String icon = childcareStudentBean.getStudent().getIcon();
-        if(TextUtils.isEmpty(icon)){
+        if (TextUtils.isEmpty(icon)) {
 
-            if(gender == 0){
+            if (gender == 0) {
                 imageView.setImageDrawable(new IconicsDrawable(mContext)
                         .icon(Ionicons.Icon.ion_android_contact)
                         .color(mContext.getResources().getColor(R.color.colorAccent)));
 
-            }else {
+            } else {
                 imageView.setImageDrawable(new IconicsDrawable(mContext)
                         .icon(Ionicons.Icon.ion_android_contact)
                         .color(mContext.getResources().getColor(R.color.colorPrimary)));
             }
 
-        }else {
-            Glide.with(mContext)
-                    .load(Constant.BASE_IMG_URL+icon)
-                    .transform(new GlideCircleTransform(mContext))
-                    .error(new IconicsDrawable(mContext)
-                            .icon(Ionicons.Icon.ion_android_contact)
-                            .color(mContext.getResources().getColor(R.color.colorAccent)
-                            ))
-                    .into(imageView);
+        } else {
 
+            if (gender == 0) {
+                Glide.with(mContext)
+                        .load(Constant.BASE_IMG_URL + icon)
+                        .transform(new GlideCircleTransform(mContext))
+                        .error(new IconicsDrawable(mContext)
+                                .icon(Ionicons.Icon.ion_android_contact)
+                                .color(mContext.getResources().getColor(R.color.colorAccent)
+                                ))
+                        .into(imageView);
+
+            } else{
+
+                Glide.with(mContext)
+                        .load(Constant.BASE_IMG_URL + icon)
+                        .transform(new GlideCircleTransform(mContext))
+                        .error(new IconicsDrawable(mContext)
+                                .icon(Ionicons.Icon.ion_android_contact)
+                                .color(mContext.getResources().getColor(R.color.colorPrimary)
+                                ))
+                        .into(imageView);
             }
 
         }
+
+
+    }
 
 
 }

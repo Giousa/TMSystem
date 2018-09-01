@@ -43,18 +43,18 @@
                     android:id="@+id/tv_student_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="这个是没准"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_25"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_student_school"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text=""
-                    android:textSize="@dimen/text_size_20" />
+                <ImageView
+                    android:id="@+id/iv_student_gender"
+                    android:layout_width="@dimen/dp_size_15"
+                    android:layout_height="@dimen/dp_size_15"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_size_5"
+                    android:src="@drawable/item1_after" />
 
             </LinearLayout>
 
@@ -66,55 +66,53 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="性别："
-                    android:textSize="@dimen/text_size_18" />
-
-                <TextView
-                    android:id="@+id/tv_student_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="男"
-                    android:textSize="@dimen/text_size_18" />
-
-                <!--<TextView-->
-                <!--android:layout_width="1dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_margin="@dimen/dp_size_5"-->
-                <!--android:background="@color/md_black_1000"/>-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="年龄："-->
-                <!--android:textSize="@dimen/text_size_18"/>-->
-
-                <!--<TextView-->
-                <!--android:id="@+id/tv_student_age"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text=""-->
-                <!--android:textSize="@dimen/text_size_18"/>-->
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/dp_size_5"
-                    android:background="@color/md_black_1000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="班级："
-                    android:textSize="@dimen/text_size_18" />
-
-                <TextView
-                    android:id="@+id/tv_student_grade"
+                    android:id="@+id/tv_student_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="@dimen/text_size_18" />
+                    android:textSize="@dimen/text_size_20" />
+
+                <LinearLayout
+                    android:id="@+id/ll_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/dp_size_5"
+                        android:background="@color/md_black_1000" />
+
+                    <TextView
+                        android:id="@+id/tv_student_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_18" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/dp_size_5"
+                        android:background="@color/md_black_1000" />
+
+                    <TextView
+                        android:id="@+id/tv_student_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/text_size_18" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
