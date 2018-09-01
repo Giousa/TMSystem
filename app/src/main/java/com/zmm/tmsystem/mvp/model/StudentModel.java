@@ -32,6 +32,14 @@ public class StudentModel implements StudentContract.IStudentModel {
     }
 
     @Override
+    public Observable<BaseBean<StudentBean>> addStudentAndPic(
+            String tId,String name,int gender,long birthday,String phone,String address,String guardian1,
+            String guardian1Phone,String guardian2,String guardian2Phone, MultipartBody.Part file){
+
+        return mApiService.addStudentAndPic(tId,name,gender,birthday,phone,address,guardian1,guardian1Phone,guardian2,guardian2Phone,file);
+    }
+
+    @Override
     public Observable<BaseBean<String>> updateStudent(StudentBean studentBean) {
         return mApiService.updateStudent(studentBean);
     }

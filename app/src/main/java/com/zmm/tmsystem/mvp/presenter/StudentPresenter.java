@@ -9,6 +9,7 @@ import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
@@ -114,6 +115,38 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         mModel.addStudent(studentBean)
                 .compose(RxHttpResponseCompat.<StudentBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+
+                    @Override
+                    public void onNext(StudentBean studentBean) {
+                        mView.addSuccess(studentBean);
+                    }
+
+                });
+
+    }
+
+    /**
+     * 添加学生+头像
+     * @param path
+     */
+    public void addStudentAndPic(String tId,String name,int gender,long birthday,String phone,String address,String guardian1,
+                                 String guardian1Phone,String guardian2,String guardian2Phone,String path) {
+
+        File file= new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+
+
+        mModel.addStudentAndPic(tId,name,gender,birthday,phone,address,guardian1,guardian1Phone,guardian2,guardian2Phone,part)
+                .compose(RxHttpResponseCompat.<StudentBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StudentBean>(mContext) {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        ToastUtils.SimpleToast(mContext,"正在添加学生...");
+                    }
 
                     @Override
                     public void onNext(StudentBean studentBean) {

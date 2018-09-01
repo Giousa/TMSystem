@@ -134,6 +134,10 @@ public class CustomInfoItemView extends LinearLayout{
     }
 
 
+    /**
+     * 设置网络图片
+     * @param path
+     */
     public void setIcon(String path){
 
         if(TextUtils.isEmpty(path)){
@@ -148,6 +152,26 @@ public class CustomInfoItemView extends LinearLayout{
                         .color(getResources().getColor(R.color.md_blue_500)
                         ))
                 .into(mIvIcon);
+        }
+    }
+
+    /**
+     * 设置本地图片
+     * @param path
+     */
+    public void setLocalIcon(String path){
+        if(TextUtils.isEmpty(path)){
+            return;
+        }
+        if(isShowPic){
+            Glide.with(mContext)
+                    .load(path)
+                    .transform(new GlideCircleTransform(mContext))
+                    .error(new IconicsDrawable(mContext)
+                            .icon(Ionicons.Icon.ion_android_contact)
+                            .color(getResources().getColor(R.color.md_blue_500)
+                            ))
+                    .into(mIvIcon);
         }
     }
 

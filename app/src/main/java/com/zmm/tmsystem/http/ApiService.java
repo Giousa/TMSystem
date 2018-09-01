@@ -218,6 +218,23 @@ public interface ApiService {
     @POST("addStudent/")
     Observable<BaseBean<StudentBean>> addStudent(@Body StudentBean studentBean);
 
+
+    /**
+     * 添加学生+头像
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("addStudentAndPic")
+    Observable<BaseBean<StudentBean>> addStudentAndPic(
+            @Query("tId") String tId,@Query("name") String name,@Query("gender") int gender
+            ,@Query("birthday") long birthday,@Query("phone") String phone
+            ,@Query("address") String address,@Query("guardian1") String guardian1
+            ,@Query("guardian1Phone") String guardian1Phone,@Query("guardian2") String guardian2
+            ,@Query("guardian2Phone") String guardian2Phone
+            ,@Part() MultipartBody.Part file);
+
+
     /**
      * 根据id获取学生
      * @param id

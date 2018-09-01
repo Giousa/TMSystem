@@ -34,6 +34,7 @@ import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,6 +85,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     private boolean isEdit = true;
     private String mId;
     private String mIconPath;
+    private String mPicPath;
+    private long mBirthdayLong;
 
 
     @Override
@@ -191,10 +194,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             try {
                 String s = DateUtils.longToString(birthday, null);
                 mCustomItemBirthday.setContent(s);
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
 
         if (!TextUtils.isEmpty(icon)) {
             mCustomItemIcon.setIcon(icon);
@@ -398,8 +402,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if (images != null && images.size() > 0) {
-                    System.out.println("选择图片：" + images.get(0).path);
-                    mPresenter.uploadStudentPic(mId, images.get(0).path);
+
+                    mPicPath = images.get(0).path;
+                    System.out.println("选择图片：" + mPicPath);
+                    mCustomItemIcon.setLocalIcon(mPicPath);
+                    if (mIntentParam != 0) {
+                        //修改学生
+                        mPresenter.uploadStudentPic(mId, mPicPath);
+                    }
                 }
 
             } else {
@@ -443,7 +453,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         StudentBean studentBean = new StudentBean();
         studentBean.setIcon(icon);
         studentBean.setName(name);
-        studentBean.setGender(gender.equals("女") ? 0 : 1);
+        int genderInt = gender.equals("女") ? 0 : 1;
+        studentBean.setGender(genderInt);
         studentBean.setPhone(phone);
         studentBean.setAddress(address);
         studentBean.setGuardian1(guardian1);
@@ -453,8 +464,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         if(!TextUtils.isEmpty(birthdayContent)){
             try {
-                long l = DateUtils.stringToLong(birthdayContent, null);
-                studentBean.setBirthday(l);
+                mBirthdayLong = DateUtils.stringToLong(birthdayContent, null);
+                studentBean.setBirthday(mBirthdayLong);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -466,7 +477,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         if (mIntentParam == 0) {
             //0:添加新学生
-            mPresenter.addStudent(studentBean);
+            mPresenter.addStudentAndPic(tId,name,genderInt,mBirthdayLong,phone,address,guardian1,guardian_phone1,guardian2,guardian_phone2,mPicPath);
         } else {
             //修改学生信息
             studentBean.setId(mId);

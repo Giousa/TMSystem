@@ -23,6 +23,10 @@ public interface StudentContract {
 
         Observable<BaseBean<StudentBean>> addStudent(StudentBean studentBean);
 
+        Observable<BaseBean<StudentBean>> addStudentAndPic(
+                String tId,String name,int gender,long birthday,String phone,String address,String guardian1,
+                String guardian1Phone,String guardian2,String guardian2Phone, MultipartBody.Part file);
+
         Observable<BaseBean<String>> updateStudent(StudentBean studentBean);
 
         Observable<BaseBean<String>> deleteStudent(String id);

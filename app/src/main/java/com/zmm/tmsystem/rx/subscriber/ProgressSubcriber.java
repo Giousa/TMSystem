@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable;
 
 
 
-public  abstract  class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  {
+public abstract class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  {
 
 
 
