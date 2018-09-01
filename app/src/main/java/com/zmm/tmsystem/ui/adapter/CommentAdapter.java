@@ -50,7 +50,7 @@ public class CommentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseVi
 
         helper.setText(R.id.tv_student_name, childcareStudentBean.getStudent().getName());
         String schoolName = childcareStudentBean.getSchool();
-        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "学校":schoolName);
+        helper.setText(R.id.tv_student_school, (TextUtils.isEmpty(schoolName)) ? "":schoolName);
         int gender = childcareStudentBean.getStudent().getGender();
 //        helper.setText(R.id.tv_student_gender, ((gender == 0)?"女":"男"));
         helper.setText(R.id.tv_student_grade, (TextUtils.isEmpty(childcareStudentBean.getGrade())) ? "":childcareStudentBean.getGrade());
@@ -83,17 +83,24 @@ public class CommentAdapter extends BaseQuickAdapter<ChildcareStudentBean,BaseVi
             }
 
 
-        RatingBar ratingBar = helper.getView(R.id.rating_bar);
+        final RatingBar ratingBar = helper.getView(R.id.rating_bar);
 
         CommentsBean comments = childcareStudentBean.getComments();
         ratingBar.setRating(comments.getLevel()*1.0f/2);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if(mOnRatingBarClickListener != null){
-                    mOnRatingBarClickListener.OnRatingBarClick(childcareStudentBean.getId(),rating);
+                System.out.println("fromUser = "+fromUser);
+
+                if(fromUser){
+                    //此时是用户手动点击，而非直接赋值
+                    if(mOnRatingBarClickListener != null){
+                        mOnRatingBarClickListener.OnRatingBarClick(childcareStudentBean.getId(),rating);
+                    }
                 }
+
             }
+
         });
 
     }

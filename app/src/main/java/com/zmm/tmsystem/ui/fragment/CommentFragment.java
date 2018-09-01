@@ -97,7 +97,6 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
 
     @Override
     public void queryTodaySuccess(List<ChildcareStudentBean> childcareStudentBeans) {
-        System.out.println("childcareStudentBeans = " + childcareStudentBeans);
 
         mCommentAdapter.setNewData(childcareStudentBeans);
     }
