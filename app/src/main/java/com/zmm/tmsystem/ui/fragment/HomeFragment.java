@@ -1,11 +1,15 @@
 package com.zmm.tmsystem.ui.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.data.PieEntry;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
@@ -20,10 +24,15 @@ import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.mvp.presenter.HomePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
 import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
+import com.zmm.tmsystem.ui.widget.CustomMPChartPieView;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Description:
@@ -53,6 +62,14 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     TextView mTvHeadGradeName;
     @BindView(R.id.tv_head_course_name)
     TextView mTvHeadCourseName;
+    @BindView(R.id.custom_pie_view1)
+    CustomMPChartPieView customPieView1;
+    @BindView(R.id.custom_pie_view2)
+    CustomMPChartPieView customPieView2;
+    @BindView(R.id.custom_pie_view3)
+    CustomMPChartPieView customPieView3;
+
+
     private Context mContext;
 
     @Override
@@ -84,10 +101,62 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         super.onResume();
         ACache aCache = ACache.get(mContext);
         TeacherBean teacherBean = (TeacherBean) aCache.getAsObject(Constant.TEACHER);
-        if(teacherBean == null){
+        if (teacherBean == null) {
             return;
         }
         showTeacherInfo(teacherBean);
+
+        initChartView();
+    }
+
+    /**
+     * 初始化饼状图view
+     */
+    private void initChartView() {
+
+        ArrayList<PieEntry> entries = new ArrayList();
+        entries.add(new PieEntry(12, "男"));
+        entries.add(new PieEntry(17, "女"));
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(getResources().getColor(R.color.md_indigo_A700));
+        colors.add(getResources().getColor(R.color.md_pink_400));
+
+        customPieView1.setData(entries, colors, "性别");
+
+
+        ArrayList<PieEntry> entries2 = new ArrayList();
+        entries2.add(new PieEntry(12, "初中"));
+        entries2.add(new PieEntry(17, "小学"));
+
+        ArrayList<Integer> colors2 = new ArrayList<>();
+        colors2.add(getResources().getColor(R.color.md_deep_orange_600));
+        colors2.add(getResources().getColor(R.color.md_cyan_600));
+
+        customPieView2.setData(entries2, colors2, "年级");
+
+
+        ArrayList<PieEntry> entries3 = new ArrayList();
+        entries3.add(new PieEntry(2, "一初"));
+        entries3.add(new PieEntry(3, "实验"));
+        entries3.add(new PieEntry(4, "五初"));
+        entries3.add(new PieEntry(8, "荣光"));
+        entries3.add(new PieEntry(5, "铸才"));
+        entries3.add(new PieEntry(6, "一小"));
+        entries3.add(new PieEntry(2, "薛城"));
+
+        ArrayList<Integer> colors3 = new ArrayList<>();
+        colors3.add(getResources().getColor(R.color.md_indigo_A700));
+        colors3.add(getResources().getColor(R.color.md_pink_400));
+        colors3.add(getResources().getColor(R.color.md_deep_orange_600));
+        colors3.add(getResources().getColor(R.color.md_cyan_600));
+        colors3.add(getResources().getColor(R.color.md_deep_purple_400));
+        colors3.add(getResources().getColor(R.color.md_green_600));
+        colors3.add(getResources().getColor(R.color.md_red_200));
+
+        customPieView3.setData(entries3, colors3, "学校");
+
+
     }
 
     @Override
@@ -110,30 +179,30 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         int gender = teacherBean.getGender();
         int signDays = teacherBean.getSignDays();
 
-        if(CheckUtils.checkString(name)){
+        if (CheckUtils.checkString(name)) {
             mTvHeadName.setText(name);
         }
 
-        if(CheckUtils.checkString(childcareName)){
+        if (CheckUtils.checkString(childcareName)) {
             mTvHeadChildcare.setText(childcareName);
         }
 
-        if(CheckUtils.checkString(schoolName)){
+        if (CheckUtils.checkString(schoolName)) {
             mTvHeadSchoolName.setText(schoolName);
         }
 
-        if(CheckUtils.checkString(gradeName)){
+        if (CheckUtils.checkString(gradeName)) {
             mTvHeadGradeName.setText(gradeName);
         }
 
-        if(CheckUtils.checkString(courseName)){
+        if (CheckUtils.checkString(courseName)) {
             mTvHeadCourseName.setText(courseName);
         }
 
-        if(CheckUtils.checkString(icon)){
+        if (CheckUtils.checkString(icon)) {
 
             Glide.with(mContext)
-                    .load(Constant.BASE_IMG_URL+icon)
+                    .load(Constant.BASE_IMG_URL + icon)
                     .transform(new GlideCircleTransform(mContext))
                     .error(new IconicsDrawable(mContext)
                             .icon(Ionicons.Icon.ion_android_contact)
@@ -141,24 +210,22 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
                             ))
                     .into(mIvHeadIcon);
 
-        }else {
+        } else {
             mIvHeadIcon.setImageDrawable(new IconicsDrawable(mApplication)
                     .icon(Ionicons.Icon.ion_android_contact)
                     .color(getResources().getColor(R.color.md_blue_500)));
         }
 
 
-
-        if(gender == 0){
+        if (gender == 0) {
             mIvHeadGender.setImageDrawable(new IconicsDrawable(mApplication)
                     .icon(Ionicons.Icon.ion_female)
                     .color(getResources().getColor(R.color.colorAccent)));
-        }else {
+        } else {
             mIvHeadGender.setImageDrawable(new IconicsDrawable(mApplication)
                     .icon(Ionicons.Icon.ion_male)
                     .color(getResources().getColor(R.color.colorPrimary)));
         }
-
 
 
     }
@@ -170,7 +237,7 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
     @Override
     public void signSuccess() {
-        ToastUtils.SimpleToast(mContext,getResources().getString(R.string.home_head_sign_success));
+        ToastUtils.SimpleToast(mContext, getResources().getString(R.string.home_head_sign_success));
         mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
     }
 

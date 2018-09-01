@@ -121,4 +121,7 @@ dependencies {
 
     //图片选择器
     implementation 'com.lzy.widget:imagepicker:0.6.1'
+
+    //图表
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

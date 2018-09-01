@@ -16,6 +16,12 @@
     <color name="stroke">#cac7c7</color>
     <color name="black">#000000</color>
 
+    <!--图表需要颜色-->
+    <color name="green">#0f0</color>
+    <color name="blue">#00f</color>
+    <color name="red">#f00</color>
+    <color name="accent">#f0f</color>
+
     <!--灰白背景色-->
     <color name="view_bg">#edeff5</color>
 

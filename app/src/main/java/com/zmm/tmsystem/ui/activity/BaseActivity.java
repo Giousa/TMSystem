@@ -107,7 +107,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
     }
 
