@@ -2,6 +2,7 @@ package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.print.PrintJob;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
+import com.zmm.tmsystem.common.utils.DateUtils;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerStudentComponent;
@@ -30,7 +32,7 @@ import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
-import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +70,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     CustomInfoItemView mCustomItemGuardian2;
     @BindView(R.id.custom_item_guardian_phone2)
     CustomInfoItemView mCustomItemGuardianPhone2;
+    @BindView(R.id.custom_item_birthday)
+    CustomInfoItemView mCustomItemBirthday;
+
     @BindView(R.id.root_view)
     LinearLayout mRootView;
     @BindView(R.id.btn_select_confirm)
     Button mBtnSelectConfirm;
+
 
     private int mIntentParam;
     private MenuItem mItemEdit;
@@ -100,14 +106,14 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         //0：代表添加新学生，无删除按钮，无修改
         //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
         //2：从托管学生和补习学生跳转,无删除按钮,可修改
-        mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM,0);
+        mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM, 0);
 
         mId = getIntent().getStringExtra(Constant.STUDENT_ID);
 
-        System.out.println("mId = "+mId);
+        System.out.println("mId = " + mId);
 
 
-        if(mIntentParam == 1 || mIntentParam == 2){
+        if (mIntentParam == 1 || mIntentParam == 2) {
             isEdit = false;
             mBtnSelectConfirm.setText("修改学生信息");
             mBtnSelectConfirm.setVisibility(View.GONE);
@@ -117,7 +123,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         initView();
 
-        if(!TextUtils.isEmpty(mId)){
+        if (!TextUtils.isEmpty(mId)) {
             mPresenter.getStudentById(mId);
         }
 
@@ -157,6 +163,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         mCustomItemGuardianPhone1.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE1);
         mCustomItemGuardian2.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIAN2);
         mCustomItemGuardianPhone2.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE2);
+        mCustomItemBirthday.setOnItemClickListener(this,Constant.TYPE_STUDENT_BIRTHDAY);
 
         mCustomItemGender.setContent("男");
     }
@@ -164,7 +171,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     private void initData(StudentBean studentBean) {
 
-        if(mCustomItemIcon == null){
+        if (mCustomItemIcon == null) {
             return;
         }
 
@@ -179,11 +186,21 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String guardian2 = studentBean.getGuardian2();
         String guardian2Phone = studentBean.getGuardian2Phone();
 
-        if(!TextUtils.isEmpty(icon)){
+        long birthday = studentBean.getBirthday();
+        if(birthday != 0){
+            try {
+                String s = DateUtils.longToString(birthday, null);
+                mCustomItemBirthday.setContent(s);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!TextUtils.isEmpty(icon)) {
             mCustomItemIcon.setIcon(icon);
         }
 
-        if(!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(name)) {
             mCustomItemName.setContent(name);
         }
 
@@ -193,27 +210,27 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             mCustomItemGender.setContent("男");
         }
 
-        if(!TextUtils.isEmpty(phone)){
+        if (!TextUtils.isEmpty(phone)) {
             mCustomItemPhone.setContent(phone);
         }
 
-        if(!TextUtils.isEmpty(address)){
+        if (!TextUtils.isEmpty(address)) {
             mCustomItemAddress.setContent(address);
         }
 
-        if(!TextUtils.isEmpty(guardian1)){
+        if (!TextUtils.isEmpty(guardian1)) {
             mCustomItemGuardian1.setContent(guardian1);
         }
 
-        if(!TextUtils.isEmpty(guardian1Phone)){
+        if (!TextUtils.isEmpty(guardian1Phone)) {
             mCustomItemGuardianPhone1.setContent(guardian1Phone);
         }
 
-        if(!TextUtils.isEmpty(guardian2)){
+        if (!TextUtils.isEmpty(guardian2)) {
             mCustomItemGuardian2.setContent(guardian2);
         }
 
-        if(!TextUtils.isEmpty(guardian2Phone)){
+        if (!TextUtils.isEmpty(guardian2Phone)) {
             mCustomItemGuardianPhone2.setContent(guardian2Phone);
         }
 
@@ -230,26 +247,33 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void itemClick(int type, String name) {
 
-        if(isEdit){
+        if (isEdit) {
 
-            if(type == Constant.TYPE_STUDENT_ICON){
+            if (type == Constant.TYPE_STUDENT_ICON) {
                 uloadIcon();
-            }else {
+            } else if(type == Constant.TYPE_STUDENT_BIRTHDAY){
+
+                ACache aCache = ACache.get(this);
+                aCache.put(Constant.STUDENT_BIRTHDAY,mCustomItemBirthday.getContent());
+
+                mPresenter.updateStudentData(type, name, mRootView, mScreenWidth);
+            } else {
+
                 mPresenter.updateStudentData(type, name, mRootView, mScreenWidth);
             }
-        }else {
-            switch (type){
+        } else {
+            switch (type) {
                 case Constant.TYPE_STUDENT_PHONE:
-                    ToastUtils.SimpleToast(this,"电话");
+                    ToastUtils.SimpleToast(this, "电话");
                     break;
 
                 case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                    ToastUtils.SimpleToast(this,"电话1");
+                    ToastUtils.SimpleToast(this, "电话1");
 
                     break;
 
                 case Constant.TYPE_STUDENT_GUARDIANPHONE2:
-                    ToastUtils.SimpleToast(this,"电话2");
+                    ToastUtils.SimpleToast(this, "电话2");
 
                     break;
 
@@ -306,6 +330,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             case Constant.TYPE_STUDENT_GUARDIANPHONE2:
                 mCustomItemGuardianPhone2.setContent(content);
                 break;
+            case Constant.TYPE_STUDENT_BIRTHDAY:
+                mCustomItemBirthday.setContent(content);
+                break;
 
         }
 
@@ -340,7 +367,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     @Override
     public void deleteStudent(String s) {
-        ToastUtils.SimpleToast(this,s);
+        ToastUtils.SimpleToast(this, s);
         RxBus.getDefault().post(Constant.UPDATE_STUDENT);
         finish();
     }
@@ -370,9 +397,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             if (data != null && requestCode == 100) {
 
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                if(images != null && images.size() > 0){
-                    System.out.println("选择图片："+images.get(0).path);
-                    mPresenter.uploadStudentPic(mId,images.get(0).path);
+                if (images != null && images.size() > 0) {
+                    System.out.println("选择图片：" + images.get(0).path);
+                    mPresenter.uploadStudentPic(mId, images.get(0).path);
                 }
 
             } else {
@@ -400,6 +427,8 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String guardian_phone1 = mCustomItemGuardianPhone1.getContent();
         String guardian2 = mCustomItemGuardian2.getContent();
         String guardian_phone2 = mCustomItemGuardianPhone2.getContent();
+        String birthdayContent = mCustomItemBirthday.getContent();
+
 
         if (TextUtils.isEmpty(name)) {
             ToastUtils.SimpleToast(this, "学生姓名不能为空");
@@ -422,13 +451,23 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         studentBean.setGuardian2(guardian2);
         studentBean.setGuardian2Phone(guardian_phone2);
 
+        if(!TextUtils.isEmpty(birthdayContent)){
+            try {
+                long l = DateUtils.stringToLong(birthdayContent, null);
+                studentBean.setBirthday(l);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         String tId = ACache.get(this).getAsString(Constant.TEACHER_ID);
         studentBean.setTeacherId(tId);
 
-        if(mIntentParam == 0){
+        if (mIntentParam == 0) {
             //0:添加新学生
             mPresenter.addStudent(studentBean);
-        }else {
+        } else {
             //修改学生信息
             studentBean.setId(mId);
             mPresenter.updateStudent(studentBean);
@@ -441,7 +480,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
 
-        if(mIntentParam == 1){
+        if (mIntentParam == 1) {
 
             MenuItem item = menu.findItem(R.id.menu_add);
 
@@ -463,7 +502,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
             mItemEdit.setVisible(true);
 
-        }else if(mIntentParam == 2){
+        } else if (mIntentParam == 2) {
             menu.findItem(R.id.menu_add).setVisible(false);
 
 
@@ -476,7 +515,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                     ));
 
             mItemEdit.setVisible(true);
-        } else if(mIntentParam == 3){
+        } else if (mIntentParam == 3) {
             menu.findItem(R.id.menu_setting).setVisible(false);
             MenuItem item = menu.findItem(R.id.menu_add);
 
@@ -487,7 +526,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                     ));
 
             item.setVisible(true);
-        }else {
+        } else {
             menu.findItem(R.id.menu_add).setVisible(false);
             menu.findItem(R.id.menu_setting).setVisible(false);
 
@@ -498,7 +537,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menu_add:
 
@@ -517,11 +556,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
     private void edit() {
 
-        if(isEdit){
+        if (isEdit) {
 
             modifyStudent();
 
-        }else {
+        } else {
             isEdit = true;
             mItemEdit.setIcon(new IconicsDrawable(this)
                     .iconText("完成")
@@ -536,12 +575,12 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         String title;
 
-        if(mIntentParam == 1 ){
+        if (mIntentParam == 1) {
             title = "是否确定移除此学生？";
-        }else {
+        } else {
             title = "是否确定删除此学生？";
         }
-        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,title);
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this, title);
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
             public void onCancel() {
@@ -552,9 +591,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
             public void onConfirm() {
                 simpleConfirmDialog.dismiss();
 
-                if(mIntentParam == 1){
+                if (mIntentParam == 1) {
                     mPresenter.removeStudent(mId);
-                }else {
+                } else {
                     mPresenter.deleteStudent(mId);
                 }
 
@@ -563,6 +602,5 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         simpleConfirmDialog.show();
     }
-
 
 }

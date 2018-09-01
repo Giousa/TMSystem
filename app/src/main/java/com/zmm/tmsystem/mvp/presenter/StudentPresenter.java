@@ -12,6 +12,7 @@ import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
 import com.zmm.tmsystem.mvp.presenter.contract.StudentContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
+import com.zmm.tmsystem.ui.widget.DateSelectView;
 import com.zmm.tmsystem.ui.widget.SimpleInputDialog;
 import com.zmm.tmsystem.ui.widget.SingleSelectView;
 
@@ -158,6 +159,10 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
 
                 selectString();
                 break;
+            case Constant.TYPE_STUDENT_BIRTHDAY:
+                title = "生日";
+                selectBirthday();
+                break;
             case Constant.TYPE_STUDENT_PHONE:
                 title = "联系电话";
                 hint = "请输入联系电话";
@@ -190,6 +195,24 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
                 break;
 
         }
+    }
+
+    /**
+     * 选择生日
+     */
+    private void selectBirthday() {
+
+
+        String strBirthday = ACache.get(mContext).getAsString(Constant.STUDENT_BIRTHDAY);
+
+        DateSelectView dateSelectView = new DateSelectView(mContext,mRootView,mScreenWidth,strBirthday);
+
+        dateSelectView.setOnDateClickListener(new DateSelectView.OnDateClickListener() {
+            @Override
+            public void onDateClick(String date) {
+                mView.inputSuccess(type,date);
+            }
+        });
     }
 
 
@@ -225,6 +248,7 @@ public class StudentPresenter extends BasePresenter<StudentContract.IStudentMode
         //这里的功能，是用来显示 makeWindowDark()  背景变暗
         mView.showLoading();
     }
+
 
 
     /**

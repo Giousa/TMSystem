@@ -1,18 +1,14 @@
 package com.zmm.tmsystem.ui.widget;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.ui.widget.wheelview.WheelView;

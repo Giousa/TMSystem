@@ -10,9 +10,13 @@ package com.zmm.tmsystem.common;
 public class Constant {
 
 
+
     public static final String BASE_URL="http://192.168.253.7:8081/tms/";
 
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
+
+    //时间格式
+    private static String FORMAT_TYPE = "yyyy-MM-dd日";
 
 
     public static final String INTENT_PARAM = "INTENT_PARAM";
@@ -82,6 +86,10 @@ public class Constant {
     public static final int TYPE_STUDENT_INFO = 13;
     public static final int TYPE_STUDENT_CERTIFICATES = 14;
     public static final int TYPE_STUDENT_PAY = 15;
+    public static final int TYPE_STUDENT_BIRTHDAY = 16;
+    //学生当前生日
+    public static final String STUDENT_BIRTHDAY = "STUDENT_BIRTHDAY";
+
 
     //-----------------学生信息点击------------------
     public static final String CHILDCARE_STUDENT_COUNT = "CHILDCARE_STUDENT_COUNT";
