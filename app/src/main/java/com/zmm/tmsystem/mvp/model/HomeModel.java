@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
@@ -45,5 +46,10 @@ public class HomeModel implements HomeContract.IHomeModel {
         Observable<BaseBean<String>> observable = mApiService.sign(tId);
 
         return observable;
+    }
+
+    @Override
+    public Observable<BaseBean<StatisticsBean>> getStatistics(String id) {
+        return mApiService.getStatistics(id);
     }
 }

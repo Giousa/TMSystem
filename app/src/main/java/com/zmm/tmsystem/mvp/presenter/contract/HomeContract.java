@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.mvp.presenter.contract;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.mvp.view.BaseView;
 
@@ -26,6 +27,8 @@ public interface HomeContract {
 
         Observable<BaseBean<String>> sign(String tId);
 
+        Observable<BaseBean<StatisticsBean>> getStatistics(String id);
+
 
     }
 
@@ -34,5 +37,6 @@ public interface HomeContract {
         void signInfoSuccess(String msg);
         void signSuccess();
         void signExist();
+        void statistics(StatisticsBean statisticsBean);
     }
 }

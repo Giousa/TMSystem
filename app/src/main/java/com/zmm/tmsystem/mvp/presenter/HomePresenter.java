@@ -3,6 +3,7 @@ package com.zmm.tmsystem.mvp.presenter;
 import android.text.TextUtils;
 
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
@@ -104,5 +105,18 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
     }
 
 
-
+    /**
+     * 统计数据
+     * @param id
+     */
+    public void getStatisticsInfo(String id) {
+        mModel.getStatistics(id)
+                .compose(RxHttpResponseCompat.<StatisticsBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<StatisticsBean>(mContext) {
+                    @Override
+                    public void onNext(StatisticsBean statisticsBean) {
+                        mView.statistics(statisticsBean);
+                    }
+                });
+    }
 }

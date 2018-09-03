@@ -5,6 +5,7 @@ import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.SchoolBean;
+import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.bean.TermBean;
@@ -373,6 +374,15 @@ public interface ApiService {
     @POST("uploadChildcareStudentPic/{id}")
     Observable<BaseBean<StudentBean>> uploadChildcareStudentPic( @Path("id") String id,  @Part() MultipartBody.Part file);
 
+
+    /**
+     * 统计学生信息
+     * @param id
+     * @return
+     */
+    @GET("getStatistics/{id}")
+    Observable<BaseBean<StatisticsBean>> getStatistics(@Path("id") String id);
+
     /**
      * -----------------------------评价学生相关接口-----------------------------
      */
@@ -395,5 +405,6 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("addCommentStudent")
     Observable<BaseBean<String>> addCommentStudent(@Field("s_id") String s_id, @Field("level") int level);
+
 
 }
