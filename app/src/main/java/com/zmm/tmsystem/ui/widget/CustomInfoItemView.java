@@ -29,12 +29,14 @@ public class CustomInfoItemView extends LinearLayout{
     private TextView mTvItemTitle;
     private TextView mTvItemContent;
     private boolean isShowPic = false;
+    private boolean isShowArrow = true;
 
     private int type;
 
     private OnItemClickListener mItemClickListener;
     private RelativeLayout mRl_item;
     private ImageView mIvIcon;
+    private ImageView mArrow;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener,int type) {
         mItemClickListener = onItemClickListener;
@@ -65,12 +67,16 @@ public class CustomInfoItemView extends LinearLayout{
         }else {
             isShowPic = false;
         }
+//        final int showArrow = typedArray.getInteger(0,R.styleable.CustomInfoItemView_isShowArrow);
+//        if(showArrow == 0){
+//            isShowArrow = true;
+//        }else {
+//            isShowArrow = false;
+//        }
 
         //开始初始化控件
         initView(context);
 
-//        System.out.println("isShow = "+isShow);
-//        System.out.println("titlename = "+titlename);
         typedArray.recycle();
 
         //将获取的属性值赋予控件从而展示
@@ -120,6 +126,13 @@ public class CustomInfoItemView extends LinearLayout{
 
         mTvItemTitle = (TextView) view.findViewById(R.id.tv_item_title);
         mRl_item = (RelativeLayout) view.findViewById(R.id.rl_item);
+//        mArrow = (ImageView) view.findViewById(R.id.iv_item_arrow);
+//
+//        if(isShowArrow) {
+//            mArrow.setVisibility(VISIBLE);
+//        }else {
+//            mArrow.setVisibility(GONE);
+//        }
 
     }
 

@@ -87,6 +87,7 @@ public class Constant {
     public static final int TYPE_STUDENT_CERTIFICATES = 14;
     public static final int TYPE_STUDENT_PAY = 15;
     public static final int TYPE_STUDENT_BIRTHDAY = 16;
+    public static final int TYPE_STUDENT_SCORE = 17;
     //学生当前生日
     public static final String STUDENT_BIRTHDAY = "STUDENT_BIRTHDAY";
 

@@ -16,7 +16,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
-import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
@@ -60,8 +59,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     CustomInfoItemView mCustomItemTeacher;
     @BindView(R.id.custom_item_teacher_phone)
     CustomInfoItemView mCustomItemTeacherPhone;
-    @BindView(R.id.custom_item_guardian_phone)
-    CustomInfoItemView mCustomItemGuardianPhone;
     @BindView(R.id.custom_item_info)
     CustomInfoItemView mCustomItemInfo;
     @BindView(R.id.custom_item_certificates)
@@ -70,6 +67,8 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     CustomInfoItemView mCustomItemPay;
     @BindView(R.id.root_view)
     LinearLayout mRootView;
+    @BindView(R.id.custom_item_score)
+    CustomInfoItemView mCustomItemScore;
 
     private ChildcareStudentBean mChildcareStudentBean;
     private MenuItem mItemEdit;
@@ -130,8 +129,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     private void initView() {
         mCustomItemIcon.setOnItemClickListener(this, Constant.TYPE_STUDENT_ICON);
-//        mCustomItemName.setOnItemClickListener(this, Constant.TYPE_STUDENT_NAME);
-//        mCustomItemGuardianPhone.setOnItemClickListener(this, Constant.TYPE_STUDENT_GUARDIANPHONE1);
         mCustomItemSchool.setOnItemClickListener(this, Constant.TYPE_STUDENT_SCHOOL);
         mCustomItemGrade.setOnItemClickListener(this, Constant.TYPE_STUDENT_GRADE);
         mCustomItemTeacher.setOnItemClickListener(this, Constant.TYPE_STUDENT_TEACHER);
@@ -139,12 +136,13 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         mCustomItemInfo.setOnItemClickListener(this, Constant.TYPE_STUDENT_INFO);
         mCustomItemCertificates.setOnItemClickListener(this, Constant.TYPE_STUDENT_CERTIFICATES);
         mCustomItemPay.setOnItemClickListener(this, Constant.TYPE_STUDENT_PAY);
+        mCustomItemScore.setOnItemClickListener(this,Constant.TYPE_STUDENT_SCORE);
 
     }
 
     private void initData(ChildcareStudentBean childcareStudentBean) {
 
-        if(mCustomItemIcon == null){
+        if (mCustomItemIcon == null) {
             return;
         }
 
@@ -154,7 +152,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         String grade = childcareStudentBean.getGrade();
         String teacher = childcareStudentBean.getTeacher();
         String teacherPhone = childcareStudentBean.getTeacherPhone();
-        String guardian1Phone = childcareStudentBean.getStudent().getGuardian1Phone();
 
         mCustomItemIcon.setIcon(icon);
         mCustomItemName.setContent(name);
@@ -162,7 +159,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         mCustomItemGrade.setContent(grade);
         mCustomItemTeacher.setContent(teacher);
         mCustomItemTeacherPhone.setContent(teacherPhone);
-        mCustomItemGuardianPhone.setContent(guardian1Phone);
 
 
     }
@@ -175,7 +171,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void showError(String msg) {
-        ToastUtils.SimpleToast(this,msg);
+        ToastUtils.SimpleToast(this, msg);
     }
 
     @Override
@@ -196,7 +192,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void deleteSuccess() {
-        ToastUtils.SimpleToast(this,getResources().getString(R.string.student_delete_success));
+        ToastUtils.SimpleToast(this, getResources().getString(R.string.student_delete_success));
         RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
         finish();
     }
@@ -231,7 +227,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menu_add:
 
@@ -248,7 +244,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     private void edit() {
 
-        if(isEdit){
+        if (isEdit) {
             isEdit = false;
             mItemEdit.setIcon(new IconicsDrawable(this)
                     .iconText("编辑")
@@ -256,7 +252,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                     .color(getResources().getColor(R.color.white)
                     ));
 
-        }else {
+        } else {
             isEdit = true;
             mItemEdit.setIcon(new IconicsDrawable(this)
                     .iconText("完成")
@@ -267,7 +263,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     private void delete() {
-        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this,"是否确定删除此学生？");
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this, "是否确定删除此学生？");
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
             public void onCancel() {
@@ -288,47 +284,50 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public void itemClick(int type, String name) {
 
-        if(type == Constant.TYPE_STUDENT_INFO){
+        if (type == Constant.TYPE_STUDENT_INFO) {
 
-            Intent intentInfo = new Intent(this,StudentInfoActivity.class);
-            intentInfo.putExtra(Constant.INTENT_PARAM,2);
-            intentInfo.putExtra(Constant.STUDENT_ID,mChildcareStudentBean.getStudent().getId());
+            Intent intentInfo = new Intent(this, StudentInfoActivity.class);
+            intentInfo.putExtra(Constant.INTENT_PARAM, 2);
+            intentInfo.putExtra(Constant.STUDENT_ID, mChildcareStudentBean.getStudent().getId());
             startActivity(intentInfo);
 
-        }else if(type == Constant.TYPE_STUDENT_ICON){
+        } else if (type == Constant.TYPE_STUDENT_ICON) {
 
             uloadIcon();
 
-        }else if(type == Constant.TYPE_STUDENT_CERTIFICATES){
+        } else if (type == Constant.TYPE_STUDENT_CERTIFICATES) {
 
-            ToastUtils.SimpleToast(this,"进入荣誉证书界面");
+            ToastUtils.SimpleToast(this, "进入荣誉证书界面");
 
-        }else if(type == Constant.TYPE_STUDENT_PAY){
-            ToastUtils.SimpleToast(this,"进入消费详细界面");
+        } else if (type == Constant.TYPE_STUDENT_PAY) {
+            ToastUtils.SimpleToast(this, "进入消费详细界面");
 
 //            ImagePicker imagePicker = ImagePicker.getInstance();
 //            imagePicker.setMultiMode(true);//单选或多选模式
 //
 //            Intent intent = new Intent(this, ImageGridActivity.class);
 //            startActivityForResult(intent, 100);
-        }else {
+        } else if (type == Constant.TYPE_STUDENT_SCORE) {
 
-            if(isEdit){
-                mPresenter.updateChildcareStudentData(type, name, mRootView, mScreenWidth,mChildcareStudentBean);
-            }else {
-                switch (type){
+            ToastUtils.SimpleToast(this, "进入成绩单界面");
+
+        } else {
+
+            if (isEdit) {
+                mPresenter.updateChildcareStudentData(type, name, mRootView, mScreenWidth, mChildcareStudentBean);
+            } else {
+                switch (type) {
 
                     case Constant.TYPE_STUDENT_TEACHER_PHONE:
-                        ToastUtils.SimpleToast(this,"班主任电话");
+                        ToastUtils.SimpleToast(this, "班主任电话");
                         break;
 
                     case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                        ToastUtils.SimpleToast(this,"监护人电话");
+                        ToastUtils.SimpleToast(this, "监护人电话");
                         break;
                 }
             }
         }
-
 
 
     }
@@ -365,9 +364,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             if (data != null && requestCode == 100) {
 
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                if(images != null && images.size() > 0){
-                    System.out.println("选择图片："+images.get(0).path);
-                    mPresenter.uploadStudentPic(mChildcareStudentBean,images.get(0).path);
+                if (images != null && images.size() > 0) {
+                    System.out.println("选择图片：" + images.get(0).path);
+                    mPresenter.uploadStudentPic(mChildcareStudentBean, images.get(0).path);
                 }
 
             } else {
@@ -390,9 +389,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s)){
+                        if (!TextUtils.isEmpty(s)) {
 
-                            if(s.equals(Constant.UPDATE_STUDENT)){
+                            if (s.equals(Constant.UPDATE_STUDENT)) {
                                 //学生个人信息变动，更新数据
                                 mPresenter.findChildcareStudentById(mChildcareStudentBean.getId());
                             }
@@ -401,4 +400,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                     }
                 });
     }
+
+
 }
