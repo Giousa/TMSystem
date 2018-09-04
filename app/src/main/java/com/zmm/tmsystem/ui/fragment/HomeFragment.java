@@ -119,12 +119,9 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         mACache = ACache.get(mContext);
 
-        //是否签到
-        mPresenter.getSignInfo();
-
-
         //展示教师信息
         TeacherBean teacherBean = (TeacherBean) mACache.getAsObject(Constant.TEACHER);
+
         if (teacherBean != null) {
             showTeacherInfo(teacherBean);
         }
@@ -153,9 +150,7 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     @Override
     protected void onEmptyViewClick() {
         super.onEmptyViewClick();
-//        mPresenter.getTeacherById();
-
-        mPresenter.getSignInfo();
+        mPresenter.getTeacherById(mACache.getAsString(Constant.TEACHER_ID));
     }
 
     public void showTeacherInfo(TeacherBean teacherBean) {
@@ -168,7 +163,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         String courseName = teacherBean.getCourseName();
 
         int gender = teacherBean.getGender();
-        int signDays = teacherBean.getSignDays();
 
         if (CheckUtils.checkString(name)) {
             mTvHeadName.setText(name);
@@ -221,21 +215,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
     }
 
-    @Override
-    public void signInfoSuccess(String msg) {
-        mTvHeadSign.setText(msg);
-    }
-
-    @Override
-    public void signSuccess() {
-        ToastUtils.SimpleToast(mContext, getResources().getString(R.string.home_head_sign_success));
-        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
-    }
-
-    @Override
-    public void signExist() {
-        mTvHeadSign.setText(getResources().getString(R.string.home_head_sign_exist));
-    }
 
     @Override
     public void statistics(StatisticsBean statisticsBean) {
@@ -301,17 +280,13 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     }
 
 
-    @OnClick({R.id.iv_head_icon, R.id.tv_head_sign})
+    @OnClick({R.id.iv_head_icon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_head_icon:
 
                 startActivity(TeacherInfoActivity.class);
 
-                break;
-            case R.id.tv_head_sign:
-
-                mPresenter.sign();
                 break;
         }
     }
@@ -330,11 +305,17 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
+
+                        System.out.println("Home 消息："+s);
                         if(!TextUtils.isEmpty(s)){
 
                             if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)){
                                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
                                 showChartView(termBean);
+                            }else if(s.equals(Constant.UPDATE_TEACHER)){
+                                TeacherBean teacherBean = (TeacherBean) mACache.getAsObject(Constant.TEACHER);
+//                                showTeacherInfo(teacherBean);
+                                mPresenter.getTeacherById(teacherBean.getId());
                             }
 
                         }

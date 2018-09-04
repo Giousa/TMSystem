@@ -33,76 +33,71 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel,HomeCon
     }
 
 
-//    public void getTeacherById(){
+    public void getTeacherById(String id){
+
+        mModel.getTeacherById(id)
+                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
+                .subscribe(new ProgressSubcriber<TeacherBean>(mContext,mView) {
+                    @Override
+                    public void onNext(TeacherBean teacherBean) {
+                        mView.showTeacherInfo(teacherBean);
+                    }
+
+                });
+
+
+    }
+
+//    public void getSignInfo(){
 //
 //        final ACache aCache = ACache.get(mContext);
+//
 //        String tId = aCache.getAsString(Constant.TEACHER_ID);
 //
-//        mModel.getTeacherById(tId)
-//                .compose(RxHttpResponseCompat.<TeacherBean>compatResult())
-//                .subscribe(new ProgressSubcriber<TeacherBean>(mContext,mView) {
-//                    @Override
-//                    public void onNext(TeacherBean teacherBean) {
+//        mModel.signInfo(tId)
+//                .compose(RxHttpResponseCompat.<String>compatResult())
+//                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
 //
-//                        aCache.put(Constant.TEACHER,teacherBean);
-//                        mView.showTeacherInfo(teacherBean);
+//                    @Override
+//                    public void onNext(String s) {
+//                        if(s.equals(mContext.getResources().getString(R.string.home_head_sign))){
+//                            aCache.put(Constant.SIGN,"");
+//                        }else {
+//                            aCache.put(Constant.SIGN,"sign");
+//                        }
+//                        mView.signInfoSuccess(s);
+//                    }
+//                });
+//
+//    }
+//
+//    public void sign(){
+//
+//        final ACache aCache = ACache.get(mContext);
+//
+//        String signStr = aCache.getAsString(Constant.SIGN);
+//
+//        if(!TextUtils.isEmpty(signStr)){
+//            mView.signExist();
+//            return;
+//        }
+//
+//
+//        String tId = aCache.getAsString(Constant.TEACHER_ID);
+//
+//        mModel.sign(tId)
+//                .compose(RxHttpResponseCompat.<String>compatResult())
+//                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        mView.signSuccess();
+//                        aCache.put(Constant.SIGN,"sign");
 //                    }
 //
 //                });
 //
-//
 //    }
-
-    public void getSignInfo(){
-
-        final ACache aCache = ACache.get(mContext);
-
-        String tId = aCache.getAsString(Constant.TEACHER_ID);
-
-        mModel.signInfo(tId)
-                .compose(RxHttpResponseCompat.<String>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-
-                    @Override
-                    public void onNext(String s) {
-                        if(s.equals(mContext.getResources().getString(R.string.home_head_sign))){
-                            aCache.put(Constant.SIGN,"");
-                        }else {
-                            aCache.put(Constant.SIGN,"sign");
-                        }
-                        mView.signInfoSuccess(s);
-                    }
-                });
-
-    }
-
-    public void sign(){
-
-        final ACache aCache = ACache.get(mContext);
-
-        String signStr = aCache.getAsString(Constant.SIGN);
-
-        if(!TextUtils.isEmpty(signStr)){
-            mView.signExist();
-            return;
-        }
-
-
-        String tId = aCache.getAsString(Constant.TEACHER_ID);
-
-        mModel.sign(tId)
-                .compose(RxHttpResponseCompat.<String>compatResult())
-                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
-
-                    @Override
-                    public void onNext(String s) {
-                        mView.signSuccess();
-                        aCache.put(Constant.SIGN,"sign");
-                    }
-
-                });
-
-    }
 
 
     /**

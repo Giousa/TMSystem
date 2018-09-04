@@ -296,9 +296,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             uloadIcon();
 
         } else if (type == Constant.TYPE_STUDENT_CERTIFICATES) {
-
-            ToastUtils.SimpleToast(this, "进入荣誉证书界面");
-
+            Intent intent = new Intent(this,CertificateActivity.class);
+            intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
+            startActivity(intent);
         } else if (type == Constant.TYPE_STUDENT_PAY) {
             ToastUtils.SimpleToast(this, "进入消费详细界面");
 

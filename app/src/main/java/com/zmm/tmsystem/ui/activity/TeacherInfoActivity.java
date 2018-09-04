@@ -21,6 +21,7 @@ import com.zmm.tmsystem.dagger.component.DaggerTeacherComponent;
 import com.zmm.tmsystem.dagger.module.TeacherModule;
 import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.GlideImageLoader;
 import com.zmm.tmsystem.ui.widget.TitleBar;
@@ -212,6 +213,8 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
 
     @Override
     public void updateSuccess(String title, TeacherBean teacherBean) {
+
+        RxBus.getDefault().post(Constant.UPDATE_TEACHER);
 
         ToastUtils.SimpleToast(this, "更新" + title + "成功");
         initData(teacherBean);

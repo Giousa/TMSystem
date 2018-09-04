@@ -31,6 +31,7 @@ public class Constant {
     public static final String STUDENT = "STUDENT";
     public static final String STUDENT_ID = "STUDENT_ID";
     public static final String CHILDCARE_STUDENT = "CHILDCARE_STUDENT";
+    public static final String CHILDCARE_STUDENT_ID = "CHILDCARE_STUDENT_ID";
 
     //-----------------托管周期点击------------------
     public static final int TYPE_TERM_YEAR = 0;
@@ -59,6 +60,7 @@ public class Constant {
     public static final String TERM = "TERM";
 
     //Rxbus消息
+    public static final String UPDATE_TEACHER = "UPDATE_TEACHER";
     public static final String UPDATE_TITLE = "UPDATE_TITLE";
     public static final String UPDATE_TERM = "UPDATE_TERM";
     public static final String UPDATE_STUDENT = "UPDATE_STUDENT";

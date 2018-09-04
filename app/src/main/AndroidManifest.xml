@@ -96,6 +96,17 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--荣誉证书-->
+        <activity
+            android:name=".ui.activity.CertificateActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
+        <activity
+            android:name=".ui.activity.CertificateInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>
