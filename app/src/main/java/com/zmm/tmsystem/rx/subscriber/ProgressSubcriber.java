@@ -42,7 +42,7 @@ public abstract class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  {
     @Override
     public void onComplete() {
 
-            mView.dismissLoading();
+        mView.dismissLoading();
     }
 
     @Override

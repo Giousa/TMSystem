@@ -407,4 +407,15 @@ public interface ApiService {
     Observable<BaseBean<String>> addCommentStudent(@Field("s_id") String s_id, @Field("level") int level);
 
 
+    /**
+     * 荣誉证书
+     * @param id
+     * @param title
+     * @param content
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("uploadCertificatePics")
+    Observable<BaseBean<String>> uploadCertificatePics(@Query("id") String id, @Query("title") String title, @Query("content") String content,@Part() MultipartBody.Part[] file);
 }

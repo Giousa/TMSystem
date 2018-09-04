@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +17,20 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.PictureCompressUtil;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.dagger.component.DaggerCertificateInfoComponent;
+import com.zmm.tmsystem.dagger.module.CertificateInfoModule;
+import com.zmm.tmsystem.mvp.presenter.CertificateInfoPresenter;
+import com.zmm.tmsystem.mvp.presenter.contract.CertificateInfoContract;
 import com.zmm.tmsystem.ui.adapter.ImagePickerAdapter;
+import com.zmm.tmsystem.ui.widget.ShapeLoadingDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +41,7 @@ import butterknife.OnClick;
  * Date:2018/9/4
  * Email:65489469@qq.com
  */
-public class CertificateInfoActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
+public class CertificateInfoActivity extends BaseActivity<CertificateInfoPresenter> implements ImagePickerAdapter.OnRecyclerViewItemClickListener,CertificateInfoContract.CertificateInfoView {
 
 
     @BindView(R.id.title_bar)
@@ -52,10 +61,12 @@ public class CertificateInfoActivity extends BaseActivity implements ImagePicker
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 3;               //允许选择图片最大数
-    ArrayList<ImageItem> images = null;
+    private ArrayList<ImageItem> images = null;
+    private ArrayList<String> mNewListPath = new ArrayList<>();
 
 
     private String mChildcareStudentId;
+    private ShapeLoadingDialog mShapeLoadingDialog;
 
 
     @Override
@@ -65,7 +76,11 @@ public class CertificateInfoActivity extends BaseActivity implements ImagePicker
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerCertificateInfoComponent.builder()
+                .appComponent(appComponent)
+                .certificateInfoModule(new CertificateInfoModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -145,6 +160,19 @@ public class CertificateInfoActivity extends BaseActivity implements ImagePicker
                 if (images != null) {
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
+
+                    for (int i = 0; i < images.size(); i++) {
+
+                        System.out.println("选取的图片名称1："+images.get(i).name);
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
+                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
+                            mNewListPath.add("/storage/emulated/0/"+newPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
@@ -155,6 +183,21 @@ public class CertificateInfoActivity extends BaseActivity implements ImagePicker
                     selImageList.clear();
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
+
+                    mNewListPath.clear();
+
+                    for (int i = 0; i < images.size(); i++) {
+
+                        System.out.println("选取的图片名称2："+images.get(i).name);
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
+                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
+                            mNewListPath.add("/storage/emulated/0/"+newPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
@@ -179,7 +222,36 @@ public class CertificateInfoActivity extends BaseActivity implements ImagePicker
 
         System.out.println("---上传荣誉证书---");
 
-//        mPresenter.uploadMultyPics(mChildcareStudentId,title,content,selImageList);
+        mPresenter.uploadMultyPics(mChildcareStudentId,title,content,mNewListPath);
 
+    }
+
+    @Override
+    public void uploadSuccess() {
+        for (int i = 0; i < mNewListPath.size(); i++) {
+            PictureCompressUtil.deleteFile(mNewListPath.get(i));
+        }
+        ToastUtils.SimpleToast(CertificateInfoActivity.this,"上传成功");
+        finish();
+    }
+
+    @Override
+    public void showLoading() {
+        mShapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+                .loadText("上传中...")
+                .build();
+
+        mShapeLoadingDialog.show();
+
+    }
+
+    @Override
+    public void showError(String msg) {
+        mShapeLoadingDialog.dismiss();
+    }
+
+    @Override
+    public void dismissLoading() {
+        mShapeLoadingDialog.dismiss();
     }
 }

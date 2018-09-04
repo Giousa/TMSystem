@@ -47,12 +47,15 @@ public class BaseException extends Exception {
 
 
 
+
     //验证码已发送
     public static final int ERROR_API_VERIFY_SEND = 400;
     //验证码过期
     public static final int ERROR_API_VERIFY_TIMEOUT = 401;
     //验证码错误
     public static final int ERROR_API_VERIFY_ERROR = 402;
+
+
     //图片上传失败
     public static final int ERROR_API_PIC_UPLOAD_FAILURE = 403;
 

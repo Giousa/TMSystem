@@ -124,4 +124,7 @@ dependencies {
 
     //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    compile 'com.nineoldandroids:library:2.4.0'
+
 }
