@@ -2,12 +2,10 @@ package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -25,7 +23,6 @@ import com.zmm.tmsystem.ui.widget.LoadingButton;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
@@ -172,11 +169,5 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         return true;
     }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        gcImageView(mLlLoginBg);
-//    }
 
 }

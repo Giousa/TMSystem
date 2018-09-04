@@ -209,21 +209,21 @@
             android:id="@+id/ll_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_dark_cards"
             android:orientation="vertical">
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_childcare_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="托管周期：2018年上学期"
-                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_15" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
@@ -236,44 +236,94 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="总人数:  28人"
-                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15" />
 
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/dp_size_10"
-                    android:background="@color/md_black_1000" />
-
-                <TextView
-                    android:id="@+id/tv_num_male"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="男生:  17人"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:layout_width="1dp"
+                    android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/dp_size_10"
-                    android:background="@color/md_black_1000" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_num_female"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="女生:  11人"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15" />
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_num_male"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="男生:  17人"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/dp_size_10"
+                            android:background="@color/md_black_1000" />
+
+                        <TextView
+                            android:id="@+id/tv_num_female"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="女生:  11人"
+                            android:textSize="@dimen/text_size_15" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_num_primary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="小学:  17人"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/dp_size_10"
+                            android:background="@color/md_black_1000" />
+
+                        <TextView
+                            android:id="@+id/tv_num_middle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="初中:  11人"
+                            android:textSize="@dimen/text_size_15" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/md_black_1000" />
 
         <LinearLayout
             android:id="@+id/ll_chart_show"

@@ -85,6 +85,10 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     LinearLayout llShow;
     @BindView(R.id.ll_chart_show)
     LinearLayout llChartShow;
+    @BindView(R.id.tv_num_primary)
+    TextView tvNumPrimary;
+    @BindView(R.id.tv_num_middle)
+    TextView tvNumMiddle;
 
 
     private Context mContext;
@@ -123,11 +127,11 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         //展示统计报表
         TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
-        if(termBean != null){
+        if (termBean != null) {
             llShow.setVisibility(View.VISIBLE);
             llChartShow.setVisibility(View.VISIBLE);
             mPresenter.getStatisticsInfo(termBean.getId());
-        }else {
+        } else {
             llShow.setVisibility(View.GONE);
             llChartShow.setVisibility(View.GONE);
         }
@@ -228,10 +232,12 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         System.out.println("statisticsBean = " + statisticsBean);
 
-        tvChildcareName.setText("托管周期："+statisticsBean.getTitle());
-        tvNumTotal.setText("总人数:  "+statisticsBean.getTotal()+"人");
-        tvNumMale.setText("男生:  "+statisticsBean.getMale()+"人");
-        tvNumFemale.setText("女生:  "+statisticsBean.getFemale()+"人");
+        tvChildcareName.setText("托管周期：" + statisticsBean.getTitle());
+        tvNumTotal.setText("总人数:  " + statisticsBean.getTotal() + "人");
+        tvNumMale.setText("男生:  " + statisticsBean.getMale() + "人");
+        tvNumFemale.setText("女生:  " + statisticsBean.getFemale() + "人");
+        tvNumPrimary.setText("小学:  "+statisticsBean.getPrimary()+"人");
+        tvNumMiddle.setText("初中:  "+statisticsBean.getMiddle()+"人");
 
         ArrayList<PieEntry> entries = new ArrayList();
         entries.add(new PieEntry(statisticsBean.getMale(), "男"));
@@ -298,4 +304,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
                 break;
         }
     }
+
+
 }

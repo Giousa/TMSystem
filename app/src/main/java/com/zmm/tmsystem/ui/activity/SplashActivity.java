@@ -1,7 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.zmm.tmsystem.R;
@@ -13,7 +12,6 @@ import com.zmm.tmsystem.dagger.component.AppComponent;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
