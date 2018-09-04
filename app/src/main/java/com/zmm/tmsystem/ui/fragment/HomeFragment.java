@@ -2,6 +2,7 @@ package com.zmm.tmsystem.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.zmm.tmsystem.dagger.component.DaggerHomeComponent;
 import com.zmm.tmsystem.dagger.module.HomeModule;
 import com.zmm.tmsystem.mvp.presenter.HomePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.HomeContract;
+import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.activity.TeacherInfoActivity;
 import com.zmm.tmsystem.ui.widget.CustomMPChartPieView;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
@@ -36,6 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Description:
@@ -127,6 +131,14 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         //展示统计报表
         TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+        showChartView(termBean);
+
+
+        operateBus();
+
+    }
+
+    private void showChartView(TermBean termBean){
         if (termBean != null) {
             llShow.setVisibility(View.VISIBLE);
             llChartShow.setVisibility(View.VISIBLE);
@@ -135,7 +147,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
             llShow.setVisibility(View.GONE);
             llChartShow.setVisibility(View.GONE);
         }
-
     }
 
 
@@ -305,5 +316,30 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         }
     }
 
+    /**
+     * RxBus  这里是更新选中的托管项目
+     */
+    private void operateBus() {
+        RxBus.getDefault().toObservable()
+                .map(new Function<Object, String>() {
+                    @Override
+                    public String apply(Object o) throws Exception {
+                        return (String) o;
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if(!TextUtils.isEmpty(s)){
+
+                            if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)){
+                                TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
+                                showChartView(termBean);
+                            }
+
+                        }
+                    }
+                });
+    }
 
 }

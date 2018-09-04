@@ -123,7 +123,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
     @Override
     public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
-
+        System.out.println("更新数据:"+childcareStudentBean);
     }
 
     @Override
