@@ -1,12 +1,14 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
@@ -24,6 +26,7 @@ import com.zmm.tmsystem.ui.widget.TitleBar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -31,12 +34,14 @@ import butterknife.BindView;
  * Date:2018/9/4
  * Email:65489469@qq.com
  */
-public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> implements Toolbar.OnMenuItemClickListener,CertificateInfoContract.CertificateInfoView {
+public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> implements Toolbar.OnMenuItemClickListener, CertificateInfoContract.CertificateInfoView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.empty)
+    LinearLayout mEmpty;
 
     private MenuItem mMenuItemAdd;
     private String mChildcareStudentId;
@@ -126,7 +131,7 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
     public boolean onMenuItemClick(MenuItem item) {
 
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menu_add:
 
@@ -137,7 +142,7 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
                 break;
             case R.id.menu_setting:
 
-                startActivity(StudentRemoveActivity.class,false);
+                startActivity(StudentRemoveActivity.class, false);
                 break;
 
         }
@@ -152,6 +157,12 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
 
     @Override
     public void querySuccess(List<CertificatesBean> certificatesBeans) {
+
+        if(certificatesBeans != null && certificatesBeans.size() > 0){
+            mEmpty.setVisibility(View.GONE);
+        }else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
         mCertificateAdapter.setNewData(certificatesBeans);
     }
 
@@ -174,4 +185,5 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
     public void dismissLoading() {
 
     }
+
 }
