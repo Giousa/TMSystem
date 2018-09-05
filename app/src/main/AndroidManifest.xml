@@ -113,6 +113,10 @@
             android:name=".ui.activity.SpendActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.SpendDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
 
     </application>
 

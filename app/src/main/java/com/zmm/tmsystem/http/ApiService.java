@@ -7,6 +7,7 @@ import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
+import com.zmm.tmsystem.bean.SpendingBean;
 import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
@@ -450,5 +451,43 @@ public interface ApiService {
      */
     @GET("getMoneyByStudentId/{studentId}")
     Observable<BaseBean<MoneyBean>> getMoneyByStudentId(@Path("studentId")String studentId);
+
+    /**
+     * 获取消费列表
+     * @param moneyId
+     * @return
+     */
+    @GET("getSpendingListByMoneyId/{moneyId}")
+    Observable<BaseBean<List<SpendingBean>>> getSpendingListByMoneyId(@Path("moneyId")String moneyId);
+
+    /**
+     * 删除消费
+     * @param spendingId
+     * @param pay
+     * @param deposit
+     * @return
+     */
+    @GET("deleteSpending")
+    Observable<BaseBean<String>> deleteSpending(@Query("spendingId")String spendingId, @Query("pay")float pay, @Query("deposit")float deposit);
+
+    /**
+     * 添加消费
+     * @param moneyId
+     * @param title
+     * @param content
+     * @param pay
+     * @param deposit
+     * @return
+     */
+    Observable<BaseBean<String>> updateSpending(@Query("moneyId")String moneyId, @Query("title")String title, @Query("content")String content,@Query("pay") float pay, @Query("deposit")float deposit);
+
+    /**
+     * 获取消费详情
+     * @param moneyId
+     * @return
+     */
+    @GET("getMoneyById/{moneyId}")
+    Observable<BaseBean<MoneyBean>> getMoneyById(@Path("moneyId")String moneyId);
+
 
 }

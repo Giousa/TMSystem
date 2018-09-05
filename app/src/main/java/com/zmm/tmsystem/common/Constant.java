@@ -32,6 +32,7 @@ public class Constant {
     public static final String STUDENT_ID = "STUDENT_ID";
     public static final String CHILDCARE_STUDENT = "CHILDCARE_STUDENT";
     public static final String CHILDCARE_STUDENT_ID = "CHILDCARE_STUDENT_ID";
+    public static final String MONEY_ID = "MONEY_ID";
 
     //-----------------托管周期点击------------------
     public static final int TYPE_TERM_YEAR = 0;

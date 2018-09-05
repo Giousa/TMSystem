@@ -74,6 +74,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     private ChildcareStudentBean mChildcareStudentBean;
     private MenuItem mItemEdit;
     private boolean isEdit = false;
+    private String moneyId;
 
     @Override
     protected int setLayout() {
@@ -212,7 +213,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void queryMoney(MoneyBean moneyBean) {
-        System.out.println("moneyBean = "+moneyBean);
+        moneyId = moneyBean.getId();
         mCustomItemPay.setContent("当前余额: ￥"+moneyBean.getSurplus());
     }
 
@@ -315,13 +316,20 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             uloadIcon();
 
         } else if (type == Constant.TYPE_STUDENT_CERTIFICATES) {
+            //荣誉证书
             Intent intent = new Intent(this,CertificateActivity.class);
             intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
             startActivity(intent);
         } else if (type == Constant.TYPE_STUDENT_PAY) {
-            Intent intent = new Intent(this,SpendActivity.class);
-            intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
-            startActivity(intent);
+            //消费界面
+            if(TextUtils.isEmpty(moneyId)){
+                ToastUtils.SimpleToast(this,"服务器繁忙，请稍后再试");
+            }else {
+                Intent intent = new Intent(this,SpendActivity.class);
+                intent.putExtra(Constant.MONEY_ID,moneyId);
+                startActivity(intent);
+            }
+
         } else if (type == Constant.TYPE_STUDENT_SCORE) {
 
             ToastUtils.SimpleToast(this, "进入成绩单界面");
@@ -358,22 +366,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-//            if (data != null && requestCode == 100) {
-//
-//                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-//                if(images != null && images.size() > 0){
-//                    for (int i = 0; i < images.size(); i++) {
-//                        System.out.println("选择图片："+images.get(i).path);
-//                    }
-//                }
-//
-//                mPresenter.uploadImages(images);
-//
-//            } else {
-//                System.out.println("没有数据");
-//            }
-//        }
 
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null && requestCode == 100) {
