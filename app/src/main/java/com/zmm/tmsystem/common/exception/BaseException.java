@@ -24,6 +24,8 @@ public class BaseException extends Exception {
 
     //服务器异常捕获
     public static final int ERROR_API_SYSTEM = 201;
+    //参数id异常
+    public static final int ERROR_API_PARAM_ID_ERROR = 499;
     //参数不能为空
     public static final int ERROR_API_PARAM_EMPTY = 500;
     //用户已存在

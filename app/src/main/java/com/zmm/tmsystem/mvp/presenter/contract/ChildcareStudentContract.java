@@ -3,6 +3,7 @@ package com.zmm.tmsystem.mvp.presenter.contract;
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TermBean;
@@ -38,6 +39,11 @@ public interface ChildcareStudentContract {
 
         //上传学生头像
         Observable<BaseBean<StudentBean>> uploadChildcareStudentPic(String id, MultipartBody.Part file);
+
+        //获取学生消费详情
+        Observable<BaseBean<MoneyBean>> getMoneyByStudentId(String studentId);
+
+
     }
 
     interface ChildcareStudentView extends BaseView{
@@ -45,6 +51,7 @@ public interface ChildcareStudentContract {
         void querySuccess(List<ChildcareStudentBean> childcareStudentBeans);
         void updateSuccess(ChildcareStudentBean childcareStudentBean);
         void deleteSuccess();
+        void queryMoney(MoneyBean moneyBean);
 
 
 

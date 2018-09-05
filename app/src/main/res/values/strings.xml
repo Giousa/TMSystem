@@ -7,6 +7,7 @@
     <string name="error_system">服务器繁忙</string>
 
 
+    <string name="error_param_id_error">参数id异常</string>
     <string name="error_param_empty">参数不能为空</string>
     <string name="error_user_exist">用户已存在</string>
     <string name="error_user_none">用户不存在</string>

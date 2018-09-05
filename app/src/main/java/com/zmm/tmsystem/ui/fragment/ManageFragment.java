@@ -9,6 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
@@ -122,6 +123,11 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
     @Override
     public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void queryMoney(MoneyBean moneyBean) {
 
     }
 

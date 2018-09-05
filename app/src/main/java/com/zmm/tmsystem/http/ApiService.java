@@ -5,6 +5,7 @@ import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.CertificatesBean;
 import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.StudentBean;
@@ -435,4 +436,19 @@ public interface ApiService {
      */
     @GET("deleteCertificate/{id}")
     Observable<BaseBean<String>> deleteCertificate(@Path("id") String id);
+
+
+    /**
+     * -----------------------------学生消费相关接口-----------------------------
+     */
+
+
+    /**
+     * 获取学生消费详情
+     * @param studentId
+     * @return
+     */
+    @GET("getMoneyByStudentId/{studentId}")
+    Observable<BaseBean<MoneyBean>> getMoneyByStudentId(@Path("studentId")String studentId);
+
 }

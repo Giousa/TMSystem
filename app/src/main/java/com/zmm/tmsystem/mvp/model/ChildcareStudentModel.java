@@ -3,6 +3,7 @@ package com.zmm.tmsystem.mvp.model;
 import com.zmm.tmsystem.bean.BaseBean;
 import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TermBean;
@@ -62,6 +63,11 @@ public class ChildcareStudentModel implements IChildcareStudentModel {
     @Override
     public Observable<BaseBean<StudentBean>> uploadChildcareStudentPic(String id, MultipartBody.Part file) {
         return mApiService.uploadChildcareStudentPic(id,file);
+    }
+
+    @Override
+    public Observable<BaseBean<MoneyBean>> getMoneyByStudentId(String studentId) {
+        return mApiService.getMoneyByStudentId(studentId);
     }
 
 }

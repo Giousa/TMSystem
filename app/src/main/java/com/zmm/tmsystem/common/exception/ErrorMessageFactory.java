@@ -98,6 +98,11 @@ public class ErrorMessageFactory {
                 errorMsg = context.getResources().getString(R.string.error_pic_upload_failure);
                 break;
 
+            case ApiException.ERROR_API_PARAM_ID_ERROR:
+                errorMsg = context.getResources().getString(R.string.error_param_id_error);
+                break;
+
+
             default:
                 errorMsg=context.getResources().getString(R.string.error_unkown);
                 break;

@@ -16,6 +16,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
@@ -99,7 +100,14 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
         initData(mChildcareStudentBean);
 
+        initMoneyData();
+
         operateBus();
+    }
+
+    private void initMoneyData() {
+
+        mPresenter.getMoneyByStudentId(mChildcareStudentBean.getId());
     }
 
     @Override
@@ -200,6 +208,12 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         ToastUtils.SimpleToast(this, getResources().getString(R.string.student_delete_success));
         RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
         finish();
+    }
+
+    @Override
+    public void queryMoney(MoneyBean moneyBean) {
+        System.out.println("moneyBean = "+moneyBean);
+        mCustomItemPay.setContent("当前余额: ￥"+moneyBean.getSurplus());
     }
 
 

@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
+import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
 import com.zmm.tmsystem.bean.StudentBean;
 import com.zmm.tmsystem.bean.TeacherBean;
@@ -333,5 +334,21 @@ public class ChildcareStudentPresenter extends BasePresenter<ChildcareStudentCon
                     }
                 });
 
+    }
+
+    /**
+     * 获取学生消费详情
+     * @param id
+     */
+    public void getMoneyByStudentId(String id) {
+
+        mModel.getMoneyByStudentId(id)
+                .compose(RxHttpResponseCompat.<MoneyBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<MoneyBean>(mContext) {
+                    @Override
+                    public void onNext(MoneyBean moneyBean) {
+                        mView.queryMoney(moneyBean);
+                    }
+                });
     }
 }
