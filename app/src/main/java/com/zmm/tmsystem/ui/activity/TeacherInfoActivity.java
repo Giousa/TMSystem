@@ -86,6 +86,10 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
     @Override
     protected void init() {
 
+        //头像单选
+        ImagePicker.getInstance().setMultiMode(false);
+
+
         mTitleBar.setCenterTitle("教师信息");
         mTitleBar.setNavigationIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_arrow_back)

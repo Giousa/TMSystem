@@ -130,22 +130,25 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
+        Intent intent = new Intent(this, CertificateInfoActivity.class);
+        intent.putExtra(Constant.CHILDCARE_STUDENT_ID, mChildcareStudentId);
+        startActivity(intent);
 
-        switch (item.getItemId()) {
-
-            case R.id.menu_add:
-
-                Intent intent = new Intent(this, CertificateInfoActivity.class);
-                intent.putExtra(Constant.CHILDCARE_STUDENT_ID, mChildcareStudentId);
-                startActivity(intent);
-
-                break;
-            case R.id.menu_setting:
-
-                startActivity(StudentRemoveActivity.class, false);
-                break;
-
-        }
+//        switch (item.getItemId()) {
+//
+//            case R.id.menu_add:
+//
+//                Intent intent = new Intent(this, CertificateInfoActivity.class);
+//                intent.putExtra(Constant.CHILDCARE_STUDENT_ID, mChildcareStudentId);
+//                startActivity(intent);
+//
+//                break;
+//            case R.id.menu_setting:
+//
+//                startActivity(StudentRemoveActivity.class, false);
+//                break;
+//
+//        }
 
         return false;
     }

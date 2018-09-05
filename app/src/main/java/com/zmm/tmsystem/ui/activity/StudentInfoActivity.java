@@ -106,6 +106,9 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     protected void init() {
 
+        //头像单选
+        ImagePicker.getInstance().setMultiMode(false);
+
         //0：代表添加新学生，无删除按钮，无修改
         //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
         //2：从托管学生和补习学生跳转,无删除按钮,可修改

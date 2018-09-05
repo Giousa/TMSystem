@@ -91,7 +91,6 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     protected void init() {
 
-
         mChildcareStudentBean = (ChildcareStudentBean) getIntent().getSerializableExtra(Constant.CHILDCARE_STUDENT);
 
         initToolBar();
@@ -103,6 +102,12 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         operateBus();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //头像单选
+        ImagePicker.getInstance().setMultiMode(false);
+    }
 
     private void initToolBar() {
 
@@ -300,13 +305,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
             startActivity(intent);
         } else if (type == Constant.TYPE_STUDENT_PAY) {
-            ToastUtils.SimpleToast(this, "进入消费详细界面");
-
-//            ImagePicker imagePicker = ImagePicker.getInstance();
-//            imagePicker.setMultiMode(true);//单选或多选模式
-//
-//            Intent intent = new Intent(this, ImageGridActivity.class);
-//            startActivityForResult(intent, 100);
+            Intent intent = new Intent(this,SpendActivity.class);
+            intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
+            startActivity(intent);
         } else if (type == Constant.TYPE_STUDENT_SCORE) {
 
             ToastUtils.SimpleToast(this, "进入成绩单界面");

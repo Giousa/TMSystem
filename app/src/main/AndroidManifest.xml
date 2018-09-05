@@ -108,6 +108,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--消费-->
+        <activity
+            android:name=".ui.activity.SpendActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>
