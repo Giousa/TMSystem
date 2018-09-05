@@ -7,13 +7,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.CertificatesBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.DateUtils;
-import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 
 import java.text.ParseException;
 
@@ -83,6 +80,11 @@ public class CertificateAdapter extends BaseQuickAdapter<CertificatesBean,BaseVi
                    .into(imageView3);
 
         }
+
+        helper.addOnClickListener(R.id.iv_item_1);
+        helper.addOnClickListener(R.id.iv_item_2);
+        helper.addOnClickListener(R.id.iv_item_3);
+
 
     }
 }
