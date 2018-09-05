@@ -31,12 +31,14 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/iv_item_1"
             android:layout_width="@dimen/dp_size_100"
             android:layout_height="@dimen/dp_size_100"
             android:background="@drawable/selector_image_add" />
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/iv_item_2"
             android:layout_width="@dimen/dp_size_100"
             android:layout_height="@dimen/dp_size_100"
@@ -46,6 +48,7 @@
             android:visibility="gone" />
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/iv_item_3"
             android:layout_width="@dimen/dp_size_100"
             android:layout_height="@dimen/dp_size_100"
