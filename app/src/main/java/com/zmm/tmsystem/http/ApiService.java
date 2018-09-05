@@ -479,6 +479,7 @@ public interface ApiService {
      * @param deposit
      * @return
      */
+    @POST("updateSpending")
     Observable<BaseBean<String>> updateSpending(@Query("moneyId")String moneyId, @Query("title")String title, @Query("content")String content,@Query("pay") float pay, @Query("deposit")float deposit);
 
     /**

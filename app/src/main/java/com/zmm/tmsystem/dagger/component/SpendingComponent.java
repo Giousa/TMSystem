@@ -3,6 +3,7 @@ package com.zmm.tmsystem.dagger.component;
 import com.zmm.tmsystem.dagger.module.SpendingModule;
 import com.zmm.tmsystem.dagger.scope.ActivityScope;
 import com.zmm.tmsystem.ui.activity.SpendActivity;
+import com.zmm.tmsystem.ui.activity.SpendInfoActivity;
 
 import dagger.Component;
 
@@ -17,4 +18,6 @@ import dagger.Component;
 public interface SpendingComponent {
 
     void inject(SpendActivity activity);
+
+    void inject(SpendInfoActivity activity);
 }

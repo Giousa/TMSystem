@@ -31,4 +31,16 @@ public class SpendingPresenter extends BasePresenter<SpendingContract.ISpendingM
                     }
                 });
     }
+
+
+    public void updateSpending(String moneyId, String title, String content, float pay, float deposit) {
+        mModel.updateSpending(moneyId,title,content,pay,deposit)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        mView.updateSuccess();
+                    }
+                });
+    }
 }

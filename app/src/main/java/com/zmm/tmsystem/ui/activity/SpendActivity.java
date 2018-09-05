@@ -201,7 +201,9 @@ public class SpendActivity extends BaseActivity<SpendingPresenter> implements
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        ToastUtils.SimpleToast(this,"开始消费");
+        Intent intent = new Intent(this,SpendInfoActivity.class);
+        intent.putExtra(Constant.MONEY_ID,mMoneyId);
+        startActivity(intent);
 
         return false;
     }

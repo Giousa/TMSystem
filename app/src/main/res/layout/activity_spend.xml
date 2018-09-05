@@ -46,7 +46,7 @@
                 android:id="@+id/tv_money_total_deposit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="总收入：344"
+                android:text="总收入：0.0"
                 android:textColor="@color/white" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="总支出：200"
+                android:text="总支出：0.0"
                 android:textColor="@color/white" />
 
 
@@ -95,7 +95,7 @@
                 android:id="@+id/tv_money_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="23.5"
+                android:text="0.0"
                 android:textSize="@dimen/text_size_25" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="2018-09-05 18:49:12"
+                android:text=""
                 android:textSize="@dimen/text_size_18" />
 
 
@@ -143,7 +143,7 @@
                 android:id="@+id/tv_money_deposit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="200"
+                android:text="0.0"
                 android:textSize="@dimen/text_size_25" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="2018-09-05 18:49:12"
+                android:text=""
                 android:textSize="@dimen/text_size_18" />
 
 
