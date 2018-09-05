@@ -16,6 +16,16 @@ public class CertificatesBean extends BaseEntity{
 
     private String content;
 
+    private long createTime;
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
     public String getId() {
         return id;
     }
@@ -47,4 +57,5 @@ public class CertificatesBean extends BaseEntity{
     public void setContent(String content) {
         this.content = content;
     }
+
 }

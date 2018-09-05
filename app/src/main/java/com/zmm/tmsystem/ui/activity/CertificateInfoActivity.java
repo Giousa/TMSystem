@@ -16,6 +16,7 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.CertificatesBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.PictureCompressUtil;
 import com.zmm.tmsystem.common.utils.ToastUtils;
@@ -233,6 +234,16 @@ public class CertificateInfoActivity extends BaseActivity<CertificateInfoPresent
         }
         ToastUtils.SimpleToast(CertificateInfoActivity.this,"上传成功");
         finish();
+    }
+
+    @Override
+    public void querySuccess(List<CertificatesBean> certificatesBeans) {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
     }
 
     @Override

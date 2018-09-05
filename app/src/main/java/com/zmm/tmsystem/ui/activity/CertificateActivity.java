@@ -1,7 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,12 +11,19 @@ import android.view.View;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.CertificatesBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.dagger.component.DaggerCertificateInfoComponent;
+import com.zmm.tmsystem.dagger.module.CertificateInfoModule;
+import com.zmm.tmsystem.mvp.presenter.CertificateInfoPresenter;
+import com.zmm.tmsystem.mvp.presenter.contract.CertificateInfoContract;
+import com.zmm.tmsystem.ui.adapter.CertificateAdapter;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -24,7 +31,7 @@ import butterknife.ButterKnife;
  * Date:2018/9/4
  * Email:65489469@qq.com
  */
-public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> implements Toolbar.OnMenuItemClickListener,CertificateInfoContract.CertificateInfoView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -33,6 +40,7 @@ public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuI
 
     private MenuItem mMenuItemAdd;
     private String mChildcareStudentId;
+    private CertificateAdapter mCertificateAdapter;
 
     @Override
     protected int setLayout() {
@@ -41,7 +49,11 @@ public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuI
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerCertificateInfoComponent.builder()
+                .appComponent(appComponent)
+                .certificateInfoModule(new CertificateInfoModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -51,7 +63,10 @@ public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuI
 
         initToolBar();
 
+        initListData();
+
     }
+
 
     private void initToolBar() {
         //这里一定要加上，否则menu不显示
@@ -74,6 +89,19 @@ public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuI
 
         mTitleBar.setOnMenuItemClickListener(this);
     }
+
+
+    private void initListData() {
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mCertificateAdapter = new CertificateAdapter(this);
+
+        mRecyclerView.setAdapter(mCertificateAdapter);
+
+        mPresenter.queryAllCertificates(mChildcareStudentId);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,5 +143,35 @@ public class CertificateActivity extends BaseActivity implements Toolbar.OnMenuI
         }
 
         return false;
+    }
+
+    @Override
+    public void uploadSuccess() {
+
+    }
+
+    @Override
+    public void querySuccess(List<CertificatesBean> certificatesBeans) {
+        mCertificateAdapter.setNewData(certificatesBeans);
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
     }
 }

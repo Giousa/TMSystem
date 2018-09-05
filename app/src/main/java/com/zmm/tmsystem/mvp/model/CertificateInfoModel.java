@@ -1,8 +1,11 @@
 package com.zmm.tmsystem.mvp.model;
 
 import com.zmm.tmsystem.bean.BaseBean;
+import com.zmm.tmsystem.bean.CertificatesBean;
 import com.zmm.tmsystem.http.ApiService;
 import com.zmm.tmsystem.mvp.presenter.contract.CertificateInfoContract;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -20,6 +23,16 @@ public class CertificateInfoModel implements CertificateInfoContract.ICertificat
 
     public CertificateInfoModel(ApiService apiService) {
         mApiService = apiService;
+    }
+
+    @Override
+    public Observable<BaseBean<List<CertificatesBean>>> queryAllCertificates(String id) {
+        return mApiService.queryAllCertificates(id);
+    }
+
+    @Override
+    public Observable<BaseBean<String>> deleteCertificate(String id) {
+        return mApiService.deleteCertificate(id);
     }
 
     @Override

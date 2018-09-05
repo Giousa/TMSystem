@@ -100,12 +100,6 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     public void querySuccess(List<ChildcareStudentBean> childcareStudentBeans) {
         System.out.println("托管学生个数 = " + childcareStudentBeans.size());
         System.out.println("childcareStudentBeans = " + childcareStudentBeans);
