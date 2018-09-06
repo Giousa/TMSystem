@@ -2,6 +2,7 @@ package com.zmm.tmsystem.ui.activity;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -16,6 +17,8 @@ import com.zmm.tmsystem.dagger.component.DaggerScoreComponent;
 import com.zmm.tmsystem.dagger.module.ScoreModule;
 import com.zmm.tmsystem.mvp.presenter.ScorePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ScoreContract;
+import com.zmm.tmsystem.ui.widget.CustomPayItemView;
+import com.zmm.tmsystem.ui.widget.SimpleScoreSelectDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.List;
@@ -126,6 +129,18 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
      * 选择标题
      */
     private void selectTitle() {
+        final SimpleScoreSelectDialog simpleScoreSelectDialog = new SimpleScoreSelectDialog(this);
+        simpleScoreSelectDialog.setOnTagClickListener(new CustomPayItemView.OnTagClickListener() {
+            @Override
+            public void OnTagClick(String name) {
+
+                etTitle.setText(name);
+                etTitle.setSelection(name.length());
+                simpleScoreSelectDialog.dismiss();
+            }
+        });
+
+        simpleScoreSelectDialog.show();
 
     }
 
