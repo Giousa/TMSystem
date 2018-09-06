@@ -17,7 +17,7 @@ import dagger.Component;
 @Component(modules = ScoreModule.class,dependencies = AppComponent.class)
 public interface ScoreComponent {
 
-//    void inject(ScoreActivity activity);
+    void inject(ScoreActivity activity);
 
     void inject(ScoreInfoActivity activity);
 }

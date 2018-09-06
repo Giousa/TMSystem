@@ -5,6 +5,8 @@ import com.zmm.tmsystem.mvp.presenter.contract.ScoreContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -37,5 +39,20 @@ public class ScorePresenter extends BasePresenter<ScoreContract.IScoreModel,Scor
                     }
                 });
 
+    }
+
+    /**
+     * 查询所有成绩
+     * @param childcareStudentId
+     */
+    public void queryAllScores(String childcareStudentId) {
+        mModel.queryAllScores(childcareStudentId)
+                .compose(RxHttpResponseCompat.<List<ScoreBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<ScoreBean>>(mContext) {
+                    @Override
+                    public void onNext(List<ScoreBean> scoreBeans) {
+                        mView.queryAllScores(scoreBeans);
+                    }
+                });
     }
 }

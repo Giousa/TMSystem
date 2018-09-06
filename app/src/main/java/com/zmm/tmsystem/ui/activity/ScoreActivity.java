@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,10 +12,18 @@ import android.widget.RelativeLayout;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.ScoreBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.dagger.component.DaggerScoreComponent;
+import com.zmm.tmsystem.dagger.module.ScoreModule;
+import com.zmm.tmsystem.mvp.presenter.ScorePresenter;
+import com.zmm.tmsystem.mvp.presenter.contract.ScoreContract;
+import com.zmm.tmsystem.ui.adapter.ScoreAdapter;
 import com.zmm.tmsystem.ui.adapter.SpendingAdapter;
 import com.zmm.tmsystem.ui.widget.TitleBar;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -24,7 +33,7 @@ import butterknife.BindView;
  * Date:2018/9/5
  * Email:65489469@qq.com
  */
-public class ScoreActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolbar.OnMenuItemClickListener,ScoreContract.ScoreView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -36,6 +45,7 @@ public class ScoreActivity extends BaseActivity implements Toolbar.OnMenuItemCli
     private MenuItem mMenuItemAdd;
     private String mChildcareStudentId;
     private int mGradeLevel;
+    private ScoreAdapter mScoreAdapter;
 
 
     @Override
@@ -45,7 +55,11 @@ public class ScoreActivity extends BaseActivity implements Toolbar.OnMenuItemCli
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerScoreComponent.builder()
+                .appComponent(appComponent)
+                .scoreModule(new ScoreModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -84,7 +98,14 @@ public class ScoreActivity extends BaseActivity implements Toolbar.OnMenuItemCli
     }
 
     private void initListData() {
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        mScoreAdapter = new ScoreAdapter(this,mGradeLevel);
+
+        mRecyclerView.setAdapter(mScoreAdapter);
+
+        mPresenter.queryAllScores(mChildcareStudentId);
     }
 
     @Override
@@ -116,4 +137,39 @@ public class ScoreActivity extends BaseActivity implements Toolbar.OnMenuItemCli
         return false;
     }
 
+    @Override
+    public void requestSuccess(String msg) {
+
+    }
+
+    @Override
+    public void querySuccess(ScoreBean scoreBean) {
+
+    }
+
+    @Override
+    public void queryAllScores(List<ScoreBean> scoreBeans) {
+        if(scoreBeans != null && scoreBeans.size() > 0){
+            mEmpty.setVisibility(View.GONE);
+        }else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
+
+        mScoreAdapter.setNewData(scoreBeans);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
 }
