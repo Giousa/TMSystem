@@ -1,9 +1,12 @@
 package com.zmm.tmsystem.mvp.presenter;
 
 import com.zmm.tmsystem.bean.MoneyBean;
+import com.zmm.tmsystem.bean.SpendingBean;
 import com.zmm.tmsystem.mvp.presenter.contract.SpendingContract;
 import com.zmm.tmsystem.rx.RxHttpResponseCompat;
 import com.zmm.tmsystem.rx.subscriber.ErrorHandlerSubscriber;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,6 +43,17 @@ public class SpendingPresenter extends BasePresenter<SpendingContract.ISpendingM
                     @Override
                     public void onNext(String s) {
                         mView.updateSuccess();
+                    }
+                });
+    }
+
+    public void getSpendingListByMoneyId(String moneyId) {
+        mModel.getSpendingListByMoneyId(moneyId)
+                .compose(RxHttpResponseCompat.<List<SpendingBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<SpendingBean>>(mContext) {
+                    @Override
+                    public void onNext(List<SpendingBean> spendingBeans) {
+                        mView.queryAllSpendingList(spendingBeans);
                     }
                 });
     }
