@@ -121,6 +121,15 @@
             android:name=".ui.activity.SpendInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
+        <!--成绩单-->
+        <activity
+            android:name=".ui.activity.ScoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.ScoreInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
 
     </application>
 

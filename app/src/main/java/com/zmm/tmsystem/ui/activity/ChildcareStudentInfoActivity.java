@@ -205,6 +205,9 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
     @Override
     public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
+
+        mChildcareStudentBean = childcareStudentBean;
+
         initData(childcareStudentBean);
         RxBus.getDefault().post(Constant.UPDATE_STUDENT_CHILDCARE);
     }
@@ -337,7 +340,15 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
         } else if (type == Constant.TYPE_STUDENT_SCORE) {
 
-            ToastUtils.SimpleToast(this, "进入成绩单界面");
+            String grade = mChildcareStudentBean.getGrade();
+            if(TextUtils.isEmpty(grade)){
+                ToastUtils.SimpleToast(this,"请选择年级");
+            }else {
+                Intent intent = new Intent(this,ScoreActivity.class);
+                intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentBean.getId());
+                intent.putExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL,mChildcareStudentBean.getGradeLevel());
+                startActivity(intent);
+            }
 
         } else {
 

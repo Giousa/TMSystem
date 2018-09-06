@@ -9,6 +9,8 @@
     <include layout="@layout/toolbar_content" />
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -81,9 +83,9 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/shape_hollow_circle_blue"
+            android:background="@drawable/shape_hollow_circle_deep_blue"
             android:text="上传"
-            android:textColor="@color/md_cyan_A400"/>
+            android:textColor="@color/colorPrimary"/>
 
     </RelativeLayout>
 
