@@ -1,13 +1,11 @@
 package com.zmm.tmsystem.ui.adapter;
 
-import android.content.Context;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ScoreBean;
-import com.zmm.tmsystem.bean.SpendingBean;
 import com.zmm.tmsystem.common.utils.DateUtils;
 
 import java.text.ParseException;
@@ -20,12 +18,10 @@ import java.text.ParseException;
  */
 public class ScoreAdapter extends BaseQuickAdapter<ScoreBean,BaseViewHolder>{
 
-    private Context mContext;
     private int mGradeLevel;
 
-    public ScoreAdapter(Context context,int gradeLevel){
+    public ScoreAdapter(int gradeLevel){
         super(R.layout.item_score);
-        mContext = context;
         mGradeLevel = gradeLevel;
     }
 
@@ -35,6 +31,8 @@ public class ScoreAdapter extends BaseQuickAdapter<ScoreBean,BaseViewHolder>{
         if(mGradeLevel >= 7){
             helper.getView(R.id.tv_score_physics_title).setVisibility(View.VISIBLE);
             helper.getView(R.id.tv_score_chemistry_title).setVisibility(View.VISIBLE);
+            helper.getView(R.id.tv_score_physics).setVisibility(View.VISIBLE);
+            helper.getView(R.id.tv_score_chemistry).setVisibility(View.VISIBLE);
 
             helper.setText(R.id.tv_score_physics,item.getPhysics()+"");
             helper.setText(R.id.tv_score_chemistry,item.getChemistry()+"");

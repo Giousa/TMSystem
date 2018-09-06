@@ -73,6 +73,13 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
         initListData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.queryAllScores(mChildcareStudentId);
+
+    }
+
     private void initToolBar() {
         //这里一定要加上，否则menu不显示
         setSupportActionBar(mTitleBar);
@@ -91,9 +98,7 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
                 finish();
             }
         });
-
         mTitleBar.setOnMenuItemClickListener(this);
-
 
     }
 
@@ -101,11 +106,10 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mScoreAdapter = new ScoreAdapter(this,mGradeLevel);
+        mScoreAdapter = new ScoreAdapter(mGradeLevel);
 
         mRecyclerView.setAdapter(mScoreAdapter);
 
-        mPresenter.queryAllScores(mChildcareStudentId);
     }
 
     @Override

@@ -11,7 +11,8 @@ public class Constant {
 
 
 
-    public static final String BASE_URL="http://192.168.253.7:8082/tms/";
+//    public static final String BASE_URL="http://192.168.253.7:8082/tms/";
+    public static final String BASE_URL="http://192.168.1.102:8082/tms/";
 
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 
