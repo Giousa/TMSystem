@@ -1,11 +1,8 @@
 package com.zmm.tmsystem.ui.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +18,6 @@ import com.zmm.tmsystem.bean.TermBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
 import com.zmm.tmsystem.common.utils.CheckUtils;
-import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerHomeComponent;
 import com.zmm.tmsystem.dagger.module.HomeModule;
@@ -35,9 +31,7 @@ import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -59,10 +53,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
     ImageView mIvHeadGender;
     @BindView(R.id.tv_head_childcare)
     TextView mTvHeadChildcare;
-    @BindView(R.id.tv_head_sign)
-    TextView mTvHeadSign;
-    @BindView(R.id.tv_head_sign_level)
-    TextView mTvHeadSignLevel;
     @BindView(R.id.tv_head_school_name)
     TextView mTvHeadSchoolName;
     @BindView(R.id.tv_head_grade_name)
@@ -285,17 +275,6 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
         customPieView3.setData(entries3, colors3, "学校");
 
     }
-
-    private void showChartView(TermBean termBean){
-        if (termBean != null) {
-            llShow.setVisibility(View.VISIBLE);
-            llChartShow.setVisibility(View.VISIBLE);
-        } else {
-            llShow.setVisibility(View.GONE);
-            llChartShow.setVisibility(View.GONE);
-        }
-    }
-
 
 
     @OnClick({R.id.iv_head_icon})
