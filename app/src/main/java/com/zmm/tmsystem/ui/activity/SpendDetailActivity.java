@@ -1,9 +1,6 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -11,7 +8,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.common.Constant;
-import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -23,7 +19,7 @@ import butterknife.BindView;
  * Date:2018/9/5
  * Email:65489469@qq.com
  */
-public class SpendDetailActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class SpendDetailActivity extends BaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -32,9 +28,7 @@ public class SpendDetailActivity extends BaseActivity implements Toolbar.OnMenuI
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
 
-    private MenuItem mMenuItemAdd;
-    private String mChildcareStudentId;
-
+    private String mMoneyId;
 
 
     @Override
@@ -49,7 +43,7 @@ public class SpendDetailActivity extends BaseActivity implements Toolbar.OnMenuI
 
     @Override
     protected void init() {
-        mChildcareStudentId = this.getIntent().getStringExtra(Constant.CHILDCARE_STUDENT_ID);
+        mMoneyId = this.getIntent().getStringExtra(Constant.MONEY_ID);
 
         initToolBar();
     }
@@ -73,33 +67,6 @@ public class SpendDetailActivity extends BaseActivity implements Toolbar.OnMenuI
             }
         });
 
-        mTitleBar.setOnMenuItemClickListener(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-        menu.findItem(R.id.menu_setting).setVisible(false);
-
-        mMenuItemAdd = menu.findItem(R.id.menu_add);
-
-        mMenuItemAdd.setIcon(new IconicsDrawable(this)
-                .icon(Ionicons.Icon.ion_android_add)
-                .sizeDp(20)
-                .color(getResources().getColor(R.color.white)
-                ));
-
-        mMenuItemAdd.setVisible(true);
-
-        return true;
-    }
-
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-
-        ToastUtils.SimpleToast(this,"开始消费");
-
-        return false;
-    }
 }

@@ -206,6 +206,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -334,6 +335,7 @@
             android:background="@color/md_black_1000" />
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_chart_show"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,10 +1,10 @@
 package com.zmm.tmsystem.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
@@ -37,6 +37,8 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.empty)
+    RelativeLayout empty;
 
     private ACache mACache;
     private CommentAdapter mCommentAdapter;
@@ -78,11 +80,11 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
         mCommentAdapter = new CommentAdapter(getActivity());
         mCommentAdapter.setOnRatingBarClickListener(new CommentAdapter.OnRatingBarClickListener() {
             @Override
-            public void OnRatingBarClick(String id,float rating) {
-                System.out.println("id = "+id);
-                System.out.println("rating = "+rating);
+            public void OnRatingBarClick(String id, float rating) {
+                System.out.println("id = " + id);
+                System.out.println("rating = " + rating);
 
-                mPresenter.addComments(id,rating);
+                mPresenter.addComments(id, rating);
             }
         });
 
@@ -98,6 +100,11 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
     @Override
     public void queryTodaySuccess(List<ChildcareStudentBean> childcareStudentBeans) {
 
+        if(childcareStudentBeans != null && childcareStudentBeans.size() > 0){
+            empty.setVisibility(View.GONE);
+        }else {
+            empty.setVisibility(View.VISIBLE);
+        }
         mCommentAdapter.setNewData(childcareStudentBeans);
     }
 
@@ -109,7 +116,7 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
 
     @Override
     public void commentFailure() {
-        ToastUtils.SimpleToast(getActivity(),"评论失败，请稍后再试！");
+        ToastUtils.SimpleToast(getActivity(), "评论失败，请稍后再试！");
     }
 
 
@@ -127,7 +134,7 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s) && s.equals(Constant.ITEM_COMMENTS)){
+                        if (!TextUtils.isEmpty(s) && s.equals(Constant.ITEM_COMMENTS)) {
                             if (mTermBean != null) {
                                 mPresenter.queryTodayStudents(mTermBean.getId());
                             }
@@ -135,5 +142,6 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
                     }
                 });
     }
+
 
 }

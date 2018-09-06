@@ -1,14 +1,13 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
@@ -26,7 +25,6 @@ import com.zmm.tmsystem.ui.widget.TitleBar;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -41,7 +39,7 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
     @BindView(R.id.empty)
-    LinearLayout mEmpty;
+    RelativeLayout mEmpty;
 
     private MenuItem mMenuItemAdd;
     private String mChildcareStudentId;

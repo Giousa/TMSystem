@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.tmsystem.R;
@@ -39,6 +40,8 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.empty)
+    RelativeLayout empty;
 
 
     private ACache mACache;
@@ -81,10 +84,10 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //条目点击，进入详情
                 ChildcareStudentBean childcareStudentBean = mStudentAdapter.getItem(position);
-                System.out.println("childcareStudentBean = "+childcareStudentBean);
-                Intent intent = new Intent(getActivity(),ChildcareStudentInfoActivity.class);
-                intent.putExtra(Constant.INTENT_PARAM,1);
-                intent.putExtra(Constant.CHILDCARE_STUDENT,childcareStudentBean);
+                System.out.println("childcareStudentBean = " + childcareStudentBean);
+                Intent intent = new Intent(getActivity(), ChildcareStudentInfoActivity.class);
+                intent.putExtra(Constant.INTENT_PARAM, 1);
+                intent.putExtra(Constant.CHILDCARE_STUDENT, childcareStudentBean);
                 startActivity(intent);
             }
         });
@@ -105,10 +108,12 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
         System.out.println("托管学生个数 = " + childcareStudentBeans.size());
         System.out.println("childcareStudentBeans = " + childcareStudentBeans);
 
-        if(childcareStudentBeans.size() == 0){
-            mACache.put(Constant.CHILDCARE_STUDENT_COUNT,"");
-        }else {
-            mACache.put(Constant.CHILDCARE_STUDENT_COUNT,"总人数："+childcareStudentBeans.size());
+        if (childcareStudentBeans.size() == 0) {
+            mACache.put(Constant.CHILDCARE_STUDENT_COUNT, "");
+            empty.setVisibility(View.VISIBLE);
+        } else {
+            mACache.put(Constant.CHILDCARE_STUDENT_COUNT, "总人数：" + childcareStudentBeans.size());
+            empty.setVisibility(View.GONE);
         }
         mStudentAdapter.setNewData(childcareStudentBeans);
 
@@ -118,7 +123,7 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
 
     @Override
     public void updateSuccess(ChildcareStudentBean childcareStudentBean) {
-        System.out.println("更新数据:"+childcareStudentBean);
+        System.out.println("更新数据:" + childcareStudentBean);
     }
 
     @Override
@@ -146,17 +151,17 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        if(!TextUtils.isEmpty(s)){
+                        if (!TextUtils.isEmpty(s)) {
 
-                            if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)){
+                            if (s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)) {
                                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
 
-                                if(termBean == null || termBean.getTitle()== null){
+                                if (termBean == null || termBean.getTitle() == null) {
                                     System.out.println("没有选中任何托管周期");
                                     mStudentAdapter.setNewData(null);
 
-                                }else {
-                                    System.out.println("加载新托管学生...termBean.getId() = "+termBean.getId());
+                                } else {
+                                    System.out.println("加载新托管学生...termBean.getId() = " + termBean.getId());
                                     mPresenter.queryAllChildcareStudents(termBean.getId());
                                 }
                             }
@@ -165,4 +170,6 @@ public class ManageFragment extends ProgressFragment<ChildcareStudentPresenter> 
                     }
                 });
     }
+
+
 }

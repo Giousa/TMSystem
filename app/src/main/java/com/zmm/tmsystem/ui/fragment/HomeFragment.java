@@ -128,24 +128,17 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         //展示统计报表
         TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
-        showChartView(termBean);
+        if(termBean != null){
+            mPresenter.getStatisticsInfo(termBean.getId());
+        }else {
+            llShow.setVisibility(View.GONE);
+            llChartShow.setVisibility(View.GONE);
+        }
 
 
         operateBus();
 
     }
-
-    private void showChartView(TermBean termBean){
-        if (termBean != null) {
-            llShow.setVisibility(View.VISIBLE);
-            llChartShow.setVisibility(View.VISIBLE);
-            mPresenter.getStatisticsInfo(termBean.getId());
-        } else {
-            llShow.setVisibility(View.GONE);
-            llChartShow.setVisibility(View.GONE);
-        }
-    }
-
 
     @Override
     protected void onEmptyViewClick() {
@@ -222,12 +215,26 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         System.out.println("statisticsBean = " + statisticsBean);
 
+
+        //显示数据
+        llShow.setVisibility(View.VISIBLE);
+
         tvChildcareName.setText("托管周期：" + statisticsBean.getTitle());
         tvNumTotal.setText("总人数:  " + statisticsBean.getTotal() + "人");
         tvNumMale.setText("男生:  " + statisticsBean.getMale() + "人");
         tvNumFemale.setText("女生:  " + statisticsBean.getFemale() + "人");
         tvNumPrimary.setText("小学:  "+statisticsBean.getPrimary()+"人");
         tvNumMiddle.setText("初中:  "+statisticsBean.getMiddle()+"人");
+
+
+
+        int total = statisticsBean.getTotal();
+        if(total == 0){
+            return;
+        }
+
+        //显示统计图表
+        llChartShow.setVisibility(View.VISIBLE);
 
         ArrayList<PieEntry> entries = new ArrayList();
         entries.add(new PieEntry(statisticsBean.getMale(), "男"));
@@ -279,6 +286,17 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
     }
 
+    private void showChartView(TermBean termBean){
+        if (termBean != null) {
+            llShow.setVisibility(View.VISIBLE);
+            llChartShow.setVisibility(View.VISIBLE);
+        } else {
+            llShow.setVisibility(View.GONE);
+            llChartShow.setVisibility(View.GONE);
+        }
+    }
+
+
 
     @OnClick({R.id.iv_head_icon})
     public void onViewClicked(View view) {
@@ -311,7 +329,12 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
                             if(s.equals(Constant.UPDATE_TITLE) || s.equals(Constant.UPDATE_STUDENT_CHILDCARE) || s.equals(Constant.UPDATE_STUDENT)){
                                 TermBean termBean = (TermBean) mACache.getAsObject(Constant.TERM);
-                                showChartView(termBean);
+                                if(termBean != null){
+                                    mPresenter.getStatisticsInfo(termBean.getId());
+                                }else {
+                                    llShow.setVisibility(View.GONE);
+                                    llChartShow.setVisibility(View.GONE);
+                                }
                             }else if(s.equals(Constant.UPDATE_TEACHER)){
                                 TeacherBean teacherBean = (TeacherBean) mACache.getAsObject(Constant.TEACHER);
 //                                showTeacherInfo(teacherBean);
