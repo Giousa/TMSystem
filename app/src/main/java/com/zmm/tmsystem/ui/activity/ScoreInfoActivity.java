@@ -8,10 +8,17 @@ import android.widget.LinearLayout;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
+import com.zmm.tmsystem.bean.ScoreBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
+import com.zmm.tmsystem.dagger.component.DaggerScoreComponent;
+import com.zmm.tmsystem.dagger.module.ScoreModule;
+import com.zmm.tmsystem.mvp.presenter.ScorePresenter;
+import com.zmm.tmsystem.mvp.presenter.contract.ScoreContract;
 import com.zmm.tmsystem.ui.widget.TitleBar;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +29,7 @@ import butterknife.OnClick;
  * Date:2018/9/5
  * Email:65489469@qq.com
  */
-public class ScoreInfoActivity extends BaseActivity {
+public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements ScoreContract.ScoreView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -54,6 +61,11 @@ public class ScoreInfoActivity extends BaseActivity {
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
 
+        DaggerScoreComponent.builder()
+                .appComponent(appComponent)
+                .scoreModule(new ScoreModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -61,6 +73,11 @@ public class ScoreInfoActivity extends BaseActivity {
 
         mChildcareStudentId = this.getIntent().getStringExtra(Constant.CHILDCARE_STUDENT_ID);
         mGradeLevel = this.getIntent().getIntExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL, 0);
+
+        if(mGradeLevel >= 7){
+            llPhysics.setVisibility(View.VISIBLE);
+            llChemistry.setVisibility(View.VISIBLE);
+        }
 
         initToolBar();
 
@@ -161,8 +178,45 @@ public class ScoreInfoActivity extends BaseActivity {
             intChemistry = Integer.parseInt(chemistry);
         }
 
-        System.out.println("title = "+title+",math = "+intMath+",chinese = "+intChinese+",english = "+intEnglish+",physics = "+intPhysics+",chemistry = "+intChemistry);
+        ScoreBean scoreBean = new ScoreBean();
+        scoreBean.setStudentId(mChildcareStudentId);
+        scoreBean.setTitle(title);
+        scoreBean.setChinese(intChinese);
+        scoreBean.setMaths(intMath);
+        scoreBean.setEnglish(intEnglish);
+        scoreBean.setPhysics(intPhysics);
+        scoreBean.setChemistry(intChemistry);
+        mPresenter.addScore(scoreBean);
     }
 
 
+    @Override
+    public void requestSuccess(String msg) {
+        ToastUtils.SimpleToast(this,msg);
+        finish();
+    }
+
+    @Override
+    public void querySuccess(ScoreBean scoreBean) {
+    }
+
+    @Override
+    public void queryAllScores(List<ScoreBean> scoreBeans) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
 }

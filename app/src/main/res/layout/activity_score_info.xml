@@ -145,7 +145,7 @@
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:paddingRight="@dimen/dp_size_20"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:paddingRight="@dimen/dp_size_20"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"

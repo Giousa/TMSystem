@@ -7,6 +7,7 @@ import com.zmm.tmsystem.bean.ChildcareListBean;
 import com.zmm.tmsystem.bean.ChildcareStudentBean;
 import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SchoolBean;
+import com.zmm.tmsystem.bean.ScoreBean;
 import com.zmm.tmsystem.bean.SpendingBean;
 import com.zmm.tmsystem.bean.StatisticsBean;
 import com.zmm.tmsystem.bean.StudentBean;
@@ -489,6 +490,26 @@ public interface ApiService {
      */
     @GET("getMoneyById/{moneyId}")
     Observable<BaseBean<MoneyBean>> getMoneyById(@Path("moneyId")String moneyId);
+
+
+    /**
+     * -----------------------------成绩相关接口-----------------------------
+     */
+
+    @GET("queryAllScores/{studentId}")
+    Observable<BaseBean<List<ScoreBean>>> queryAllScores(@Path("studentId")String studentId);
+
+    @GET("queryScoreById/{id}")
+    Observable<BaseBean<ScoreBean>> queryScoreById(@Path("id")String id);
+
+    @GET("deleteScore/{id}")
+    Observable<BaseBean<String>> deleteScore(@Path("id")String id);
+
+    @POST("addScore")
+    Observable<BaseBean<String>> addScore(@Body ScoreBean scoreBean);
+
+    @POST("updateScore")
+    Observable<BaseBean<String>> updateScore(@Body ScoreBean scoreBean);
 
 
 }
