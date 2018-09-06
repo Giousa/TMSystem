@@ -101,21 +101,26 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
 
         initData(mChildcareStudentBean);
 
-        initMoneyData();
-
         operateBus();
     }
 
-    private void initMoneyData() {
 
-        mPresenter.getMoneyByStudentId(mChildcareStudentBean.getId());
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         //头像单选
         ImagePicker.getInstance().setMultiMode(false);
+
+        initMoneyData();
+    }
+
+    /**
+     * 请求money
+     */
+    private void initMoneyData() {
+
+        mPresenter.getMoneyByStudentId(mChildcareStudentBean.getId());
     }
 
     private void initToolBar() {

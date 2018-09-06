@@ -15,6 +15,7 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.MoneyBean;
 import com.zmm.tmsystem.bean.SpendingBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.DateUtils;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerSpendingComponent;
@@ -24,6 +25,7 @@ import com.zmm.tmsystem.mvp.presenter.contract.SpendingContract;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
+import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,11 +88,16 @@ public class SpendActivity extends BaseActivity<SpendingPresenter> implements
 
         mMoneyId = this.getIntent().getStringExtra(Constant.MONEY_ID);
 
-        mPresenter.getMoneyById(mMoneyId);
-
         customItemPay.setOnItemClickListener(this,0);
 
         initToolBar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getMoneyById(mMoneyId);
+
     }
 
     private void initToolBar() {
@@ -162,6 +169,18 @@ public class SpendActivity extends BaseActivity<SpendingPresenter> implements
         tvMoneyDeposit.setText(moneyBean.getLastDeposit() + "");
         tvMoneyTotalDeposit.setText("总收入："+moneyBean.getTotalDeposit());
         tvMoneyTotalPay.setText("总支出："+moneyBean.getTotalPay());
+
+        try {
+            String depositTime = DateUtils.longToString(moneyBean.getLastDepositTime(), "yyyy-MM-dd HH:mm:ss");
+            tvMoneyDepositTime.setText(depositTime);
+
+            String payTime = DateUtils.longToString(moneyBean.getLastPayTime(), "yyyy-MM-dd HH:mm:ss");
+            tvMoneyPayTime.setText(payTime);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -156,6 +156,7 @@ public class SpendInfoActivity extends BaseActivity<SpendingPresenter> implement
     @Override
     public void OnTagClick(String name) {
         etContent.setText(name);
+        etContent.setSelection(name.length());
     }
 
     @Override
