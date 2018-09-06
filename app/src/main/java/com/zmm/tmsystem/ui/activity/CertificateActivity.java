@@ -70,6 +70,12 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.queryAllCertificates(mChildcareStudentId);
+
+    }
 
     private void initToolBar() {
         //这里一定要加上，否则menu不显示
@@ -102,7 +108,6 @@ public class CertificateActivity extends BaseActivity<CertificateInfoPresenter> 
 
         mRecyclerView.setAdapter(mCertificateAdapter);
 
-        mPresenter.queryAllCertificates(mChildcareStudentId);
     }
 
 
