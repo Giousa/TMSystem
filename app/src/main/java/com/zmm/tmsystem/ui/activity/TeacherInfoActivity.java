@@ -141,7 +141,7 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         String address = teacherBean.getAddress();
 
         if(CheckUtils.checkString(icon)){
-            mCustomItemIcon.setIcon(icon);
+            mCustomItemIcon.setIcon(icon,gender);
         }
 
         if (CheckUtils.checkString(name)) {

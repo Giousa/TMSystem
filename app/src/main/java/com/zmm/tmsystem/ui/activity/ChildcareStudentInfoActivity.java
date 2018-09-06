@@ -172,7 +172,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
         String teacher = childcareStudentBean.getTeacher();
         String teacherPhone = childcareStudentBean.getTeacherPhone();
 
-        mCustomItemIcon.setIcon(icon);
+        mCustomItemIcon.setIcon(icon,childcareStudentBean.getStudent().getGender());
         mCustomItemName.setContent(name);
         mCustomItemSchool.setContent(school);
         mCustomItemGrade.setContent(grade);

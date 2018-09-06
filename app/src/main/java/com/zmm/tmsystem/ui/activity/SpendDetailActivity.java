@@ -109,6 +109,11 @@ public class SpendDetailActivity extends BaseActivity<SpendingPresenter> impleme
 
     @Override
     public void queryAllSpendingList(List<SpendingBean> spendingBeans) {
+        if(spendingBeans != null && spendingBeans.size() > 0){
+            mEmpty.setVisibility(View.GONE);
+        }else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
         mSpendingAdapter.setNewData(spendingBeans);
     }
 

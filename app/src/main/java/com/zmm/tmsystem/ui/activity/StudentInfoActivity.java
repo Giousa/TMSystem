@@ -184,7 +184,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
         String icon = studentBean.getIcon();
         mIconPath = icon;
         String name = studentBean.getName();
-        Integer gender = studentBean.getGender();
+        int gender = studentBean.getGender();
         String phone = studentBean.getPhone();
         String address = studentBean.getAddress();
         String guardian1 = studentBean.getGuardian1();
@@ -204,7 +204,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
 
         if (!TextUtils.isEmpty(icon)) {
-            mCustomItemIcon.setIcon(icon);
+            mCustomItemIcon.setIcon(icon,gender);
         }
 
         if (!TextUtils.isEmpty(name)) {
@@ -318,6 +318,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
                 break;
             case Constant.TYPE_STUDENT_GENDER:
                 mCustomItemGender.setContent(content);
+//                if(content.equals("女")){
+//                    mCustomItemIcon.setIcon(mCustomItemIcon.getContent(),0);
+//                }else {
+//                    mCustomItemIcon.setIcon(mCustomItemIcon.getContent(),1);
+//                }
                 break;
             case Constant.TYPE_STUDENT_PHONE:
                 mCustomItemPhone.setContent(content);

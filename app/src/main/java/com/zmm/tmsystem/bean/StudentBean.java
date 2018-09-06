@@ -75,7 +75,7 @@ public class StudentBean extends BaseEntity {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
