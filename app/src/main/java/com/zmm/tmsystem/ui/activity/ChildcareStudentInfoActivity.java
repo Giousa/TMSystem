@@ -359,46 +359,66 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
             } else {
                 switch (type) {
 
-                    case Constant.TYPE_STUDENT_TEACHER_PHONE:
+                    case Constant.TYPE_STUDENT_TEACHER:
                         String teacherName = mCustomItemTeacher.getContent();
-                        String teacherNum = mCustomItemTeacherPhone.getContent();
                         if(TextUtils.isEmpty(teacherName)){
                             ToastUtils.SimpleToast(this,"请编辑输入班主任姓名");
                             return;
                         }
+                        phone();
+
+                        break;
+
+                    case Constant.TYPE_STUDENT_TEACHER_PHONE:
+                        String teacherNum = mCustomItemTeacherPhone.getContent();
 
                         if(TextUtils.isEmpty(teacherNum)){
                             ToastUtils.SimpleToast(this,"请编辑输入班主任联系电话");
                             return;
                         }
-                        final SimplePhoneDialog simplePhoneDialog = new SimplePhoneDialog(this,teacherName,teacherNum);
-                        simplePhoneDialog.setOnClickListener(new SimplePhoneDialog.OnClickListener() {
-                            @Override
-                            public void onCancel() {
-                                simplePhoneDialog.dismiss();
-                            }
-
-                            @Override
-                            public void onConfirm(String num) {
-                                simplePhoneDialog.dismiss();
-                                //拨号界面
-                                Intent intent = new Intent(Intent.ACTION_DIAL);
-                                //直接拨打
-//                                Intent intent = new Intent(Intent.ACTION_CALL);
-                                Uri data = Uri.parse("tel:" + num);
-                                intent.setData(data);
-                                startActivity(intent);
-                            }
-                        });
-
-                        simplePhoneDialog.show();
-
+                        phone();
                         break;
                 }
             }
         }
 
 
+    }
+
+
+    private void phone(){
+        String teacherName = mCustomItemTeacher.getContent();
+        String teacherNum = mCustomItemTeacherPhone.getContent();
+        if(TextUtils.isEmpty(teacherName)){
+            ToastUtils.SimpleToast(this,"请编辑输入班主任姓名");
+            return;
+        }
+
+        if(TextUtils.isEmpty(teacherNum)){
+            ToastUtils.SimpleToast(this,"请编辑输入班主任联系电话");
+            return;
+        }
+        final SimplePhoneDialog simplePhoneDialog = new SimplePhoneDialog(this,teacherName,teacherNum);
+        simplePhoneDialog.setOnClickListener(new SimplePhoneDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simplePhoneDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm(String num) {
+                simplePhoneDialog.dismiss();
+                //拨号界面
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                //直接拨打
+//                                Intent intent = new Intent(Intent.ACTION_CALL);
+                Uri data = Uri.parse("tel:" + num);
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
+
+        simplePhoneDialog.show();
     }
 
     /**
