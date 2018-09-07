@@ -77,6 +77,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     private MenuItem mItemEdit;
     private boolean isEdit = false;
     private String moneyId;
+    private MoneyBean mMoneyBean;
 
     @Override
     protected int setLayout() {
@@ -224,6 +225,7 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     @Override
     public void queryMoney(MoneyBean moneyBean) {
         moneyId = moneyBean.getId();
+        mMoneyBean = moneyBean;
         mCustomItemPay.setContent("当前余额: ￥"+moneyBean.getSurplus());
     }
 
@@ -293,6 +295,12 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
     }
 
     private void delete() {
+
+        if(mMoneyBean != null && mMoneyBean.getSurplus() > 0){
+            ToastUtils.SimpleToast(this,"当前学生仍有余额，无法删除");
+            return;
+        }
+
         final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this, "是否确定删除此学生？");
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
