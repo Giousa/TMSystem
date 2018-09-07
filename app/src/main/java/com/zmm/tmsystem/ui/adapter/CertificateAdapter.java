@@ -60,7 +60,11 @@ public class CertificateAdapter extends BaseQuickAdapter<CertificatesBean,BaseVi
                 .load(Constant.BASE_IMG_URL + split[0])
                 .into(imageView1);
 
-       if(split.length == 2){
+       if(split.length == 1){
+            imageView2.setVisibility(View.GONE);
+            imageView3.setVisibility(View.GONE);
+
+        }else if(split.length == 2){
             imageView2.setVisibility(View.VISIBLE);
 
             Glide.with(mContext)
