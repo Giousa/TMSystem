@@ -1,6 +1,7 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import com.zmm.tmsystem.mvp.presenter.contract.ChildcareStudentContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
+import com.zmm.tmsystem.ui.widget.SimplePhoneDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -358,11 +360,39 @@ public class ChildcareStudentInfoActivity extends BaseActivity<ChildcareStudentP
                 switch (type) {
 
                     case Constant.TYPE_STUDENT_TEACHER_PHONE:
-                        ToastUtils.SimpleToast(this, "班主任电话");
-                        break;
+                        String teacherName = mCustomItemTeacher.getContent();
+                        String teacherNum = mCustomItemTeacherPhone.getContent();
+                        if(TextUtils.isEmpty(teacherName)){
+                            ToastUtils.SimpleToast(this,"请编辑输入班主任姓名");
+                            return;
+                        }
 
-                    case Constant.TYPE_STUDENT_GUARDIANPHONE1:
-                        ToastUtils.SimpleToast(this, "监护人电话");
+                        if(TextUtils.isEmpty(teacherNum)){
+                            ToastUtils.SimpleToast(this,"请编辑输入班主任联系电话");
+                            return;
+                        }
+                        final SimplePhoneDialog simplePhoneDialog = new SimplePhoneDialog(this,teacherName,teacherNum);
+                        simplePhoneDialog.setOnClickListener(new SimplePhoneDialog.OnClickListener() {
+                            @Override
+                            public void onCancel() {
+                                simplePhoneDialog.dismiss();
+                            }
+
+                            @Override
+                            public void onConfirm(String num) {
+                                simplePhoneDialog.dismiss();
+                                //拨号界面
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                //直接拨打
+//                                Intent intent = new Intent(Intent.ACTION_CALL);
+                                Uri data = Uri.parse("tel:" + num);
+                                intent.setData(data);
+                                startActivity(intent);
+                            }
+                        });
+
+                        simplePhoneDialog.show();
+
                         break;
                 }
             }
