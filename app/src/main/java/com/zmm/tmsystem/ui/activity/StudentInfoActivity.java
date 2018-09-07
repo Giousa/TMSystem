@@ -485,7 +485,11 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         if (mIntentParam == 0) {
             //0:添加新学生
-            mPresenter.addStudentAndPic(tId,name,genderInt,mBirthdayLong,phone,address,guardian1,guardian_phone1,guardian2,guardian_phone2,mPicPath);
+            if(TextUtils.isEmpty(mPicPath)){
+                mPresenter.addStudent(studentBean);
+            }else {
+                mPresenter.addStudentAndPic(tId,name,genderInt,mBirthdayLong,phone,address,guardian1,guardian_phone1,guardian2,guardian_phone2,mPicPath);
+            }
         } else {
             //修改学生信息
             studentBean.setId(mId);
