@@ -100,11 +100,14 @@ public class CommentFragment extends ProgressFragment<CommentPresenter> implemen
     @Override
     public void queryTodaySuccess(List<ChildcareStudentBean> childcareStudentBeans) {
 
-        if(childcareStudentBeans != null && childcareStudentBeans.size() > 0){
-            empty.setVisibility(View.GONE);
-        }else {
-            empty.setVisibility(View.VISIBLE);
+        if(empty != null){
+            if(childcareStudentBeans != null && childcareStudentBeans.size() > 0){
+                empty.setVisibility(View.GONE);
+            }else {
+                empty.setVisibility(View.VISIBLE);
+            }
         }
+
         mCommentAdapter.setNewData(childcareStudentBeans);
     }
 
