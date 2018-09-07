@@ -1,20 +1,19 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
-import com.lzy.imagepicker.view.CropImageView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
-import com.zmm.tmsystem.common.utils.CheckUtils;
 import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerTeacherComponent;
@@ -23,11 +22,9 @@ import com.zmm.tmsystem.mvp.presenter.TeacherPresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.TeacherContract;
 import com.zmm.tmsystem.rx.RxBus;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
-import com.zmm.tmsystem.ui.widget.GlideImageLoader;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -140,35 +137,35 @@ public class TeacherInfoActivity extends BaseActivity<TeacherPresenter> implemen
         String courseName = teacherBean.getCourseName();
         String address = teacherBean.getAddress();
 
-        if(CheckUtils.checkString(icon)){
+        if(!TextUtils.isEmpty(icon)){
             mCustomItemIcon.setIcon(icon,gender);
         }
 
-        if (CheckUtils.checkString(name)) {
+        if (!TextUtils.isEmpty(name)) {
             mCustomItemName.setContent(name);
         }
 
-        if (CheckUtils.checkString(phone)) {
+        if (!TextUtils.isEmpty(phone)) {
             mCustomItemPhone.setContent(phone);
         }
 
-        if (CheckUtils.checkString(childcareName)) {
+        if (!TextUtils.isEmpty(childcareName)) {
             mCustomItemChildcare.setContent(childcareName);
         }
 
-        if (CheckUtils.checkString(schoolName)) {
+        if (!TextUtils.isEmpty(schoolName)) {
             mCustomItemSchool.setContent(schoolName);
         }
 
-        if (CheckUtils.checkString(gradeName)) {
+        if (!TextUtils.isEmpty(gradeName)) {
             mCustomItemGrade.setContent(gradeName);
         }
 
-        if (CheckUtils.checkString(courseName)) {
+        if (!TextUtils.isEmpty(courseName)) {
             mCustomItemCourse.setContent(courseName);
         }
 
-        if (CheckUtils.checkString(address)) {
+        if (!TextUtils.isEmpty(address)) {
             mCustomItemAddress.setContent(address);
         }
 

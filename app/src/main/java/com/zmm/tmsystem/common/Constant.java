@@ -59,6 +59,7 @@ public class Constant {
     public static final int TYPE_MODIFY_PASSWORD = 10;
     public static final int TYPE_QR_CODE = 11;
     public static final int TYPE_CHANGE = 12;
+    public static final int TYPE_VERSION = 13;
 
     //缓存托管中心id
     public static final String TERM_CLICKED = "TERM_CLICKED";

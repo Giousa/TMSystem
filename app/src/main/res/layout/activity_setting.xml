@@ -42,6 +42,15 @@
         app:title="学生端下载二维码"/>
 
 
+    <com.zmm.tmsystem.ui.widget.CustomInfoItemView
+        android:id="@+id/setting_item_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_15"
+        app:isShowPic="0"
+        app:title="版本"/>
+
+
     <Button
         android:id="@+id/btn_exit"
         android:layout_width="match_parent"

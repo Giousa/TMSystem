@@ -165,7 +165,7 @@ public class ModifyActivity extends BaseActivity<RegisterPresenter> implements R
     }
 
     private void initIconView(String icon) {
-        if(CheckUtils.checkString(icon)){
+        if(!TextUtils.isEmpty(icon)){
 
             Glide.with(this)
                     .load(icon)

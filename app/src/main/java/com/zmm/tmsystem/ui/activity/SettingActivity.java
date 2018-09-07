@@ -1,6 +1,8 @@
 package com.zmm.tmsystem.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,14 +13,15 @@ import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.TeacherBean;
 import com.zmm.tmsystem.common.Constant;
 import com.zmm.tmsystem.common.utils.ACache;
-import com.zmm.tmsystem.common.utils.CheckUtils;
 import com.zmm.tmsystem.common.utils.TeacherCacheUtil;
+import com.zmm.tmsystem.common.utils.VersionUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.ui.widget.CustomInfoItemView;
 import com.zmm.tmsystem.ui.widget.GlideCircleTransform;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -40,6 +43,8 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
     CustomInfoItemView mSettingItemPassword;
     @BindView(R.id.setting_item_code)
     CustomInfoItemView mSettingItemCode;
+    @BindView(R.id.setting_item_version)
+    CustomInfoItemView mSettingItemVersion;
 
     @Override
     protected int setLayout() {
@@ -67,9 +72,10 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
 
 
         String icon = teacherBean.getIcon();
-        if (CheckUtils.checkString(icon)) {
+        if (!TextUtils.isEmpty(icon)) {
+
             Glide.with(this)
-                    .load(icon)
+                    .load(Constant.BASE_IMG_URL + icon)
                     .transform(new GlideCircleTransform(this))
                     .error(new IconicsDrawable(this)
                             .icon(Ionicons.Icon.ion_android_contact)
@@ -86,6 +92,8 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
         mSettingItemPhone.setOnItemClickListener(this, Constant.TYPE_MODIFY_PHONE);
         mSettingItemPassword.setOnItemClickListener(this, Constant.TYPE_MODIFY_PASSWORD);
         mSettingItemCode.setOnItemClickListener(this, Constant.TYPE_QR_CODE);
+        mSettingItemVersion.setOnItemClickListener(this, Constant.TYPE_VERSION);
+        mSettingItemVersion.setContent("v"+VersionUtils.getVersionName(this));
 
 
     }
@@ -99,7 +107,7 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
     @Override
     public void itemClick(int type, String name) {
 
-        System.out.println("type = "+type);
+        System.out.println("type = " + type);
         switch (type) {
 
             case Constant.TYPE_MODIFY_PHONE:
@@ -116,6 +124,8 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
             case Constant.TYPE_QR_CODE:
 
                 break;
+            case Constant.TYPE_VERSION:
+                break;
 
         }
     }
@@ -125,4 +135,6 @@ public class SettingActivity extends BaseActivity implements CustomInfoItemView.
         TeacherCacheUtil.clear(this);
         startActivity(LoginActivity.class);
     }
+
+
 }

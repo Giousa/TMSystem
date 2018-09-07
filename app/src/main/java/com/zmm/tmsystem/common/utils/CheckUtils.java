@@ -1,7 +1,5 @@
 package com.zmm.tmsystem.common.utils;
 
-import android.text.TextUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,16 +11,6 @@ import java.util.regex.Pattern;
  */
 
 public class CheckUtils {
-
-    public static boolean checkString(String s){
-
-        if(TextUtils.isEmpty(s)){
-            return false;
-        }else {
-            return true;
-        }
-
-    }
 
     /**
      * 判断是否是数字

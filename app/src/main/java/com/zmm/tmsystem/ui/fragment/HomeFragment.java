@@ -147,27 +147,27 @@ public class HomeFragment extends ProgressFragment<HomePresenter> implements Hom
 
         int gender = teacherBean.getGender();
 
-        if (CheckUtils.checkString(name)) {
+        if (!TextUtils.isEmpty(name)) {
             mTvHeadName.setText(name);
         }
 
-        if (CheckUtils.checkString(childcareName)) {
+        if (!TextUtils.isEmpty(childcareName)) {
             mTvHeadChildcare.setText(childcareName);
         }
 
-        if (CheckUtils.checkString(schoolName)) {
+        if (!TextUtils.isEmpty(schoolName)) {
             mTvHeadSchoolName.setText(schoolName);
         }
 
-        if (CheckUtils.checkString(gradeName)) {
+        if (!TextUtils.isEmpty(gradeName)) {
             mTvHeadGradeName.setText(gradeName);
         }
 
-        if (CheckUtils.checkString(courseName)) {
+        if (!TextUtils.isEmpty(courseName)) {
             mTvHeadCourseName.setText(courseName);
         }
 
-        if (CheckUtils.checkString(icon)) {
+        if (!TextUtils.isEmpty(icon)) {
 
             Glide.with(mContext)
                     .load(Constant.BASE_IMG_URL + icon)
