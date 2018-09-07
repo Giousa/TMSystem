@@ -55,4 +55,34 @@ public class ScorePresenter extends BasePresenter<ScoreContract.IScoreModel,Scor
                     }
                 });
     }
+
+    /**
+     * 修改成绩
+     * @param scoreBean
+     */
+    public void updateScore(ScoreBean scoreBean) {
+        mModel.updateScore(scoreBean)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        mView.requestSuccess(s);
+                    }
+                });
+    }
+
+    /**
+     * 删除成绩
+     * @param id
+     */
+    public void deleteScore(String id) {
+        mModel.deleteScore(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>(mContext) {
+                    @Override
+                    public void onNext(String s) {
+                        mView.requestSuccess(s);
+                    }
+                });
+    }
 }

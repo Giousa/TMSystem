@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.zmm.tmsystem.R;
 import com.zmm.tmsystem.bean.ScoreBean;
 import com.zmm.tmsystem.common.Constant;
+import com.zmm.tmsystem.common.utils.ToastUtils;
 import com.zmm.tmsystem.dagger.component.AppComponent;
 import com.zmm.tmsystem.dagger.component.DaggerScoreComponent;
 import com.zmm.tmsystem.dagger.module.ScoreModule;
@@ -108,6 +110,18 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
 
         mScoreAdapter = new ScoreAdapter(mGradeLevel);
 
+        mScoreAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(ScoreActivity.this,ScoreInfoActivity.class);
+                intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentId);
+                intent.putExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL,mGradeLevel);
+                intent.putExtra(Constant.SCORE, mScoreAdapter.getData().get(position));
+                startActivity(intent);
+
+            }
+        });
+
         mRecyclerView.setAdapter(mScoreAdapter);
 
     }
@@ -153,6 +167,7 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
 
     @Override
     public void queryAllScores(List<ScoreBean> scoreBeans) {
+
         if(scoreBeans != null && scoreBeans.size() > 0){
             mEmpty.setVisibility(View.GONE);
         }else {

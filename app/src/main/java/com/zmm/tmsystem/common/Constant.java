@@ -11,13 +11,13 @@ public class Constant {
 
 
 
-//    public static final String BASE_URL="http://192.168.253.7:8082/tms/";
-    public static final String BASE_URL="http://192.168.1.102:8082/tms/";
+    public static final String BASE_URL="http://192.168.253.7:8082/tms/";
+//    public static final String BASE_URL="http://192.168.1.102:8082/tms/";
 
     public static final String BASE_IMG_URL="http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 
     //时间格式
-    private static String FORMAT_TYPE = "yyyy-MM-dd日";
+    private static String FORMAT_TYPE = "yyyy-MM-dd";
 
 
     public static final String INTENT_PARAM = "INTENT_PARAM";
@@ -35,6 +35,8 @@ public class Constant {
     public static final String CHILDCARE_STUDENT_ID = "CHILDCARE_STUDENT_ID";
     public static final String CHILDCARE_STUDENT_GRADE_LEVEL = "CHILDCARE_STUDENT_GRADE_LEVEL";
     public static final String MONEY_ID = "MONEY_ID";
+    public static final String SCORE = "SCORE";
+
 
     //-----------------托管周期点击------------------
     public static final int TYPE_TERM_YEAR = 0;

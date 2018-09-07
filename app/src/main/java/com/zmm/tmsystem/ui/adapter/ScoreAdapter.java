@@ -38,13 +38,10 @@ public class ScoreAdapter extends BaseQuickAdapter<ScoreBean,BaseViewHolder>{
             helper.setText(R.id.tv_score_chemistry,item.getChemistry()+"");
         }
 
-        helper.setText(R.id.tv_score_chinese,item.getChinese()+"");
-        helper.setText(R.id.tv_score_math,item.getMaths()+"");
-        helper.setText(R.id.tv_score_english,item.getEnglish()+"");
-
-
-
-        helper.setText(R.id.tv_score_title,item.getTitle());
+        helper.setText(R.id.tv_score_chinese,item.getChinese()+"")
+                .setText(R.id.tv_score_math,item.getMaths()+"")
+                .setText(R.id.tv_score_english,item.getEnglish()+"")
+                .setText(R.id.tv_score_title,item.getTitle());
 
 
         long createTime = item.getCreateTime();

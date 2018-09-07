@@ -1,8 +1,12 @@
 package com.zmm.tmsystem.ui.activity;
 
+import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -18,6 +22,7 @@ import com.zmm.tmsystem.dagger.module.ScoreModule;
 import com.zmm.tmsystem.mvp.presenter.ScorePresenter;
 import com.zmm.tmsystem.mvp.presenter.contract.ScoreContract;
 import com.zmm.tmsystem.ui.widget.CustomPayItemView;
+import com.zmm.tmsystem.ui.widget.SimpleConfirmDialog;
 import com.zmm.tmsystem.ui.widget.SimpleScoreSelectDialog;
 import com.zmm.tmsystem.ui.widget.TitleBar;
 
@@ -32,7 +37,7 @@ import butterknife.OnClick;
  * Date:2018/9/5
  * Email:65489469@qq.com
  */
-public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements ScoreContract.ScoreView {
+public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements ScoreContract.ScoreView, Toolbar.OnMenuItemClickListener {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -52,9 +57,14 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
     EditText etChemistry;
     @BindView(R.id.ll_chemistry)
     LinearLayout llChemistry;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
 
     private String mChildcareStudentId;
     private int mGradeLevel;
+    private ScoreBean mScoreBean;
+    private MenuItem mMenuItemDelete;
+
 
     @Override
     protected int setLayout() {
@@ -76,8 +86,9 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
 
         mChildcareStudentId = this.getIntent().getStringExtra(Constant.CHILDCARE_STUDENT_ID);
         mGradeLevel = this.getIntent().getIntExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL, 0);
+        mScoreBean = (ScoreBean) getIntent().getSerializableExtra(Constant.SCORE);
 
-        if(mGradeLevel >= 7){
+        if (mGradeLevel >= 7) {
             llPhysics.setVisibility(View.VISIBLE);
             llChemistry.setVisibility(View.VISIBLE);
         }
@@ -93,7 +104,18 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        mTitleBar.setCenterTitle("添加成绩单");
+        if (mScoreBean != null) {
+            btnSubmit.setText("修改");
+            mTitleBar.setCenterTitle("修改成绩单");
+            etTitle.setText(mScoreBean.getTitle());
+            etChinese.setText(mScoreBean.getChinese() + "");
+            etMaths.setText(mScoreBean.getMaths() + "");
+            etEnglish.setText(mScoreBean.getEnglish() + "");
+            etPhysics.setText(mScoreBean.getPhysics() + "");
+            etChemistry.setText(mScoreBean.getChemistry() + "");
+        } else {
+            mTitleBar.setCenterTitle("添加成绩单");
+        }
         mTitleBar.setNavigationIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_arrow_back)
                 .sizeDp(20)
@@ -106,8 +128,10 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
             }
         });
 
-    }
+        mTitleBar.setOnMenuItemClickListener(this);
 
+
+    }
 
 
     @OnClick({R.id.iv_arrow, R.id.btn_submit})
@@ -150,8 +174,8 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
     private void submitScore() {
 
         String title = etTitle.getText().toString();
-        if(TextUtils.isEmpty(title)){
-            ToastUtils.SimpleToast(this,"请输入标题");
+        if (TextUtils.isEmpty(title)) {
+            ToastUtils.SimpleToast(this, "请输入标题");
             return;
         }
 
@@ -161,9 +185,9 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
         String physics = etPhysics.getText().toString();
         String chemistry = etChemistry.getText().toString();
 
-        if(TextUtils.isEmpty(chinese) &&  TextUtils.isEmpty(math) && TextUtils.isEmpty(english) &&
-                TextUtils.isEmpty(physics) && TextUtils.isEmpty(chemistry) ){
-            ToastUtils.SimpleToast(this,"请输入任意一科分数");
+        if (TextUtils.isEmpty(chinese) && TextUtils.isEmpty(math) && TextUtils.isEmpty(english) &&
+                TextUtils.isEmpty(physics) && TextUtils.isEmpty(chemistry)) {
+            ToastUtils.SimpleToast(this, "请输入任意一科分数");
             return;
         }
 
@@ -173,41 +197,53 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
         int intPhysics = 0;
         int intChemistry = 0;
 
-        if(!TextUtils.isEmpty(chinese)){
+        if (!TextUtils.isEmpty(chinese)) {
             intMath = Integer.parseInt(chinese);
         }
 
-        if(!TextUtils.isEmpty(math)){
+        if (!TextUtils.isEmpty(math)) {
             intChinese = Integer.parseInt(math);
         }
 
-        if(!TextUtils.isEmpty(english)){
+        if (!TextUtils.isEmpty(english)) {
             intEnglish = Integer.parseInt(english);
         }
 
-        if(!TextUtils.isEmpty(physics)){
+        if (!TextUtils.isEmpty(physics)) {
             intPhysics = Integer.parseInt(physics);
         }
 
-        if(!TextUtils.isEmpty(chemistry)){
+        if (!TextUtils.isEmpty(chemistry)) {
             intChemistry = Integer.parseInt(chemistry);
         }
 
-        ScoreBean scoreBean = new ScoreBean();
-        scoreBean.setStudentId(mChildcareStudentId);
-        scoreBean.setTitle(title);
-        scoreBean.setChinese(intChinese);
-        scoreBean.setMaths(intMath);
-        scoreBean.setEnglish(intEnglish);
-        scoreBean.setPhysics(intPhysics);
-        scoreBean.setChemistry(intChemistry);
-        mPresenter.addScore(scoreBean);
+
+
+        if(mScoreBean != null){
+            mScoreBean.setTitle(title);
+            mScoreBean.setChinese(intChinese);
+            mScoreBean.setMaths(intMath);
+            mScoreBean.setEnglish(intEnglish);
+            mScoreBean.setPhysics(intPhysics);
+            mScoreBean.setChemistry(intChemistry);
+            mPresenter.updateScore(mScoreBean);
+        }else {
+            ScoreBean scoreBean = new ScoreBean();
+            scoreBean.setStudentId(mChildcareStudentId);
+            scoreBean.setTitle(title);
+            scoreBean.setChinese(intChinese);
+            scoreBean.setMaths(intMath);
+            scoreBean.setEnglish(intEnglish);
+            scoreBean.setPhysics(intPhysics);
+            scoreBean.setChemistry(intChemistry);
+            mPresenter.addScore(scoreBean);
+        }
     }
 
 
     @Override
     public void requestSuccess(String msg) {
-        ToastUtils.SimpleToast(this,msg);
+        ToastUtils.SimpleToast(this, msg);
         finish();
     }
 
@@ -233,5 +269,52 @@ public class ScoreInfoActivity extends BaseActivity<ScorePresenter> implements S
     @Override
     public void dismissLoading() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_actionbar, menu);
+        menu.findItem(R.id.menu_setting).setVisible(false);
+
+        if(mScoreBean != null){
+            mMenuItemDelete = menu.findItem(R.id.menu_add);
+
+            mMenuItemDelete.setIcon(new IconicsDrawable(this)
+                    .icon(Ionicons.Icon.ion_android_delete)
+                    .sizeDp(20)
+                    .color(getResources().getColor(R.color.white)
+                    ));
+
+            mMenuItemDelete.setVisible(true);
+        }else {
+            menu.findItem(R.id.menu_add).setVisible(false);
+        }
+
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(this, "是否确定删除此次成绩？");
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deleteScore(mScoreBean.getId());
+
+            }
+        });
+
+        simpleConfirmDialog.show();
+
+        return false;
     }
 }
