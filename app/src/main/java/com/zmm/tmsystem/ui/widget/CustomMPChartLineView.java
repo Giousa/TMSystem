@@ -53,7 +53,8 @@ public class CustomMPChartLineView extends RelativeLayout {
 
         mChart.setTouchEnabled(false);//设置是否可触摸
 
-        mChart.setNoDataText("当前数据为空");//设置当 chart 为空时显示的描述文字
+//        mChart.setNoDataText("当前数据为空");//设置当 chart 为空时显示的描述文字
+        mChart.setNoDataText("");//设置当 chart 为空时显示的描述文字
 
         mChart.getDescription().setEnabled(false);//隐藏右下角描述
 
@@ -78,7 +79,7 @@ public class CustomMPChartLineView extends RelativeLayout {
         yAxis.setTextColor(this.getResources().getColor(R.color.chart_text));
 //        yAxis.setAxisMinimum(0);
 //        yAxis.setAxisMaximum(120);
-        yAxis.setLabelCount(4, false);
+        yAxis.setLabelCount(5, false);
         yAxis.setAxisLineWidth(2f);
         yAxis.setDrawGridLines(true);//是否展示网格线
 
@@ -101,23 +102,17 @@ public class CustomMPChartLineView extends RelativeLayout {
             mChart.getAxisLeft().setAxisMaximum(120);
         }
 
-        if (minValue > 0 && minValue < 30) {
+        if (minValue > 0 && minValue < 20) {
             mChart.getAxisLeft().setAxisMinimum(0);
 
-        } else if (minValue > 30 && minValue < 40) {
-            mChart.getAxisLeft().setAxisMinimum(30);
+        } else if (minValue > 20 && minValue < 40) {
+            mChart.getAxisLeft().setAxisMinimum(20);
 
-        } else if (minValue > 40 && minValue < 50) {
+        } else if (minValue > 40 && minValue < 60) {
             mChart.getAxisLeft().setAxisMinimum(40);
 
-        } else if (minValue > 50 && minValue < 60) {
-            mChart.getAxisLeft().setAxisMinimum(50);
-
-        } else if (minValue > 60 && minValue < 70) {
+        } else if (minValue > 60 && minValue < 80) {
             mChart.getAxisLeft().setAxisMinimum(60);
-
-        } else if (minValue > 70 && minValue < 80) {
-            mChart.getAxisLeft().setAxisMinimum(70);
 
         } else if (minValue > 80) {
             mChart.getAxisLeft().setAxisMinimum(80);
