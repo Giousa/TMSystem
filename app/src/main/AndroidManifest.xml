@@ -111,6 +111,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <activity
+            android:name=".ui.activity.CertificatePicShowActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
         <!--消费-->
         <activity
             android:name=".ui.activity.SpendActivity"

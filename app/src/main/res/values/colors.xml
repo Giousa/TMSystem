@@ -8,6 +8,7 @@
     <color name="login_head">#617D8A</color>
     <color name="white">#ffffff</color>
     <color name="white_score">#f6f6f6</color>
+    <color name="transparent">#00000000</color>
     <color name="gray_btn_bg">#EAEAEA</color>
     <color name="deepGrey">#a1a1a1</color>
 

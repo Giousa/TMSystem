@@ -127,4 +127,7 @@ dependencies {
 
     compile 'com.nineoldandroids:library:2.4.0'
 
+    //荣誉证书 图片缩放
+    compile 'com.bm.photoview:library:1.4.1'
+
 }

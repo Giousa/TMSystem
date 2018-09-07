@@ -36,6 +36,7 @@ public class Constant {
     public static final String CHILDCARE_STUDENT_GRADE_LEVEL = "CHILDCARE_STUDENT_GRADE_LEVEL";
     public static final String MONEY_ID = "MONEY_ID";
     public static final String SCORE = "SCORE";
+    public static final String CERTIFICATE = "CERTIFICATE";
 
 
     //-----------------托管周期点击------------------

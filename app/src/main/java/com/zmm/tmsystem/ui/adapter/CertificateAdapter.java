@@ -50,6 +50,7 @@ public class CertificateAdapter extends BaseQuickAdapter<CertificatesBean,BaseVi
         String pic = item.getPic();
         String[] split = pic.split(",");
 
+
         //圆形
 //        Glide.with(mContext)
 //                .load(Constant.BASE_IMG_URL + split[0])
@@ -91,4 +92,6 @@ public class CertificateAdapter extends BaseQuickAdapter<CertificatesBean,BaseVi
 
 
     }
+
+
 }
