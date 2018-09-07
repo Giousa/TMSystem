@@ -111,7 +111,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
 
         //0：代表添加新学生，无删除按钮，无修改
         //1: 可选学生管理，代表修改学生，这个时候需要initData数据，移除学生，有删除按钮，可修改
-        //2：从托管学生和补习学生跳转,无删除按钮,可修改
+        //2：从托管学生和移除学生跳转,无删除按钮,可修改
         mIntentParam = getIntent().getIntExtra(Constant.INTENT_PARAM, 0);
 
         mId = getIntent().getStringExtra(Constant.STUDENT_ID);
@@ -392,7 +392,7 @@ public class StudentInfoActivity extends BaseActivity<StudentPresenter> implemen
     @Override
     public void queryStudent(StudentBean studentBean) {
         initData(studentBean);
-        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
+//        RxBus.getDefault().post(Constant.UPDATE_STUDENT);
     }
 
     private void uloadIcon() {
