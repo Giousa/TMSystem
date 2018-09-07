@@ -138,6 +138,10 @@
             android:name=".ui.activity.ScoreInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.ScoreStatsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
 
     </application>
 

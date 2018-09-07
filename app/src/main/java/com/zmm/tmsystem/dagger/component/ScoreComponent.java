@@ -4,6 +4,7 @@ import com.zmm.tmsystem.dagger.module.ScoreModule;
 import com.zmm.tmsystem.dagger.scope.ActivityScope;
 import com.zmm.tmsystem.ui.activity.ScoreActivity;
 import com.zmm.tmsystem.ui.activity.ScoreInfoActivity;
+import com.zmm.tmsystem.ui.activity.ScoreStatsActivity;
 
 import dagger.Component;
 
@@ -20,4 +21,6 @@ public interface ScoreComponent {
     void inject(ScoreActivity activity);
 
     void inject(ScoreInfoActivity activity);
+
+    void inject(ScoreStatsActivity activity);
 }

@@ -48,7 +48,8 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
     private String mChildcareStudentId;
     private int mGradeLevel;
     private ScoreAdapter mScoreAdapter;
-
+    private MenuItem mMenuItemStats;
+    private List<ScoreBean> mScoreBeans;
 
     @Override
     protected int setLayout() {
@@ -129,9 +130,18 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_actionbar, menu);
-        menu.findItem(R.id.menu_setting).setVisible(false);
 
-        mMenuItemAdd = menu.findItem(R.id.menu_add);
+        mMenuItemStats = menu.findItem(R.id.menu_add);
+
+        mMenuItemStats.setIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_stats_bars)
+                .sizeDp(20)
+                .color(getResources().getColor(R.color.white)
+                ));
+
+        mMenuItemStats.setVisible(true);
+
+        mMenuItemAdd = menu.findItem(R.id.menu_setting);
 
         mMenuItemAdd.setIcon(new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_android_add)
@@ -147,12 +157,41 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
+        switch (item.getItemId()){
+            case R.id.menu_add:
+                showStats();
+                break;
+
+            case R.id.menu_setting:
+                addScore();
+                break;
+
+
+        }
+
+
+
+        return false;
+    }
+
+    /**
+     * 展示折线图
+     */
+    private void showStats() {
+        Intent intent = new Intent(this,ScoreStatsActivity.class);
+        intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentId);
+        intent.putExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL,mGradeLevel);
+        startActivity(intent);
+    }
+
+    /**
+     * 添加成绩
+     */
+    private void addScore() {
         Intent intent = new Intent(this,ScoreInfoActivity.class);
         intent.putExtra(Constant.CHILDCARE_STUDENT_ID,mChildcareStudentId);
         intent.putExtra(Constant.CHILDCARE_STUDENT_GRADE_LEVEL,mGradeLevel);
         startActivity(intent);
-
-        return false;
     }
 
     @Override
@@ -167,6 +206,8 @@ public class ScoreActivity extends BaseActivity<ScorePresenter> implements Toolb
 
     @Override
     public void queryAllScores(List<ScoreBean> scoreBeans) {
+
+        mScoreBeans = scoreBeans;
 
         if(scoreBeans != null && scoreBeans.size() > 0){
             mEmpty.setVisibility(View.GONE);
